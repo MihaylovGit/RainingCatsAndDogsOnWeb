@@ -1,0 +1,46 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net6.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <CodeAnalysisRuleSet>..\..\Rules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <AdditionalFiles Include="..\..\stylecop.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CommandLineParser" Version="2.9.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="6.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="6.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="6.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.5" />
+    <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.435" PrivateAssets="all">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\RainingCatsAndDogsOnWeb.Common\RainingCatsAndDogsOnWeb.Common.csproj" />
+    <ProjectReference Include="..\..\Data\RainingCatsAndDogsOnWeb.Data.Common\RainingCatsAndDogsOnWeb.Data.Common.csproj" />
+    <ProjectReference Include="..\..\Data\RainingCatsAndDogsOnWeb.Data.Models\RainingCatsAndDogsOnWeb.Data.Models.csproj" />
+    <ProjectReference Include="..\..\Data\RainingCatsAndDogsOnWeb.Data\RainingCatsAndDogsOnWeb.Data.csproj" />
+    <ProjectReference Include="..\..\Services\RainingCatsAndDogsOnWeb.Services.Data\RainingCatsAndDogsOnWeb.Services.Data.csproj" />
+    <ProjectReference Include="..\..\Services\RainingCatsAndDogsOnWeb.Services.Mapping\RainingCatsAndDogsOnWeb.Services.Mapping.csproj" />
+    <ProjectReference Include="..\..\Services\RainingCatsAndDogsOnWeb.Services.Messaging\RainingCatsAndDogsOnWeb.Services.Messaging.csproj" />
+    <ProjectReference Include="..\..\Services\RainingCatsAndDogsOnWeb.Services\RainingCatsAndDogsOnWeb.Services.csproj" />
+  </ItemGroup>
+
+</Project>
