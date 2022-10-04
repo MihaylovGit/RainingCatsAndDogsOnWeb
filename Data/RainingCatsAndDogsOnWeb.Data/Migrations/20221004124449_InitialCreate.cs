@@ -1,6 +1,4 @@
-﻿#nullable disable
-
-namespace RainingCatsAndDogsOnWeb.Data.Migrations
+﻿namespace RainingCatsAndDogsOnWeb.Data.Migrations
 {
     using System;
 
@@ -58,13 +56,12 @@ namespace RainingCatsAndDogsOnWeb.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Settings",
+                name: "Categories",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Value = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ModifiedOn = table.Column<DateTime>(type: "datetime2", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
@@ -72,7 +69,7 @@ namespace RainingCatsAndDogsOnWeb.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Settings", x => x.Id);
+                    table.PrimaryKey("PK_Categories", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -181,6 +178,84 @@ namespace RainingCatsAndDogsOnWeb.Data.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Ads",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Location = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    AddedByUserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    CategoryId = table.Column<int>(type: "int", nullable: false),
+                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ModifiedOn = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    DeletedOn = table.Column<DateTime>(type: "datetime2", nullable: true),
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Ads", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Ads_AspNetUsers_AddedByUserId",
+                        column: x => x.AddedByUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Ads_Categories_CategoryId",
+                        column: x => x.CategoryId,
+                        principalTable: "Categories",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Images",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    AdId = table.Column<int>(type: "int", nullable: false),
+                    AddedByUserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    Extension = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ModifiedOn = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    DeletedOn = table.Column<DateTime>(type: "datetime2", nullable: true),
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Images", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Images_Ads_AdId",
+                        column: x => x.AdId,
+                        principalTable: "Ads",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Images_AspNetUsers_AddedByUserId",
+                        column: x => x.AddedByUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Ads_AddedByUserId",
+                table: "Ads",
+                column: "AddedByUserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Ads_CategoryId",
+                table: "Ads",
+                column: "CategoryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Ads_IsDeleted",
+                table: "Ads",
+                column: "IsDeleted");
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -231,8 +306,23 @@ namespace RainingCatsAndDogsOnWeb.Data.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Settings_IsDeleted",
-                table: "Settings",
+                name: "IX_Categories_IsDeleted",
+                table: "Categories",
+                column: "IsDeleted");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Images_AddedByUserId",
+                table: "Images",
+                column: "AddedByUserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Images_AdId",
+                table: "Images",
+                column: "AdId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Images_IsDeleted",
+                table: "Images",
                 column: "IsDeleted");
         }
 
@@ -254,13 +344,19 @@ namespace RainingCatsAndDogsOnWeb.Data.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Settings");
+                name: "Images");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
+                name: "Ads");
+
+            migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Categories");
         }
     }
 }

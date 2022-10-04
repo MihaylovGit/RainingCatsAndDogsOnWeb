@@ -5,11 +5,14 @@
     using RainingCatsAndDogsOnWeb.Web.ViewModels;
 
     using Microsoft.AspNetCore.Mvc;
+    using RainingCatsAndDogsOnWeb.Web.ViewModels.Home;
 
     public class HomeController : BaseController
     {
         public IActionResult Index()
         {
+            var viewModel = new IndexViewModel();
+
             return this.View();
         }
 

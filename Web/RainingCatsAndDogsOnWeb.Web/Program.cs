@@ -1,18 +1,6 @@
 ﻿namespace RainingCatsAndDogsOnWeb.Web
 {
     using System.Reflection;
-
-    using RainingCatsAndDogsOnWeb.Data;
-    using RainingCatsAndDogsOnWeb.Data.Common;
-    using RainingCatsAndDogsOnWeb.Data.Common.Repositories;
-    using RainingCatsAndDogsOnWeb.Data.Models;
-    using RainingCatsAndDogsOnWeb.Data.Repositories;
-    using RainingCatsAndDogsOnWeb.Data.Seeding;
-    using RainingCatsAndDogsOnWeb.Services.Data;
-    using RainingCatsAndDogsOnWeb.Services.Mapping;
-    using RainingCatsAndDogsOnWeb.Services.Messaging;
-    using RainingCatsAndDogsOnWeb.Web.ViewModels;
-
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
@@ -20,6 +8,15 @@
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
+    using RainingCatsAndDogsOnWeb.Data;
+    using RainingCatsAndDogsOnWeb.Data.Common;
+    using RainingCatsAndDogsOnWeb.Data.Common.Repositories;
+    using RainingCatsAndDogsOnWeb.Data.Models;
+    using RainingCatsAndDogsOnWeb.Data.Repositories;
+    using RainingCatsAndDogsOnWeb.Data.Seeding;
+    using RainingCatsAndDogsOnWeb.Services.Mapping;
+    using RainingCatsAndDogsOnWeb.Services.Messaging;
+    using RainingCatsAndDogsOnWeb.Web.ViewModels;
 
     public class Program
     {
@@ -64,7 +61,6 @@
 
             // Application services
             services.AddTransient<IEmailSender, NullMessageSender>();
-            services.AddTransient<ISettingsService, SettingsService>();
         }
 
         private static void Configure(WebApplication app)
