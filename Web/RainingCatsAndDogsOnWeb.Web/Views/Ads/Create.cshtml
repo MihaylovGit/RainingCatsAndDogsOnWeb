@@ -1,0 +1,74 @@
+﻿@using RainingCatsAndDogsOnWeb.Web.ViewModels.Ad
+@model CreateAdViewModel
+@{
+    this.ViewData["Title"] = "Post new ad";
+}
+
+<h1>@this.ViewData["Title"]</h1>
+<section class="h-100 h-custom" style="background-color: #8fc4b7;">
+    <div asp-validation-summary="All">
+        <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-lg-8 col-xl-6">
+                <div class="card rounded-3">
+                    <img src="https://www.centrevillesquareanimalhospitalva.com/wp-content/uploads/2018/12/white_cat_and_dog.jpg"
+                         class="w-100" style="border-top-left-radius: .3rem; border-top-right-radius: .3rem;"
+                         alt="Sample photo">
+                    <div class="card-body p-4 p-md-5">
+                        <h3 class="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2">Post a new ad</h3>
+
+                        <form class="px-md-2" method="post">
+
+                            <div class="form-outline mb-4">
+                                <label class="form-label" for="title">Title</label>
+                                <input type="text" id="title" class="form-control" />
+                                <span asp-validation-for="Title" class="text-danger"></span>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-4">
+
+                                    <div class="form-outline">
+                                        <label for="location" class="form-label">Location</label>
+                                        <input type="text" class="form-control" id="location" />
+                                        <span asp-validation-for="Location" class="text-danger"></span>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-6 mb-4">
+                                    <label>Category</label>
+                                    <select class="select" asp-for="CategoryId" name="categoryId">
+                                        <option value="1">Dog</option>
+                                        <option value="2">Cat</option>
+                                    </select>
+
+                                </div>
+                            </div>
+
+                            <div class="form-outline mb-4">
+                                <label class="form-label" for="price">Price</label>
+                                <input type="number" id="price" class="form-control" />
+                                <span asp-validation-for="Price" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-outline mb-4">
+                                <label class="form-label" for="description">Description</label>
+                                <textarea asp-for="Description" class="form-control" rows="5" id="description"></textarea>
+                                <span asp-validation-for="Description" class="text-danger"></span>
+                            </div>
+
+                            <div class="mb-4">
+                            </div>
+
+                            <button type="submit" class="btn btn-success btn-lg mb-1">Post</button>
+
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    
+</section>

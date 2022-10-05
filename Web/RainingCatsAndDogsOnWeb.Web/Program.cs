@@ -14,6 +14,7 @@
     using RainingCatsAndDogsOnWeb.Data.Models;
     using RainingCatsAndDogsOnWeb.Data.Repositories;
     using RainingCatsAndDogsOnWeb.Data.Seeding;
+    using RainingCatsAndDogsOnWeb.Services.Data;
     using RainingCatsAndDogsOnWeb.Services.Mapping;
     using RainingCatsAndDogsOnWeb.Services.Messaging;
     using RainingCatsAndDogsOnWeb.Web.ViewModels;
@@ -58,7 +59,7 @@
             services.AddScoped(typeof(IDeletableEntityRepository<>), typeof(EfDeletableEntityRepository<>));
             services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
             services.AddScoped<IDbQueryRunner, DbQueryRunner>();
-
+            services.AddScoped<IGetCountsService, GetCountsService>();
             // Application services
             services.AddTransient<IEmailSender, NullMessageSender>();
         }

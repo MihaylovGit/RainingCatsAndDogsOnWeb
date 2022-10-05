@@ -3,27 +3,27 @@
     using System.Diagnostics;
 
     using Microsoft.AspNetCore.Mvc;
+    using RainingCatsAndDogsOnWeb.Services.Data;
     using RainingCatsAndDogsOnWeb.Web.ViewModels;
-    
     using RainingCatsAndDogsOnWeb.Web.ViewModels.Home;
-    using RainingCatsAndDogsOnWeb.Data;
-    using System.Linq;
 
     public class HomeController : BaseController
     {
-        private readonly ApplicationDbContext db;
+        private readonly IGetCountsService countsService;
 
-        public HomeController(ApplicationDbContext db)
+        public HomeController(IGetCountsService countsService)
         {
-            this.db = db;
+            this.countsService = countsService;
         }
 
         public IActionResult Index()
         {
+            var countsDto = this.countsService.GetCounts();
+
             var viewModel = new IndexViewModel
             {
-                CategoriesCount = this.db.Categories.Count(),
-                AdsCount = this.db.Ads.Count(),
+                AdsCount = countsDto.AdsCount,
+                CategoriesCount = countsDto.CategoriesCount,
             };
 
             return this.View(viewModel);
