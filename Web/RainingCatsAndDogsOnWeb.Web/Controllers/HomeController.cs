@@ -23,13 +23,12 @@
             var viewModel = new IndexViewModel
             {
                 AdsCount = countsDto.AdsCount,
-                CategoriesCount = countsDto.CategoriesCount,
             };
 
             return this.View(viewModel);
         }
 
-        public IActionResult Privacy()
+        public IActionResult Blog()
         {
             return this.View();
         }

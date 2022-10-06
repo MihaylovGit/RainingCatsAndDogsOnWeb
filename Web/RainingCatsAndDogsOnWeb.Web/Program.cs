@@ -1,6 +1,7 @@
 ﻿namespace RainingCatsAndDogsOnWeb.Web
 {
     using System.Reflection;
+
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
@@ -60,6 +61,7 @@
             services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
             services.AddScoped<IDbQueryRunner, DbQueryRunner>();
             services.AddScoped<IGetCountsService, GetCountsService>();
+            services.AddScoped<IAdsService, AdsService>();
             // Application services
             services.AddTransient<IEmailSender, NullMessageSender>();
         }

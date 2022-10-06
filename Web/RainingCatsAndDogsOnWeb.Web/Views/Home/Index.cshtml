@@ -1,17 +1,27 @@
 ﻿@using RainingCatsAndDogsOnWeb.Common
+
 @model RainingCatsAndDogsOnWeb.Web.ViewModels.Home.IndexViewModel
 @{
     this.ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome to @GlobalConstants.SystemName!</h1>
-    <h4 class="display-4">Best pet lovers community</h4>
-    <div class="col-md-3 offset-md-4">
-        <p>We have: </p>
-        <ul class="list-group">
-            <li class="list-group-item">Total Categories: @Model.CategoriesCount</li>
-            <li class="list-group-item">with total numbers of ads: @Model.AdsCount</li>
-        </ul>
+ <h1 class="display-4">Welcome to @GlobalConstants.SystemName!</h1>
+ <h4 class="display-4">Best pet lovers community</h4>
+</div>
+
+<div class="text-center">
+    <div class="container">
+        <h3>Browse Categories</h3>
+        <div icon="https://only4pets.com/application/public/uploads/categories/0f5cc36baf229e916561711af6e88d6f.png">
+            <div>
+                <a asp-controller="Ads" asp-action="Dog">Dogs</a>
+            </div>
+        </div>
+        <div icon="https://only4pets.com/application/public/uploads/categories/03b04b29bda6b73304387d5bd935a5f6.png">
+            <div>
+                <a asp-controller="Ads" asp-action="Cat">Cats</a>
+            </div>
+        </div>
     </div>
 </div>

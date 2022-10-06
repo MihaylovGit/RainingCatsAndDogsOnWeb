@@ -25,6 +25,8 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Data\RainingCatsAndDogsOnWeb.Data.Common\RainingCatsAndDogsOnWeb.Data.Common.csproj" />
     <ProjectReference Include="..\..\Data\RainingCatsAndDogsOnWeb.Data.Models\RainingCatsAndDogsOnWeb.Data.Models.csproj" />
+    <ProjectReference Include="..\..\Data\RainingCatsAndDogsOnWeb.Data\RainingCatsAndDogsOnWeb.Data.csproj" />
+    <ProjectReference Include="..\..\Web\RainingCatsAndDogsOnWeb.Web.ViewModels\RainingCatsAndDogsOnWeb.Web.ViewModels.csproj" />
     <ProjectReference Include="..\RainingCatsAndDogsOnWeb.Services.Mapping\RainingCatsAndDogsOnWeb.Services.Mapping.csproj" />
   </ItemGroup>
 
