@@ -31,7 +31,6 @@
         }
 
         [Authorize]
-        [Route("Ads/Create")]
         public IActionResult Create()
         {
             return this.View();
@@ -49,9 +48,12 @@
             var user = await this.userManager.GetUserAsync(this.User);
             await this.adsService.CreateAsync(input, user.Id);
 
-            // TODO: Create ad using service method
-            // TODO: Redirect to required ad info page!!!
-            return this.Redirect("/");
+            return this.Redirect("PostSuccessful");
+        }
+
+        public IActionResult PostSuccessful()
+        {
+            return View();
         }
     }
 }

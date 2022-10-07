@@ -1,8 +1,5 @@
 ﻿namespace RainingCatsAndDogsOnWeb.Web.ViewModels.Ad
 {
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
-
     public class CreateAdViewModel
     {
         public string Title { get; set; }

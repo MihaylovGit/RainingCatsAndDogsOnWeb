@@ -1,4 +1,4 @@
-﻿@using RainingCatsAndDogsOnWeb.Web.ViewModels.Ad
+﻿@using RainingCatsAndDogsOnWeb.Web.ViewModels.Ad;
 @model CreateAdViewModel
 @{
     this.ViewData["Title"] = "Post new ad";
@@ -20,8 +20,8 @@
                         <form class="px-md-2" method="post" asp-controller="Ads" asp-action="Create">
 
                             <div class="form-outline mb-4">
-                                <label class="form-label" for="title">Title</label>
-                                <input type="text" id="title" class="form-control" />
+                                <label class="form-label" asp-for="Title">Title</label>
+                                <input type="text" asp-for="Title" class="form-control" />
                                 <span asp-validation-for="@Model.Title" class="text-danger"></span>
                             </div>
 
@@ -29,15 +29,15 @@
                                 <div class="col-md-6 mb-4">
 
                                     <div class="form-outline">
-                                        <label class="form-label" for="location">Location</label>
-                                        <input type="text" class="form-control" id="location" />
+                                        <label class="form-label" asp-for="Location">Location</label>
+                                        <input type="text" asp-for="Location" class="form-control"/>
                                         <span asp-validation-for="@Model.Location" class="text-danger"></span>
                                     </div>
 
                                 </div>
                                 <div class="col-md-6 mb-4">
                                     <label>Category</label>
-                                    <select class="select" asp-for="CategoryId" name="categoryId">
+                                    <select class="select" asp-for="CategoryId">
                                         <option value="1">Dog</option>
                                         <option value="2">Cat</option>
                                     </select>
@@ -46,14 +46,14 @@
                             </div>
 
                             <div class="form-outline mb-4">
-                                <label class="form-label" for="price">Price</label>
-                                <input type="number" id="price" class="form-control"/><span>лв</span>
+                                <label class="form-label" asp-for="Price">Price</label>
+                                <input type="number" asp-for="Price" class="form-control"/><span>лв</span>
                                 <span asp-validation-for="@Model.Price" class="text-danger"></span>
                             </div>
 
                             <div class="form-outline mb-4">
-                                <label class="form-label" for="description">Description</label>
-                                <textarea asp-for="Description" class="form-control" rows="5" id="description"></textarea>
+                                <label class="form-label" asp-for="Description">Description</label>
+                                <textarea asp-for="Description" class="form-control" rows="5" asp-for="Description"></textarea>
                                 <span asp-validation-for="@Model.Description" class="text-danger"></span>
                             </div>
 
