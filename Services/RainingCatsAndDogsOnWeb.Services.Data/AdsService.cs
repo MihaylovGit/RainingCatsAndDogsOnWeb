@@ -1,18 +1,21 @@
 ﻿namespace RainingCatsAndDogsOnWeb.Services.Data
 {
+    using System.Collections.Generic;
+    using System.Linq;
     using System.Threading.Tasks;
 
-    using RainingCatsAndDogsOnWeb.Data;
     using RainingCatsAndDogsOnWeb.Data.Models;
+    using RainingCatsAndDogsOnWeb.Data.Repositories;
     using RainingCatsAndDogsOnWeb.Web.ViewModels.Ad;
-
+    using RainingCatsAndDogsOnWeb.Web.ViewModels.Ads;
+  
     public class AdsService : IAdsService
     {
-        private readonly ApplicationDbContext db;
+        private readonly EfDeletableEntityRepository<Ad> adsRepository;
 
-        public AdsService(ApplicationDbContext db)
+        public AdsService(EfDeletableEntityRepository<Ad> adsRepository)
         {
-            this.db = db;
+            this.adsRepository = adsRepository;
         }
 
         public async Task CreateAsync(CreateAdViewModel input, string userId)
@@ -27,9 +30,32 @@
                 AddedByUserId = userId,
             };
 
-            await this.db.AddAsync(newAd);
+            await this.adsRepository.AddAsync(newAd);
 
-            this.db.SaveChanges();
+            await this.adsRepository.SaveChangesAsync();
+        }
+
+        // TODO: Replace applicationdbcontext with repository
+
+        public IEnumerable<DogAdsInListViewModel> GetAllDogAds(int pageNumber, int adsPerPage = 12)
+        {
+           var dogAds = this.adsRepository.AllAsNoTracking()
+                .OrderByDescending(x => x.Id)
+                .Skip((pageNumber - 1) * adsPerPage)
+                .Take(adsPerPage)
+                .Select(x => new DogAdsInListViewModel
+                {
+                    Id = x.Id,
+                    Title = x.Title,
+                    Location = x.Location,
+                    Price = x.Price,
+                    Description = x.Description,
+                    CategoryId = x.CategoryId,
+                    Category = x.Category.Name,
+                    ImageUrl = x.Images.FirstOrDefault().ToString(),
+                }).ToList();
+
+            return dogAds;
         }
     }
 }

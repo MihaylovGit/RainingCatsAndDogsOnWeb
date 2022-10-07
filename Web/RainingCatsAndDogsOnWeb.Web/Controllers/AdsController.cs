@@ -8,6 +8,7 @@
     using RainingCatsAndDogsOnWeb.Data.Models;
     using RainingCatsAndDogsOnWeb.Services.Data;
     using RainingCatsAndDogsOnWeb.Web.ViewModels.Ad;
+    using RainingCatsAndDogsOnWeb.Web.ViewModels.Ads;
 
     public class AdsController : Controller
     {
@@ -20,9 +21,15 @@
             this.userManager = userManager;
         }
 
-        public IActionResult ShowAllDogAds()
+        // Ads/DogAds/5
+        public IActionResult ShowAllDogAds(int id)
         {
-            return this.View();
+            var viewModel = new DogAdsListViewModel()
+            {
+                PageNumber = id,
+            };
+
+            return this.View(viewModel);
         }
 
         public IActionResult ShowAllCatAds()
