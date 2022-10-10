@@ -1,4 +1,6 @@
-﻿namespace RainingCatsAndDogsOnWeb.Web.Controllers
+﻿
+
+namespace RainingCatsAndDogsOnWeb.Web.Controllers
 {
     using System.Threading.Tasks;
 
@@ -22,11 +24,16 @@
         }
 
         // Ads/DogAds/5
-        public IActionResult ShowAllDogAds(int id)
+        public IActionResult ShowAllAds(int id = 1)
         {
-            var viewModel = new DogAdsListViewModel()
+            const int AdsPerPage = 6;
+
+            var viewModel = new AdsListViewModel()
             {
+                AdsPerPage = AdsPerPage,
                 PageNumber = id,
+                AdsCount = this.adsService.GetAdsCount(),
+                AllAds = this.adsService.GetAllAds<AdsInListViewModel>(id, AdsPerPage),
             };
 
             return this.View(viewModel);

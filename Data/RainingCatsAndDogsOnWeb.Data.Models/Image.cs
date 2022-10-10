@@ -14,13 +14,14 @@
         public int AdId { get; set; }
 
         public virtual Ad Ad { get; set; }
+       
+        public string Extension { get; set; }
+
+        // The contents of the image is on the file system!
+        public string RemoteImageUrl { get; set; }
 
         public string AddedByUserId { get; set; }
 
         public ApplicationUser AddedByUser { get; set; }
-
-        public string Extension { get; set; }
-
-        // The contents of the image is on the file system!
     }
 }

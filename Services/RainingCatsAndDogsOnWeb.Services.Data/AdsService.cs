@@ -4,16 +4,16 @@
     using System.Linq;
     using System.Threading.Tasks;
 
+    using RainingCatsAndDogsOnWeb.Data.Common.Repositories;
     using RainingCatsAndDogsOnWeb.Data.Models;
-    using RainingCatsAndDogsOnWeb.Data.Repositories;
+    using RainingCatsAndDogsOnWeb.Services.Mapping;
     using RainingCatsAndDogsOnWeb.Web.ViewModels.Ad;
-    using RainingCatsAndDogsOnWeb.Web.ViewModels.Ads;
-  
+
     public class AdsService : IAdsService
     {
-        private readonly EfDeletableEntityRepository<Ad> adsRepository;
+        private readonly IDeletableEntityRepository<Ad> adsRepository;
 
-        public AdsService(EfDeletableEntityRepository<Ad> adsRepository)
+        public AdsService(IDeletableEntityRepository<Ad> adsRepository)
         {
             this.adsRepository = adsRepository;
         }
@@ -35,27 +35,20 @@
             await this.adsRepository.SaveChangesAsync();
         }
 
-        // TODO: Replace applicationdbcontext with repository
-
-        public IEnumerable<DogAdsInListViewModel> GetAllDogAds(int pageNumber, int adsPerPage = 12)
+        public int GetAdsCount()
         {
-           var dogAds = this.adsRepository.AllAsNoTracking()
-                .OrderByDescending(x => x.Id)
-                .Skip((pageNumber - 1) * adsPerPage)
-                .Take(adsPerPage)
-                .Select(x => new DogAdsInListViewModel
-                {
-                    Id = x.Id,
-                    Title = x.Title,
-                    Location = x.Location,
-                    Price = x.Price,
-                    Description = x.Description,
-                    CategoryId = x.CategoryId,
-                    Category = x.Category.Name,
-                    ImageUrl = x.Images.FirstOrDefault().ToString(),
-                }).ToList();
+            return this.adsRepository.All().Count();
+        }
 
-            return dogAds;
+        public IEnumerable<T> GetAllAds<T>(int pageNumber, int adsPerPage)
+        {
+            var allAds = this.adsRepository.AllAsNoTracking()
+                 .OrderByDescending(x => x.Id)
+                 .Skip((pageNumber - 1) * adsPerPage)
+                 .To<T>()
+                 .ToList();
+
+            return allAds;
         }
     }
 }

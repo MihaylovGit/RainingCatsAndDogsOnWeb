@@ -12,8 +12,8 @@ using RainingCatsAndDogsOnWeb.Data;
 namespace RainingCatsAndDogsOnWeb.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221004124449_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20221010113342_CreateInitial")]
+    partial class CreateInitial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -151,9 +151,6 @@ namespace RainingCatsAndDogsOnWeb.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ImageUrl")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsDeleted")
@@ -358,6 +355,9 @@ namespace RainingCatsAndDogsOnWeb.Data.Migrations
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("RemoteImageUrl")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("AdId");
@@ -440,7 +440,7 @@ namespace RainingCatsAndDogsOnWeb.Data.Migrations
             modelBuilder.Entity("RainingCatsAndDogsOnWeb.Data.Models.Image", b =>
                 {
                     b.HasOne("RainingCatsAndDogsOnWeb.Data.Models.Ad", "Ad")
-                        .WithMany()
+                        .WithMany("Images")
                         .HasForeignKey("AdId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -452,6 +452,11 @@ namespace RainingCatsAndDogsOnWeb.Data.Migrations
                     b.Navigation("Ad");
 
                     b.Navigation("AddedByUser");
+                });
+
+            modelBuilder.Entity("RainingCatsAndDogsOnWeb.Data.Models.Ad", b =>
+                {
+                    b.Navigation("Images");
                 });
 
             modelBuilder.Entity("RainingCatsAndDogsOnWeb.Data.Models.ApplicationUser", b =>

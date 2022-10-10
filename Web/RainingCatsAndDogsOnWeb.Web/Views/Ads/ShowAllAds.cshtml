@@ -1,0 +1,50 @@
+﻿@using RainingCatsAndDogsOnWeb.Web.ViewModels.Ads;
+@model AdsListViewModel
+@{
+    this.ViewData["Title"] = "Now you can see all active dog ads";
+}
+
+<h1>@this.ViewData["Title"]</h1>
+<div class="row">
+    @foreach (var ad in this.Model.AllAds)
+    {
+        <div class="row">
+            <div class="col-sm-6 col-md-4">
+                <div class="thumbnail">
+                    <img src="@ad.ImageUrl" alt="...">
+                    <div class="caption">
+                        <h3>@ad.Title</h3>
+                        <p>@ad.Location</p>
+                         <p>@ad.Price</p>
+                         <p>@ad.Description</p>
+                         <p>@ad.CategoryId</p>
+                         <p>@ad.Category</p>
+                         <p>@ad.ImageUrl</p>
+                        <p><a asp-controller="Ads" asp-action="ShowAllDogAds" class="btn btn-primary" role="button">View Details</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<hr />
+<nav aria-label="...">
+  <ul class="pagination">
+    <li class="page-item @if(!Model.HasPreviousPage) { <text>disabled</text> }">
+      <a class="page-link" asp-action="ShowAllAds" asp-route-id="@Model.PreviousPageNumber">Previous</a>
+    </li>
+    @*<li class="page-item"><a class="page-link" href="#">1</a></li>*@
+    <li class="page-item active">
+      <a class="page-link" href="#">2 <span class="sr-only">@Model.PageNumber</span></a>
+    </li>
+    @*<li class="page-item"><a class="page-link" href="#">3</a></li>*@
+    <li class="page-item @if(!Model.HasNextPage) { <text>disabled</text> }">
+      <a class="page-link" asp-action="ShowAllAds" asp-route-id="@Model.NextPageNumber">Next</a>
+    </li>
+  </ul>
+</nav>
+    
+    
+        
+
+
