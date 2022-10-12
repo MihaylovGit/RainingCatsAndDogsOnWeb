@@ -1,6 +1,4 @@
-﻿
-
-namespace RainingCatsAndDogsOnWeb.Web.Controllers
+﻿namespace RainingCatsAndDogsOnWeb.Web.Controllers
 {
     using System.Threading.Tasks;
 
