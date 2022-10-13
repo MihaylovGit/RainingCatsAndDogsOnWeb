@@ -1,6 +1,5 @@
 ﻿namespace RainingCatsAndDogsOnWeb.Web.ViewModels.Ads
 {
-    using System;
     using System.Collections.Generic;
 
     public class AdsListViewModel : PagingViewModel

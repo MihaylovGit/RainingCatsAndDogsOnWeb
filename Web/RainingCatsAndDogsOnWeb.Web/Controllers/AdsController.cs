@@ -1,8 +1,10 @@
 ﻿namespace RainingCatsAndDogsOnWeb.Web.Controllers
 {
+    using System;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using RainingCatsAndDogsOnWeb.Data.Models;
@@ -14,11 +16,13 @@
     {
         private readonly IAdsService adsService;
         private readonly UserManager<ApplicationUser> userManager;
+        private readonly IWebHostEnvironment environment;
 
-        public AdsController(IAdsService adsService, UserManager<ApplicationUser> userManager)
+        public AdsController(IAdsService adsService, UserManager<ApplicationUser> userManager, IWebHostEnvironment environment)
         {
             this.adsService = adsService;
             this.userManager = userManager;
+            this.environment = environment;
         }
 
         // Ads/DogAds/5
@@ -58,7 +62,15 @@
             }
 
             var user = await this.userManager.GetUserAsync(this.User);
-            await this.adsService.CreateAsync(input, user.Id);
+            try
+            {
+                await this.adsService.CreateAsync(input, user.Id, $"{this.environment.WebRootPath}/images");
+            }
+            catch (Exception ex)
+            {
+                this.ModelState.AddModelError(string.Empty, ex.Message);
+                return this.View(input);
+            }
 
             return this.Redirect("PostSuccessful");
         }

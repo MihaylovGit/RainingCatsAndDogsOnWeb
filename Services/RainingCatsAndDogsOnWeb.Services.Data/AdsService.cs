@@ -1,6 +1,8 @@
 ﻿namespace RainingCatsAndDogsOnWeb.Services.Data
 {
+    using System;
     using System.Collections.Generic;
+    using System.IO;
     using System.Linq;
     using System.Threading.Tasks;
 
@@ -8,17 +10,20 @@
     using RainingCatsAndDogsOnWeb.Data.Models;
     using RainingCatsAndDogsOnWeb.Services.Mapping;
     using RainingCatsAndDogsOnWeb.Web.ViewModels.Ad;
+    using RainingCatsAndDogsOnWeb.Web.ViewModels.Ads;
 
     public class AdsService : IAdsService
     {
         private readonly IDeletableEntityRepository<Ad> adsRepository;
+        private readonly string[] allowedExtensions = new string[] { "jpg", "png", "jpeg", "gif" };
 
         public AdsService(IDeletableEntityRepository<Ad> adsRepository)
         {
             this.adsRepository = adsRepository;
         }
 
-        public async Task CreateAsync(CreateAdViewModel input, string userId)
+        // IF I Have enought time to make CreateAsync<T>
+        public async Task CreateAsync(CreateAdViewModel input, string userId, string imagePath)
         {
             var newAd = new Ad
             {
@@ -30,8 +35,33 @@
                 AddedByUserId = userId,
             };
 
-            await this.adsRepository.AddAsync(newAd);
+            // /wwwroot/images/ads/gjgjk-gfkf34556-=g4565.jpeg
+            Directory.CreateDirectory($"{imagePath}/ads/");
 
+            foreach (var image in input.Images)
+            {
+                var extension = Path.GetExtension(image.FileName).TrimStart('.');
+                if (!this.allowedExtensions.Any(x => extension.EndsWith(x)))
+                {
+                    throw new Exception($"Invalid image extension {extension}");
+                }
+
+                var dbImage = new Image
+                {
+                    AddedByUserId = userId,
+                    Ad = newAd,
+                    Extension = extension,
+                };
+
+                newAd.Images.Add(dbImage);
+
+                var physicalPath = $"{imagePath}/ads/{dbImage.Id}.{extension}";
+
+                using Stream fileStream = new FileStream(physicalPath, FileMode.Create);
+                await image.CopyToAsync(fileStream);
+            }
+
+            await this.adsRepository.AddAsync(newAd);
             await this.adsRepository.SaveChangesAsync();
         }
 

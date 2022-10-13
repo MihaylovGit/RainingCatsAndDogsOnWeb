@@ -4,13 +4,12 @@
     using System.Threading.Tasks;
 
     using RainingCatsAndDogsOnWeb.Web.ViewModels.Ad;
-    using RainingCatsAndDogsOnWeb.Web.ViewModels.Ads;
 
     public interface IAdsService
     {
-        Task CreateAsync(CreateAdViewModel input, string userId);
+        Task CreateAsync(CreateAdViewModel input, string userId, string imagePath);
 
-        IEnumerable<T> GetAllAds<T>(int pageNumber, int adsPerPage = 6);
+        IEnumerable<T> GetAllAds<T>(int pageNumber, int adsPerPage);
 
         int GetAdsCount();
     }
