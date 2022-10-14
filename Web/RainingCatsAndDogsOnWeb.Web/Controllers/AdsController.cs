@@ -79,5 +79,12 @@
         {
             return View();
         }
+
+        public IActionResult DetailsById(int id)
+        {
+            var ad = this.adsService.DetailsById<SingleAdViewModel>(id);
+
+            return this.View(ad);
+        }
     }
 }

@@ -60,8 +60,8 @@
             services.AddScoped(typeof(IDeletableEntityRepository<>), typeof(EfDeletableEntityRepository<>));
             services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
             services.AddScoped<IDbQueryRunner, DbQueryRunner>();
-            services.AddScoped<IGetCountsService, GetCountsService>();
             services.AddScoped<IAdsService, AdsService>();
+            services.AddScoped<IGetCountsService, GetCountsService>();
             // Application services
             services.AddTransient<IEmailSender, NullMessageSender>();
         }
@@ -104,3 +104,4 @@
         }
     }
 }
+

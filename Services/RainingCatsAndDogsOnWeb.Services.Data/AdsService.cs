@@ -5,12 +5,11 @@
     using System.IO;
     using System.Linq;
     using System.Threading.Tasks;
-
     using RainingCatsAndDogsOnWeb.Data.Common.Repositories;
     using RainingCatsAndDogsOnWeb.Data.Models;
+    using RainingCatsAndDogsOnWeb.Data.Repositories;
     using RainingCatsAndDogsOnWeb.Services.Mapping;
     using RainingCatsAndDogsOnWeb.Web.ViewModels.Ad;
-    using RainingCatsAndDogsOnWeb.Web.ViewModels.Ads;
 
     public class AdsService : IAdsService
     {
@@ -22,7 +21,7 @@
             this.adsRepository = adsRepository;
         }
 
-        // IF I Have enought time to make CreateAsync<T>
+        // IF I Have enough time to make CreateAsync<T>
         public async Task CreateAsync(CreateAdViewModel input, string userId, string imagePath)
         {
             var newAd = new Ad
@@ -32,6 +31,7 @@
                 Price = input.Price,
                 Description = input.Description,
                 CategoryId = input.CategoryId,
+                Category = input.Category,
                 AddedByUserId = userId,
             };
 
@@ -63,6 +63,13 @@
 
             await this.adsRepository.AddAsync(newAd);
             await this.adsRepository.SaveChangesAsync();
+        }
+
+        public T DetailsById<T>(int id)
+        {
+            var ad = this.adsRepository.AllAsNoTracking().Where(x => x.Id == id).To<T>().FirstOrDefault();
+
+            return ad;
         }
 
         public int GetAdsCount()

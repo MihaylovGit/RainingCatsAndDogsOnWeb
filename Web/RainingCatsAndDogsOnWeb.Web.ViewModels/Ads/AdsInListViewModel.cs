@@ -23,7 +23,7 @@
 
         public int CategoryId { get; set; }
 
-        public string Category { get; set; }
+        public Category Category { get; set; }
 
         public void CreateMappings(IProfileExpression configuration)
         {
