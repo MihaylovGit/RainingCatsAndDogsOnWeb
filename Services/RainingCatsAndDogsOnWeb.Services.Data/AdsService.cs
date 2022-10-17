@@ -7,7 +7,6 @@
     using System.Threading.Tasks;
     using RainingCatsAndDogsOnWeb.Data.Common.Repositories;
     using RainingCatsAndDogsOnWeb.Data.Models;
-    using RainingCatsAndDogsOnWeb.Data.Repositories;
     using RainingCatsAndDogsOnWeb.Services.Mapping;
     using RainingCatsAndDogsOnWeb.Web.ViewModels.Ad;
 
@@ -80,12 +79,30 @@
         public IEnumerable<T> GetAllAds<T>(int pageNumber, int adsPerPage)
         {
             var allAds = this.adsRepository.AllAsNoTracking()
-                 .OrderByDescending(x => x.Id)
-                 .Skip((pageNumber - 1) * adsPerPage)
-                 .To<T>()
-                 .ToList();
+                                           .OrderByDescending(x => x.Id)
+                                           .Skip((pageNumber - 1) * adsPerPage)
+                                           .To<T>()
+                                           .ToList();
 
             return allAds;
+        }
+
+        public IEnumerable<T> GetUserAds<T>(string userId)
+        {
+            var userAds = this.adsRepository.AllAsNoTracking()
+                                            .OrderByDescending(x => x.AddedByUserId)
+                                            .To<T>()
+                                            .ToList();
+
+            return userAds;
+        }
+
+        public int GetUserAdsCount(string userId)
+        {
+            int userAdsCount = this.adsRepository.AllAsNoTracking()
+                              .Where(x => x.AddedByUserId == userId).Count();
+
+            return userAdsCount;
         }
     }
 }

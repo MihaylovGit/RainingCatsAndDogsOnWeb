@@ -1,31 +1,33 @@
-﻿using AngleSharp;
-using System.Net;
-using System.Text;
-
-namespace AdsScraper
+﻿namespace RainingCatsAndDogsOnWeb.Services
 {
-    public class Program
+    using System;
+    using System.Linq;
+    using System.Net;
+    using System.Threading.Tasks;
+    using AngleSharp;
+    using RainingCatsAndDogsOnWeb.Data.Common.Repositories;
+    using RainingCatsAndDogsOnWeb.Data.Models;
+
+    public class AdsScraperService : IAdsScraperService
     {
         private readonly IConfiguration config;
         private readonly IBrowsingContext context;
+        private readonly IDeletableEntityRepository<Ad> adsRepository;
 
-        public Program()
+        public AdsScraperService(IDeletableEntityRepository<Ad> adsRepository)
         {
             this.config = Configuration.Default.WithDefaultLoader();
             this.context = BrowsingContext.New(this.config);
+            this.adsRepository = adsRepository;
         }
-
-        public static void Main(string[] args)
+        
+        public void PopulateDbWithAds()
         {
-            Console.OutputEncoding = Encoding.UTF8;
-            var config = Configuration.Default.WithDefaultLoader();
-            var context = BrowsingContext.New(config);
-
-            Parallel.For(1, 24, (i) =>
+            Parallel.For(1, 20, (i) =>
             {
                 try
                 {
-                    GetAd(context, i);
+                    GetAd(this.context, i);
                 }
                 catch (Exception ex)
                 {
@@ -34,7 +36,7 @@ namespace AdsScraper
             });
         }
 
-        public static void GetAd(IBrowsingContext context, int id)
+        private void GetAd(IBrowsingContext context, int id)
         {
             var address = $"https://www.alo.bg/obiavi/domashni-lubimci/kucheta-prodava/r-{id}";
             var document = context.OpenAsync(address)
@@ -50,20 +52,22 @@ namespace AdsScraper
             var priceElements = document.GetElementsByClassName("nowrap").ToList().Select(x => x.TextContent).ToList();
             var locationElements = document.GetElementsByClassName("listvip-item-address").Select(x => x.TextContent).ToList();
             var descriptionElements = document.GetElementsByClassName("listvip-desc").Select(x => x.TextContent).ToList();
-            List<Ad> ads = new List<Ad>();
+            var userElements = document.GetElementsByClassName("listvip-publisher").Select(x => x.TextContent).ToList();
 
             for (int i = 0; i < priceElements.Count; i++)
             {
                 var currentAd = new Ad
                 {
                     Title = titleElements[i],
-                    Price = priceElements[i],
+                    Price = decimal.Parse(priceElements[i].Split(' ', StringSplitOptions.RemoveEmptyEntries).ElementAt(0)),
                     Location = locationElements[i],
-                    Description = descriptionElements[i]
+                    Description = descriptionElements[i],
                 };
 
-                ads.Add(currentAd);
+                this.adsRepository.AddAsync(currentAd);
             }
+
+            this.adsRepository.SaveChangesAsync();
         }
     }
 }

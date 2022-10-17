@@ -41,6 +41,20 @@
             return this.View(viewModel);
         }
 
+        public IActionResult ShowMyAds(string userId)
+        {
+            const int AdsPerPage = 6;
+
+            var viewModel = new AdsListViewModel()
+            {
+                AdsPerPage = AdsPerPage,
+                AdsCount = this.adsService.GetUserAdsCount(userId),
+                AllAds = this.adsService.GetUserAds<AdsInListViewModel>(userId),
+            };
+
+            return this.View(viewModel);
+        }
+
         public IActionResult ShowAllCatAds()
         {
             return this.View();

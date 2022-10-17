@@ -5,30 +5,21 @@
     ViewData["Title"] = @Model.Title;
 }
 
-<div class="col-md-12">
-    <h2>@ViewData["Title"]</h2>
-    <div class="spec ">
-        <div class="ser-t">
-            <b></b>
-            <span><i></i></span>
-            <b class="line"></b>
-        </div>
-    </div>
-</div>
 <div class="homes">
-    <a href="/"><div class="homes-price">Go back to homepage</div></a>
     <img src="@Model.ImageUrl" alt="@Model.Title" class="img-fluid w-100">
 </div>
 
 <div class="homes-content">
     <h3>@Model.Title</h3>
-    <p>Added by: @Model.AddedByUserUserName</p>
+    <p>Added by: @Model.AddedByUserUserName on @Model.CreatedOn.ToString("D")</p>
     <p class="homes-address mb-3">
-        <a href="">
+        <a href="https://www.google.com/maps/place/Bulgaria">
             <i class="fa fa-map-marker"></i>
             <span>@Model.Location</span>
         </a>
     </p>
+    <p>@Model.Description</p>
+
     <ul class="homes-list clearfix">
         <li>
             <i class="fa fa-thumbs-up" aria-hidden="true"></i>
@@ -38,25 +29,11 @@
             <i class="fa fa-comments" aria-hidden="true"></i>
             <span>0 Comments</span>
         </li>
-        <li>
-            <i class="fa fa-calendar"></i>
-            <span>@Model.CreatedOn.ToString("D")</span>
-        </li>
     </ul>
     <div class="price-properties">
         <h3 class="title mt-3">
             <p>@Model.Price лв</p>
         </h3>
-    </div>
-    <div class="footer">
-        <div class="card__avatar">
-            <a href="https://only4pets.com/store/Only4Pets" class="avatar__wrapper--verified avatar__wrapper avatar__wrapper--40">
-                <img src="https://only4pets.com/application/public/uploads/stores/Only4Pets/logo2.png" alt="Adopt, Buy, Sell Pets Online" class="avatar" width="40" height="40">
-                <i class="icon-checkmark3" data-popup="tooltip" data-placement="top" data-container="body" title="Verified Account"></i>
-            </a>
-            <span class="uname">Adopt, Buy, Sell Pets Online</span>
-        </div>
-        <div style="clear:both;"></div>
     </div>
 </div>
 

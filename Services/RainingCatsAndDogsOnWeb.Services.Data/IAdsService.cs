@@ -11,7 +11,11 @@
 
         IEnumerable<T> GetAllAds<T>(int pageNumber, int adsPerPage);
 
+        IEnumerable<T> GetUserAds<T>(string userId);
+
         int GetAdsCount();
+
+        int GetUserAdsCount(string userId);
 
         T DetailsById<T>(int id);
     }
