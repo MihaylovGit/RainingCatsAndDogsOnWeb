@@ -7,6 +7,9 @@ namespace RainingCatsAndDogsOnWeb.Data.Models
     using RainingCatsAndDogsOnWeb.Data.Common.Models;
 
     using Microsoft.AspNetCore.Identity;
+    using System.ComponentModel.DataAnnotations;
+    using static RainingCatsAndDogsOnWeb.Common.DataConstants.ApplicationUser;
+
 
     public class ApplicationUser : IdentityUser, IAuditInfo, IDeletableEntity
     {
@@ -25,6 +28,17 @@ namespace RainingCatsAndDogsOnWeb.Data.Models
 
         // Deletable entity
         public bool IsDeleted { get; set; }
+
+        [Required]
+        [MaxLength(ApplicationUserFirstNameMaxLength)]
+        public string FirstName { get; set; }
+
+        [Required]
+        [MaxLength(ApplicationUserLastNameMaxLength)]
+        public int LastName { get; set; }
+
+        [Required]
+        public string PhoneNumber { get; set; }
 
         public DateTime? DeletedOn { get; set; }
 

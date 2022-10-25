@@ -1,8 +1,10 @@
 ﻿namespace RainingCatsAndDogsOnWeb.Data.Models
 {
-    using System.Collections.Generic;
-
     using RainingCatsAndDogsOnWeb.Data.Common.Models;
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+    using static RainingCatsAndDogsOnWeb.Common.DataConstants.Ad;
 
     public class Ad : BaseDeletableModel<int>
     {
@@ -11,18 +13,26 @@
             this.Images = new HashSet<Image>();
         }
 
+        [Required]
+        [MaxLength(AdTitleMaxLength)]
         public string Title { get; set; }
 
+        [Required]
+        [MaxLength(AdLocationMaxLength)]
         public string Location { get; set; }
 
         public decimal Price { get; set; }
 
+        [Required]
+        [MaxLength(AdDescriptionMaxLength)]
         public string Description { get; set; }
 
+        [ForeignKey(nameof(ApplicationUser))]
         public string AddedByUserId { get; set; }
 
         public virtual ApplicationUser AddedByUser { get; set; }
 
+        [ForeignKey(nameof(Category))]
         public int CategoryId { get; set; }
 
         public virtual Category Category { get; set; }
