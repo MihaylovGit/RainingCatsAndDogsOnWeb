@@ -7,6 +7,7 @@
     using System.Threading.Tasks;
 
     using RainingCatsAndDogsOnWeb.Data.Common.Models;
+
     using RainingCatsAndDogsOnWeb.Data.Models;
 
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -56,6 +57,21 @@
         protected override void OnModelCreating(ModelBuilder builder)
         {
             // Needed for Identity models configuration
+            builder.Entity<Comment>()
+                   .HasMany(c => c.Replies)
+                   .WithOne(c => c.Comment);
+
+            builder.Entity<Reply>()
+                   .HasKey(x => new
+                   {
+                       x.UserId,
+                       x.CommentId,
+                   });
+
+            builder.Entity<Ad>()
+                   .Property(x => x.Price)
+                   .HasPrecision(18, 2);
+
             base.OnModelCreating(builder);
 
             this.ConfigureUserIdentityRelations(builder);

@@ -37,16 +37,12 @@
 
         public class Comment
         {
-            public const int CommentTextMaxLength = 500;
-
-            public const int CommentTextMinLength = 1;
+            public const int CommentContentMaxLength = 500;
         }
 
         public class Reply
         {
-            public const int ReplyTextMaxLength = 500;
-
-            public const int ReplyTextMinLength = 1;
+            public const int ReplyContentMaxLength = 500;
         }
     }
 }

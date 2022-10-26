@@ -1,15 +1,16 @@
 ﻿namespace RainingCatsAndDogsOnWeb.Data.Models
 {
-    using RainingCatsAndDogsOnWeb.Data.Common.Models;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
+    using RainingCatsAndDogsOnWeb.Data.Common.Models;
+
     using static RainingCatsAndDogsOnWeb.Common.DataConstants.Reply;
 
     public class Reply : BaseDeletableModel<int>
     {
         [Required]
-        [MaxLength(ReplyTextMaxLength)]
-        public string Text { get; set; }
+        [MaxLength(ReplyContentMaxLength)]
+        public string Content { get; set; }
 
         [ForeignKey(nameof(ApplicationUser))]
         public int UserId { get; set; }
