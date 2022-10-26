@@ -35,7 +35,7 @@ namespace RainingCatsAndDogsOnWeb.Data.Models
 
         [Required]
         [MaxLength(ApplicationUserLastNameMaxLength)]
-        public int LastName { get; set; }
+        public string LastName { get; set; }
 
         [Required]
         public string PhoneNumber { get; set; }

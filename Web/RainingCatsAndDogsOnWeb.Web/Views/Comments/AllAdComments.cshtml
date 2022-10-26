@@ -1,4 +1,5 @@
-﻿@*@model List<AllAdCommentsViewModel>
+﻿@using RainingCatsAndDogsOnWeb.Web.ViewModels.Comments
+@model List<CommentViewModel>
 
 @{
     ViewBag.Title = "All Comments";
@@ -7,7 +8,7 @@
 <h2 class="text-center">@ViewBag.Title</h2>
 <hr />
 <div class="d-grid gap-2 mb-2">
-    <a asp-controller="Comments" asp-action="Add" class="btn btn-primary">Add Post</a>
+    <a asp-controller="Comments" asp-action="Add" class="btn btn-primary">Add Comment</a>
 </div>
 
 @if (Model.Count() > 0)
@@ -18,8 +19,7 @@
             <div class="col-sm-6">
                 <div class="card ">
                     <div class="card-body">
-                        <h4 class="card-title text-center">@post.Title<p></h4>
-                        <p class="card-text">@post.Content</p>
+                        <p class="card-text">@comment.Content</p>
                         <div class="d-grid gap-2">
                             <a asp-controller="Comments" asp-action="Edit" asp-route-id="@comment.Id" class="btn btn-warning">Edit</a>
                             <form class="mt-2" asp-controller="Comments" asp-action="Delete" asp-route-id="@comment.Id">
@@ -40,4 +40,3 @@ else
     <p class="text-center">No comments yet!</p>
 }
 
-*@

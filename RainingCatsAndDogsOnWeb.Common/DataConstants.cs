@@ -26,6 +26,8 @@
             public const int ApplicationUserLastNameMaxLength = 30;
 
             public const int ApplicationUserLastNameMinLength = 5;
+
+            public const int ApplicationUserPhoneNumberMaxLength = 15;
         }
 
         public class Category
