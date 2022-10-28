@@ -1,7 +1,7 @@
 ﻿namespace RainingCatsAndDogsOnWeb.Web.Controllers
 {
     using System.Diagnostics;
-
+    using System.Threading.Tasks;
     using Microsoft.AspNetCore.Mvc;
     using RainingCatsAndDogsOnWeb.Services.Data;
     using RainingCatsAndDogsOnWeb.Web.ViewModels;
@@ -10,19 +10,22 @@
     public class HomeController : BaseController
     {
         private readonly IGetCountsService countsService;
+        private readonly IAdsService adsService;
 
-        public HomeController(IGetCountsService countsService)
+        public HomeController(IGetCountsService countsService, IAdsService adsService)
         {
             this.countsService = countsService;
+            this.adsService = adsService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             var countsDto = this.countsService.GetCounts();
 
             var viewModel = new IndexViewModel
             {
                 AdsCount = countsDto.AdsCount,
+                RandomAds = await this.adsService.GetRandom<IndexPageAdViewModel>(4),
             };
 
             return this.View(viewModel);

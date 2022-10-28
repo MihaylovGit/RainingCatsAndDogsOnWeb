@@ -1,7 +1,7 @@
 ﻿namespace RainingCatsAndDogsOnWeb.Web.ViewModels.Ad
 {
     using System.Collections.Generic;
-
+    using System.ComponentModel.DataAnnotations;
     using Microsoft.AspNetCore.Http;
     using RainingCatsAndDogsOnWeb.Data.Models;
 

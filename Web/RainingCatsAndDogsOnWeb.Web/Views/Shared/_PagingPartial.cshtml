@@ -1,6 +1,6 @@
 ﻿@using RainingCatsAndDogsOnWeb.Web.ViewModels.Ads
 @model PagingViewModel
-<nav aria-label="...">
+<nav aria-label="Page navigation example">
     <ul class="pagination">
         <li class="page-item @if(!Model.HasPreviousPage) {
         <text>disabled</text>
@@ -15,7 +15,7 @@
             }
         }
         <li class="page-item active">
-            <a class="page-link" asp-action="ShowAllAds" asp-route-id="@Model.PageNumber"><span class="sr-only">@Model.PageNumber</span></a>
+            <a class="page-link" asp-action="ShowAllAds" asp-route-id="@Model.PageNumber">@Model.PageNumber</a>
         </li>
         @for (var i = Model.PageNumber + 1; i <= Model.PageNumber + 3; i++)
         {

@@ -21,9 +21,15 @@
 
         public string AddedByUserUserName { get; set; }
 
+        public string AddedByUserFirstName { get; set; }
+
+        public string AddedByUserLastName { get; set; }
+
         public string CategoryName { get; set; }
 
         public string ImageUrl { get; set; }
+
+        public string PhoneNumber { get; set; }
 
         public DateTime CreatedOn { get; set; }
 
@@ -31,9 +37,10 @@
         {
             configuration.CreateMap<Ad, SingleAdViewModel>()
                   .ForMember(x => x.ImageUrl, opt =>
-                  opt.MapFrom(x => x.Images.FirstOrDefault().RemoteImageUrl != null ?
-                  x.Images.FirstOrDefault().RemoteImageUrl :
-                  "/images/ads/" + x.Images.FirstOrDefault().Id + "." + x.Images.FirstOrDefault().Extension));
+                  opt.MapFrom(x => x.Images.Select(x => $"/images/{x.AddedByUserId}.{x.Extension}")));
+
+            configuration.CreateMap<Ad, SingleAdViewModel>()
+                         .ForMember(x => x.PhoneNumber, opt => opt.MapFrom(x => x.AddedByUser.PhoneNumber));
         }
     }
 }

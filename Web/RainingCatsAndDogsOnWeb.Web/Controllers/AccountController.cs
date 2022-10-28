@@ -26,7 +26,7 @@
         {
             if (this.User.Identity?.IsAuthenticated ?? false)
             {
-                return this.RedirectToAction("All", "Ads");
+                return this.RedirectToAction("ShowAllAds", "Ads");
             }
 
             var model = new RegisterViewModel();
@@ -44,6 +44,7 @@
 
             var user = new ApplicationUser()
             {
+                UserName = model.Email,
                 FirstName = model.FirstName,
                 LastName = model.LastName,
                 Email = model.Email,
@@ -54,7 +55,7 @@
 
             if (result.Succeeded)
             {
-                return this.RedirectToAction("Login", "Users");
+                return this.RedirectToAction("Login", "Account");
             }
 
             foreach (var error in result.Errors)
@@ -70,7 +71,7 @@
         {
             if (this.User.Identity?.IsAuthenticated ?? false)
             {
-                return this.RedirectToAction("All", "Ads");
+                return this.RedirectToAction("ShowAllAds", "Ads");
             }
 
             var model = new LoginViewModel();
@@ -94,7 +95,7 @@
 
                 if (result.Succeeded)
                 {
-                    return this.RedirectToAction("All", "Ads");
+                    return this.RedirectToAction("ShowAllAds", "Ads");
                 }
             }
 

@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;
-
+    using Microsoft.AspNetCore.Mvc;
     using RainingCatsAndDogsOnWeb.Web.ViewModels.Ad;
 
     public interface IAdsService
@@ -17,6 +17,8 @@
 
         int GetUserAdsCount(string userId);
 
-        T DetailsById<T>(int id);
+        T DetailsById<T>(int adid);
+
+        Task<IEnumerable<T>> GetRandom<T>(int count);
     }
 }

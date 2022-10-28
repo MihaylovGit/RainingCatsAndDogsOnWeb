@@ -19,13 +19,13 @@
 
         public class ApplicationUser
         {
-            public const int ApplicationUserFirstNameMaxLength = 30;
+            public const int ApplicationUserFirstNameMaxLength = 20;
 
-            public const int ApplicationUserFirstNameMinLength = 4;
+            public const int ApplicationUserFirstNameMinLength = 3;
 
-            public const int ApplicationUserLastNameMaxLength = 30;
+            public const int ApplicationUserLastNameMaxLength = 20;
 
-            public const int ApplicationUserLastNameMinLength = 5;
+            public const int ApplicationUserLastNameMinLength = 3;
 
             public const int ApplicationUserPhoneNumberMaxLength = 15;
         }

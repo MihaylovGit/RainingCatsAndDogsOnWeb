@@ -12,13 +12,18 @@
 <div class="homes-content">
     <h3>@Model.Title</h3>
     <i class="fa fa-user" aria-hidden="true"></i>
-    <p> Added by: @Model.AddedByUserUserName on @Model.CreatedOn.ToString("D")</p>
+    <p> Added by: @Model.AddedByUserFirstName @Model.AddedByUserLastName on @Model.CreatedOn.ToString("D")</p>
     <p class="homes-address mb-3">
         <a href="https://www.google.com/maps/place/Bulgaria">
             <i class="fa fa-map-marker" aria-hidden="true"></i>
             <span>@Model.Location</span>
         </a>
     </p>
+    <i class="fa-solid fa-phone"></i>
+    <span>@Model.PhoneNumber</span>
+    
+    <br></br>
+
     <p>@Model.Description</p>
 
     <ul class="homes-list clearfix">

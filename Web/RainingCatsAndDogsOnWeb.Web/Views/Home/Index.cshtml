@@ -1,27 +1,25 @@
 ﻿@using RainingCatsAndDogsOnWeb.Common
+@using RainingCatsAndDogsOnWeb.Web.ViewModels.Home
+@model IndexViewModel
 
-@model RainingCatsAndDogsOnWeb.Web.ViewModels.Home.IndexViewModel
-@{
-    this.ViewData["Title"] = "Home Page";
-}
+<h1>@this.ViewData["Title"]</h1>
 
-<div class="text-center">
- <h1 class="display-4">Welcome to @GlobalConstants.SystemName!</h1>
- <h4 class="display-4">Best pet lovers community</h4>
-</div>
-
-<div class="text-center">
-    <div class="container">
-        <h3>Browse Categories</h3>
-        <div icon="https://only4pets.com/application/public/uploads/categories/0f5cc36baf229e916561711af6e88d6f.png">
-            <div>
-                <a asp-controller="Ads" asp-action="ShowAllDogAds">Dogs</a>
+<div class="center">
+    <h1 class="display-4">Welcome to @GlobalConstants.SystemName</h1>
+    <h2 class="align-self-center">Best pets community worldwide</h2>
+    <div>
+        @foreach (var ad in Model.RandomAds)
+        {
+            <div class="media">
+                <img class="align-self-center mr-3" src="@ad.ImageUrl" alt="@ad.Title">
+                <div class="media-body">
+                    <h5 class="mt-0">@ad.Location</h5>
+                    <p class="mb-0">Location: @ad.Location</p>
+                    <p class="mb-0">Price: @ad.Price лв.</p>
+                    <p class="mb-0">Category: @ad.CategoryName</p>
+                    <a asp-controller="Ads" asp-action="DetailsById" asp-route-id="@ad.Id">Go to ad</a>
+                </div>
             </div>
-        </div>
-        <div icon="https://only4pets.com/application/public/uploads/categories/03b04b29bda6b73304387d5bd935a5f6.png">
-            <div>
-                <a asp-controller="Ads" asp-action="ShowAllCatAds">Cats</a>
-            </div>
-        </div>
+        }
     </div>
 </div>
