@@ -11,9 +11,8 @@
         @foreach (var ad in Model.RandomAds)
         {
             <div class="media">
-                <img class="align-self-center mr-3" src="@ad.ImageUrl" alt="@ad.Title">
+                <img class="align-self-center mr-3" src="@ad.ImageUrl">
                 <div class="media-body">
-                    <h5 class="mt-0">@ad.Location</h5>
                     <p class="mb-0">Location: @ad.Location</p>
                     <p class="mb-0">Price: @ad.Price лв.</p>
                     <p class="mb-0">Category: @ad.CategoryName</p>

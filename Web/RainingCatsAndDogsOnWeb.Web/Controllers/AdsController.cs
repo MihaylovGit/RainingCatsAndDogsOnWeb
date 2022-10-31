@@ -7,6 +7,7 @@
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
+    using RainingCatsAndDogsOnWeb.Common;
     using RainingCatsAndDogsOnWeb.Data.Models;
     using RainingCatsAndDogsOnWeb.Services.Data.Contracts;
     using RainingCatsAndDogsOnWeb.Web.ViewModels.Ad;
@@ -124,7 +125,8 @@
         {
             if (!this.ModelState.IsValid)
             {
-                return this.View();
+                model.CategoriesItems = this.categoriesService.GetAllAsKeyValuePairs();
+                return this.View(model);
             }
 
             await this.adsService.UpdateAsync(id, model);

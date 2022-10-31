@@ -26,8 +26,9 @@ namespace RainingCatsAndDogsOnWeb.Web.ViewModels.Ads
 
         public int CategoryId { get; set; }
 
+        [Required]
         public Category Category { get; set; }
 
-        public IEnumerable<KeyValuePair<string, string>> CategoriesItems { get; set; }
+        public IEnumerable<KeyValuePair<string, string>> CategoriesItems { get; set; } = new List<KeyValuePair<string, string>>();
     }
 }
