@@ -1,9 +1,9 @@
-﻿namespace RainingCatsAndDogsOnWeb.Services.Data
+﻿namespace RainingCatsAndDogsOnWeb.Services.Data.Contracts
 {
+    using RainingCatsAndDogsOnWeb.Web.ViewModels.Ad;
+    using RainingCatsAndDogsOnWeb.Web.ViewModels.Ads;
     using System.Collections.Generic;
     using System.Threading.Tasks;
-    using Microsoft.AspNetCore.Mvc;
-    using RainingCatsAndDogsOnWeb.Web.ViewModels.Ad;
 
     public interface IAdsService
     {
@@ -20,5 +20,7 @@
         T DetailsById<T>(int adid);
 
         Task<IEnumerable<T>> GetRandom<T>(int count);
+
+        Task UpdateAsync(int id, EditAdViewModel model);
     }
 }

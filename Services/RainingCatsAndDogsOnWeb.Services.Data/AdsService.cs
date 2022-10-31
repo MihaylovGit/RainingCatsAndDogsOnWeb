@@ -1,18 +1,18 @@
 ﻿namespace RainingCatsAndDogsOnWeb.Services.Data
 {
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore.Update;
+    using RainingCatsAndDogsOnWeb.Data.Common.Repositories;
+    using RainingCatsAndDogsOnWeb.Data.Models;
+    using RainingCatsAndDogsOnWeb.Services.Data.Contracts;
+    using RainingCatsAndDogsOnWeb.Services.Mapping;
+    using RainingCatsAndDogsOnWeb.Web.ViewModels.Ad;
+    using RainingCatsAndDogsOnWeb.Web.ViewModels.Ads;
     using System;
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
     using System.Threading.Tasks;
-    using Microsoft.AspNetCore.Mvc;
-    using Microsoft.EntityFrameworkCore;
-    using Microsoft.EntityFrameworkCore.Metadata.Internal;
-    using RainingCatsAndDogsOnWeb.Data.Common.Repositories;
-    using RainingCatsAndDogsOnWeb.Data.Models;
-    using RainingCatsAndDogsOnWeb.Services.Mapping;
-    using RainingCatsAndDogsOnWeb.Web.ViewModels.Ad;
-    using RainingCatsAndDogsOnWeb.Web.ViewModels.Users;
 
     public class AdsService : IAdsService
     {
@@ -74,19 +74,7 @@
             return ad;
         }
 
-        //public async Task EditById<T>(int adid)
-        //{
-        //    var ad = await this.adsRepository.AllAsNoTracking().Where(x => x.Id == adid).To<T>().FirstOrDefaultAsync();
 
-        //    if (ad == null)
-        //    {
-        //        throw new ArgumentException("Invalid ad ID");
-        //    }
-
-        //    await this.adsRepository.Update(ad);
-
-        //    await this.adsRepository.SaveChangesAsync();
-        //}
 
         public int GetAdsCount()
         {
@@ -128,6 +116,20 @@
                               .Where(x => x.AddedByUserId == userId).Count();
 
             return userAdsCount;
+        }
+
+        public async Task UpdateAsync(int id, EditAdViewModel model)
+        {
+            var ad = await this.adsRepository.All().FirstOrDefaultAsync(x => x.Id == id);
+
+            ad.Title = model.Title;
+            ad.Location = model.Location;
+            ad.Description = model.Description;
+            ad.Price = model.Price;
+            ad.CategoryId = model.CategoryId;
+            ad.Category = model.Category;
+
+            await this.adsRepository.SaveChangesAsync();
         }
     }
 }

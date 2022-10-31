@@ -8,7 +8,7 @@
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using RainingCatsAndDogsOnWeb.Data.Models;
-    using RainingCatsAndDogsOnWeb.Services.Data;
+    using RainingCatsAndDogsOnWeb.Services.Data.Contracts;
     using RainingCatsAndDogsOnWeb.Web.ViewModels.Ad;
     using RainingCatsAndDogsOnWeb.Web.ViewModels.Ads;
 
@@ -17,9 +17,11 @@
         private readonly IAdsService adsService;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IWebHostEnvironment environment;
+        private readonly ICategoriesService categoriesService;
 
-        public AdsController(IAdsService adsService, UserManager<ApplicationUser> userManager, IWebHostEnvironment environment)
+        public AdsController(ICategoriesService categoriesService, IAdsService adsService, UserManager<ApplicationUser> userManager, IWebHostEnvironment environment)
         {
+            this.categoriesService = categoriesService;
             this.adsService = adsService;
             this.userManager = userManager;
             this.environment = environment;
@@ -63,7 +65,12 @@
         [Authorize]
         public IActionResult Create()
         {
-            return this.View();
+            var viewModel = new CreateAdViewModel
+            {
+                CategoriesItems = this.categoriesService.GetAllAsKeyValuePairs(),
+            };
+
+            return this.View(viewModel);
         }
 
         [HttpPost]
@@ -72,6 +79,7 @@
         {
             if (!this.ModelState.IsValid)
             {
+                input.CategoriesItems = this.categoriesService.GetAllAsKeyValuePairs();
                 return this.View(input);
             }
 
@@ -94,11 +102,34 @@
             return View();
         }
 
+        [Authorize]
         public IActionResult DetailsById(int id)
         {
             var ad = this.adsService.DetailsById<SingleAdViewModel>(id);
 
             return this.View(ad);
+        }
+
+        [Authorize]
+        public IActionResult Edit(int id)
+        {
+            var viewModel = this.adsService.DetailsById<EditAdViewModel>(id);
+
+            return this.View(viewModel);
+        }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> Edit(int id, EditAdViewModel model)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View();
+            }
+
+            await this.adsService.UpdateAsync(id, model);
+
+            return this.RedirectToAction(nameof(this.DetailsById), new { id });
         }
     }
 }

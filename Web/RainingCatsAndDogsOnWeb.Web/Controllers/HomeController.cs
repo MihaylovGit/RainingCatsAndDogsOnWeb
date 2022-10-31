@@ -3,7 +3,7 @@
     using System.Diagnostics;
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Mvc;
-    using RainingCatsAndDogsOnWeb.Services.Data;
+    using RainingCatsAndDogsOnWeb.Services.Data.Contracts;
     using RainingCatsAndDogsOnWeb.Web.ViewModels;
     using RainingCatsAndDogsOnWeb.Web.ViewModels.Home;
 
