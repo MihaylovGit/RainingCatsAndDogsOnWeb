@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RainingCatsAndDogsOnWeb.Data;
 
@@ -11,9 +12,10 @@ using RainingCatsAndDogsOnWeb.Data;
 namespace RainingCatsAndDogsOnWeb.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221101093822_ApplicationUserAdsAdded")]
+    partial class ApplicationUserAdsAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -519,7 +521,7 @@ namespace RainingCatsAndDogsOnWeb.Data.Migrations
             modelBuilder.Entity("RainingCatsAndDogsOnWeb.Data.Models.Ad", b =>
                 {
                     b.HasOne("RainingCatsAndDogsOnWeb.Data.Models.ApplicationUser", "AddedByUser")
-                        .WithMany()
+                        .WithMany("Ads")
                         .HasForeignKey("AddedByUserId");
 
                     b.HasOne("RainingCatsAndDogsOnWeb.Data.Models.Category", "Category")
@@ -583,6 +585,8 @@ namespace RainingCatsAndDogsOnWeb.Data.Migrations
 
             modelBuilder.Entity("RainingCatsAndDogsOnWeb.Data.Models.ApplicationUser", b =>
                 {
+                    b.Navigation("Ads");
+
                     b.Navigation("Claims");
 
                     b.Navigation("Logins");

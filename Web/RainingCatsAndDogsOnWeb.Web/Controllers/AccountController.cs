@@ -26,7 +26,7 @@
         {
             if (this.User.Identity?.IsAuthenticated ?? false)
             {
-                return this.RedirectToAction("ShowAllAds", "Ads");
+                return this.RedirectToAction("AllAds", "Ads");
             }
 
             var model = new RegisterViewModel();
@@ -71,7 +71,7 @@
         {
             if (this.User.Identity?.IsAuthenticated ?? false)
             {
-                return this.RedirectToAction("ShowAllAds", "Ads");
+                return this.RedirectToAction("AllAds", "Ads");
             }
 
             var model = new LoginViewModel();
@@ -95,7 +95,7 @@
 
                 if (result.Succeeded)
                 {
-                    return this.RedirectToAction("ShowAllAds", "Ads");
+                    return this.RedirectToAction("AllAds", "Ads");
                 }
             }
 

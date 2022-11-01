@@ -1,27 +1,28 @@
 ﻿namespace RainingCatsAndDogsOnWeb.Services.Data
 {
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+    using System.Threading.Tasks;
     using Microsoft.EntityFrameworkCore;
-    using Microsoft.EntityFrameworkCore.Update;
     using RainingCatsAndDogsOnWeb.Data.Common.Repositories;
     using RainingCatsAndDogsOnWeb.Data.Models;
     using RainingCatsAndDogsOnWeb.Services.Data.Contracts;
     using RainingCatsAndDogsOnWeb.Services.Mapping;
     using RainingCatsAndDogsOnWeb.Web.ViewModels.Ad;
     using RainingCatsAndDogsOnWeb.Web.ViewModels.Ads;
-    using System;
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Linq;
-    using System.Threading.Tasks;
 
     public class AdsService : IAdsService
     {
         private readonly IDeletableEntityRepository<Ad> adsRepository;
+        private readonly IDeletableEntityRepository<ApplicationUser> usersRepository;
         private readonly string[] allowedExtensions = new string[] { "jpg", "png", "jpeg", "gif" };
 
-        public AdsService(IDeletableEntityRepository<Ad> adsRepository)
+        public AdsService(IDeletableEntityRepository<Ad> adsRepository, IDeletableEntityRepository<ApplicationUser> usersRepository)
         {
             this.adsRepository = adsRepository;
+            this.usersRepository = usersRepository;
         }
 
         // IF I Have enough time to make CreateAsync<T>
@@ -103,7 +104,8 @@
         public IEnumerable<T> GetUserAds<T>(string userId)
         {
             var userAds = this.adsRepository.AllAsNoTracking()
-                                            .OrderByDescending(x => x.AddedByUserId)
+                                            .Where(x => x.AddedByUserId == userId)
+                                            .OrderByDescending(x => x.CreatedOn)
                                             .To<T>()
                                             .ToList();
 

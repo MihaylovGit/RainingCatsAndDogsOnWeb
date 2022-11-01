@@ -37,9 +37,6 @@ namespace RainingCatsAndDogsOnWeb.Data.Models
         [MaxLength(ApplicationUserLastNameMaxLength)]
         public string LastName { get; set; }
 
-        [Required]
-        public string PhoneNumber { get; set; }
-
         public DateTime? DeletedOn { get; set; }
 
         public virtual ICollection<IdentityUserRole<string>> Roles { get; set; }

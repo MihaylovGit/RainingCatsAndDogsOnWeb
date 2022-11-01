@@ -4,8 +4,9 @@
     this.ViewData["Title"] = $"You can find your dream pet between {@Model.AdsCount} ads";
 }
 
-<h1>@this.ViewData["Title"]</h1>
-
+<br></br>
+<h1 class="text-center">@this.ViewData["Title"]</h1>
+<br></br>
 <div class="text-center row">
     @foreach (var ad in this.Model.AllAds)
     {

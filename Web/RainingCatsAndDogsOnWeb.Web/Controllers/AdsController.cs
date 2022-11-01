@@ -1,13 +1,13 @@
 ﻿namespace RainingCatsAndDogsOnWeb.Web.Controllers
 {
     using System;
+    using System.Linq;
+    using System.Security.Claims;
     using System.Threading.Tasks;
-
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
-    using RainingCatsAndDogsOnWeb.Common;
     using RainingCatsAndDogsOnWeb.Data.Models;
     using RainingCatsAndDogsOnWeb.Services.Data.Contracts;
     using RainingCatsAndDogsOnWeb.Web.ViewModels.Ad;
@@ -29,7 +29,7 @@
         }
 
         // Ads/DogAds/5
-        public IActionResult ShowAllAds(int id = 1)
+        public IActionResult AllAds(int id = 1)
         {
             const int AdsPerPage = 6;
 
@@ -44,8 +44,14 @@
             return this.View(viewModel);
         }
 
-        public IActionResult ShowMyAds(string userId)
+        public IActionResult MyAds()
         {
+            var userId = this.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
+            if (userId == null)
+            {
+                return this.NotFound();
+            }
+
             const int AdsPerPage = 6;
 
             var viewModel = new AdsListViewModel()
@@ -55,12 +61,12 @@
                 AllAds = this.adsService.GetUserAds<AdsInListViewModel>(userId),
             };
 
-            return this.View(viewModel);
-        }
+            if (viewModel.AdsCount == 0)
+            {
+                return this.RedirectToAction("EmptyCollection", "Ads");
+            }
 
-        public IActionResult ShowAllCatAds()
-        {
-            return this.View();
+            return this.View(viewModel);
         }
 
         [Authorize]
@@ -100,7 +106,7 @@
 
         public IActionResult PostSuccessful()
         {
-            return View();
+            return this.View();
         }
 
         [Authorize]
@@ -132,6 +138,11 @@
             await this.adsService.UpdateAsync(id, model);
 
             return this.RedirectToAction(nameof(this.DetailsById), new { id });
+        }
+
+        public IActionResult EmptyCollection()
+        {
+            return this.View();
         }
     }
 }
