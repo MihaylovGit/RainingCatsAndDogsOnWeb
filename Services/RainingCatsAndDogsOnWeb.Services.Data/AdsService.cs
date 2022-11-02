@@ -4,7 +4,9 @@
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
+    using System.Security.Cryptography.X509Certificates;
     using System.Threading.Tasks;
+    using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
     using RainingCatsAndDogsOnWeb.Data.Common.Repositories;
     using RainingCatsAndDogsOnWeb.Data.Models;
@@ -56,7 +58,7 @@
                     Extension = extension,
                 };
 
-                var physicalPath = $"/{imagePath}/ads/{dbImage.Id}.{extension}";
+                var physicalPath = $"{imagePath}/ads/{dbImage.Id}.{extension}";
 
                 newAd.Images.Add(dbImage);
 
@@ -66,6 +68,13 @@
 
             await this.adsRepository.AddAsync(newAd);
             await this.adsRepository.SaveChangesAsync();
+        }
+
+        public async Task DeleteAsync(int id)
+        {
+                var ad = await this.adsRepository.All().FirstOrDefaultAsync(x => x.Id == id);
+                this.adsRepository.Delete(ad);
+                await this.adsRepository.SaveChangesAsync();
         }
 
         public T DetailsById<T>(int id)

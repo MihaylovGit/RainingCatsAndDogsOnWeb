@@ -142,12 +142,13 @@
             return this.RedirectToAction(nameof(this.DetailsById), new { id });
         }
 
-        //[HttpPost]
-        //[Authorize]
-        //public async Task<IActionResult> DeleteById(int id)
-        //{
-
-        //}
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> Delete(int id)
+        {
+            await this.adsService.DeleteAsync(id);
+            return this.RedirectToAction(nameof(this.MyAds));
+        }
 
         public IActionResult EmptyCollection()
         {

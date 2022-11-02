@@ -22,5 +22,7 @@
         Task<IEnumerable<T>> GetRandom<T>(int count);
 
         Task UpdateAsync(int id, EditAdViewModel model);
+
+        Task DeleteAsync(int id);
     }
 }
