@@ -2,7 +2,6 @@
 {
     using RainingCatsAndDogsOnWeb.Data.Models;
     using RainingCatsAndDogsOnWeb.Services.Mapping;
-    using System.Collections.Generic;
 
     public class EditAdViewModel : BaseAdViewModel, IMapFrom<Ad>
     {

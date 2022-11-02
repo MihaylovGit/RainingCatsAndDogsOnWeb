@@ -75,8 +75,6 @@
             return ad;
         }
 
-
-
         public int GetAdsCount()
         {
             return this.adsRepository.All().Count();

@@ -121,7 +121,8 @@
         public IActionResult Edit(int id)
         {
             var viewModel = this.adsService.DetailsById<EditAdViewModel>(id);
-
+            viewModel.Id = id;
+            viewModel.CategoriesItems = this.categoriesService.GetAllAsKeyValuePairs();
             return this.View(viewModel);
         }
 
@@ -131,6 +132,7 @@
         {
             if (!this.ModelState.IsValid)
             {
+                model.Id = id;
                 model.CategoriesItems = this.categoriesService.GetAllAsKeyValuePairs();
                 return this.View(model);
             }
@@ -139,6 +141,13 @@
 
             return this.RedirectToAction(nameof(this.DetailsById), new { id });
         }
+
+        //[HttpPost]
+        //[Authorize]
+        //public async Task<IActionResult> DeleteById(int id)
+        //{
+
+        //}
 
         public IActionResult EmptyCollection()
         {
