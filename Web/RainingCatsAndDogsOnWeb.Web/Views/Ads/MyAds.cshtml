@@ -26,7 +26,9 @@
             </div>
 
             <form class="input-group-sm" id="deleteForm" asp-route-id="@ad.Id" asp-controller="Ads" asp-action="Edit" method="get">
-                <button class="btn btn-success" type="submit">Edit</button>
+                <div>
+                    <button class="btn btn-success" type="submit">Edit</button>
+                </div>
             </form>
             <br>
             <form class="input-group-sm" id="deleteForm" asp-route-id="@ad.Id" asp-controller="Ads" asp-action="Delete">

@@ -50,13 +50,16 @@
 
             services.Configure<IdentityOptions>(options =>
             {
-                options.Password.RequireDigit = false;
-                options.Password.RequireNonAlphanumeric = false;
-                options.Password.RequireLowercase = false;
-                options.Password.RequireUppercase = false;
-                options.Password.RequiredLength = 6;
+                options.SignIn.RequireConfirmedAccount = configuration.GetValue<bool>("Identity: RequireConfirmedAccount");
+                options.SignIn.RequireConfirmedEmail = configuration.GetValue<bool>("Identity: RequireConfirmedEmail");
+                options.SignIn.RequireConfirmedPhoneNumber = configuration.GetValue<bool>("Identity: RequireConfirmedPhoneNumber");
+                options.Password.RequireDigit = configuration.GetValue<bool>("Identity: RequireDigit");
+                options.Password.RequireNonAlphanumeric = configuration.GetValue<bool>("Identity: RequireNonAlphanumeric");
+                options.Password.RequireLowercase = configuration.GetValue<bool>("Identity: RequireLowercase");
+                options.Password.RequireUppercase = configuration.GetValue<bool>("Identity: RequireUppercase");
+                options.Password.RequiredLength = configuration.GetValue<int>("Identity: RequiredLength");
             });
-           
+
             services.AddControllersWithViews(
                 options =>
                 {
@@ -67,7 +70,6 @@
 
             services.AddSingleton(configuration);
 
-            // Data repositories
             services.AddScoped(typeof(IDeletableEntityRepository<>), typeof(EfDeletableEntityRepository<>));
             services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
             services.AddScoped<IDbQueryRunner, DbQueryRunner>();
@@ -75,7 +77,6 @@
             services.AddTransient<IGetCountsService, GetCountsService>();
             services.AddTransient<ICategoriesService, CategoriesService>();
 
-            // Application services
             services.AddTransient<IEmailSender, NullMessageSender>();
         }
 
