@@ -18,13 +18,11 @@
     public class AdsService : IAdsService
     {
         private readonly IDeletableEntityRepository<Ad> adsRepository;
-        private readonly IDeletableEntityRepository<ApplicationUser> usersRepository;
         private readonly string[] allowedExtensions = new string[] { "jpg", "png", "jpeg", "gif" };
 
-        public AdsService(IDeletableEntityRepository<Ad> adsRepository, IDeletableEntityRepository<ApplicationUser> usersRepository)
+        public AdsService(IDeletableEntityRepository<Ad> adsRepository)
         {
             this.adsRepository = adsRepository;
-            this.usersRepository = usersRepository;
         }
 
         // IF I Have enough time to make CreateAsync<T>
@@ -98,7 +96,7 @@
                                            .ToList();
 
             return allAds;
-        }
+        }   
 
         public async Task<IEnumerable<T>> GetRandom<T>(int count)
         {

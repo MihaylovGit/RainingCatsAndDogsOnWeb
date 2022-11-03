@@ -1,9 +1,9 @@
 ﻿namespace RainingCatsAndDogsOnWeb.Services.Data.Contracts
 {
-    using RainingCatsAndDogsOnWeb.Web.ViewModels.Ad;
-    using RainingCatsAndDogsOnWeb.Web.ViewModels.Ads;
     using System.Collections.Generic;
     using System.Threading.Tasks;
+    using RainingCatsAndDogsOnWeb.Web.ViewModels.Ad;
+    using RainingCatsAndDogsOnWeb.Web.ViewModels.Ads;
 
     public interface IAdsService
     {

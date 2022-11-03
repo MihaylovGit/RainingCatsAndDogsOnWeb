@@ -76,6 +76,7 @@
             services.AddScoped<IAdsService, AdsService>();
             services.AddTransient<IGetCountsService, GetCountsService>();
             services.AddTransient<ICategoriesService, CategoriesService>();
+            services.AddTransient<ISearchAdsService, SearchAdsService>();
 
             services.AddTransient<IEmailSender, NullMessageSender>();
         }
