@@ -1,12 +1,9 @@
 ﻿namespace RainingCatsAndDogsOnWeb.Data.Models
 {
-    using System;
+    using RainingCatsAndDogsOnWeb.Data.Common.Models;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
-
-    using RainingCatsAndDogsOnWeb.Data.Common.Models;
-
     using static RainingCatsAndDogsOnWeb.Common.DataConstants.Ad;
 
     public class Ad : BaseDeletableModel<int>

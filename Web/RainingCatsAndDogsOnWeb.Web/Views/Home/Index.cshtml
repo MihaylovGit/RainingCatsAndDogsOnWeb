@@ -5,7 +5,8 @@
     ViewData["Title"] = "Index";    
 }
 
-<h2>@this.ViewData["Title"]</h2>
+@*<h2>@this.ViewData["Title"]</h2>*@
+<br/>
 <form class="d-flex" role="search" asp-controller="SearchAds" asp-action="Index" method="get">
     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="SearchString"/>
     <button class="btn btn-outline-success" type="submit">Search</button>

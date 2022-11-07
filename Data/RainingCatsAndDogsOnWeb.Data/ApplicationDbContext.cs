@@ -5,7 +5,7 @@
     using System.Reflection;
     using System.Threading;
     using System.Threading.Tasks;
-
+    using static RainingCatsAndDogsOnWeb.Common.DataConstants.ApplicationUser;
     using RainingCatsAndDogsOnWeb.Data.Common.Models;
 
     using RainingCatsAndDogsOnWeb.Data.Models;
@@ -71,6 +71,10 @@
             builder.Entity<Ad>()
                    .Property(x => x.Price)
                    .HasPrecision(18, 2);
+
+            builder.Entity<ApplicationUser>()
+                   .Property(x => x.PhoneNumber)
+                   .HasMaxLength(ApplicationUserPhoneNumberMaxLength);
 
             base.OnModelCreating(builder);
 

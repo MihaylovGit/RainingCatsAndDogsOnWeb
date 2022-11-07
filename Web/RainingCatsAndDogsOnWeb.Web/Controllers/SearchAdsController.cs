@@ -1,10 +1,10 @@
 ﻿namespace RainingCatsAndDogsOnWeb.Web.Controllers
 {
+    using System.Linq;
+    using System.Threading.Tasks;
     using Microsoft.AspNetCore.Mvc;
     using RainingCatsAndDogsOnWeb.Services.Data.Contracts;
     using RainingCatsAndDogsOnWeb.Web.ViewModels.Ads;
-    using System.Linq;
-    using System.Threading.Tasks;
 
     public class SearchAdsController : BaseController
     {
@@ -21,7 +21,8 @@
 
             if (!string.IsNullOrEmpty(searchString))
             {
-                ads = ads.Where(x => x.Title.Contains(searchString));
+                ads = ads.Where(x => x.Title.ToLower().Contains(searchString.ToLower()) ||
+                x.Location.ToLower().Contains(searchString.ToLower()) || x.Description.ToLower().Contains(searchString.ToLower()));
             }
 
             return this.View(ads);

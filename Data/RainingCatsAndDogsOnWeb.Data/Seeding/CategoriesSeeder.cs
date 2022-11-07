@@ -11,8 +11,8 @@
         {
             if (!dbContext.Categories.Any())
             {
-                await dbContext.Categories.AddAsync(new Category { Name = "Dog" });
                 await dbContext.Categories.AddAsync(new Category { Name = "Cat" });
+                await dbContext.Categories.AddAsync(new Category { Name = "Dog" });
 
                 await dbContext.SaveChangesAsync();
             }

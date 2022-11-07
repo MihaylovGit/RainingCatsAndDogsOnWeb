@@ -12,8 +12,8 @@ using RainingCatsAndDogsOnWeb.Data;
 namespace RainingCatsAndDogsOnWeb.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221101111716_ApplicationUserAdsRemoved")]
-    partial class ApplicationUserAdsRemoved
+    [Migration("20221107155147_CreateEntities")]
+    partial class CreateEntities
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -286,7 +286,8 @@ namespace RainingCatsAndDogsOnWeb.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
 
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
