@@ -4,7 +4,7 @@
     {
         public class Ad
         {
-            public const int AdTitleMaxLength = 50;
+            public const int AdTitleMaxLength = 100;
 
             public const int AdTitleMinLength = 10;
 
@@ -12,9 +12,9 @@
 
             public const int AdLocationMinLength = 4;
 
-            public const int AdDescriptionMaxLength = 500;
+            public const int AdDescriptionMaxLength = 1000;
 
-            public const int AdDescriptionMinLength = 30;
+            public const int AdDescriptionMinLength = 20;
         }
 
         public class ApplicationUser
