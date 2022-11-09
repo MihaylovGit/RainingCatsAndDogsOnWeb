@@ -35,6 +35,8 @@
 
         public DbSet<Reply> Replies { get; set; }
 
+        public DbSet<Like> Likes { get; set; }
+
         public override int SaveChanges() => this.SaveChanges(true);
 
         public override int SaveChanges(bool acceptAllChangesOnSuccess)
@@ -72,9 +74,19 @@
                    .Property(x => x.Price)
                    .HasPrecision(18, 2);
 
+            builder.Entity<Ad>()
+                   .HasMany(x => x.Likes);
+
             builder.Entity<ApplicationUser>()
                    .Property(x => x.PhoneNumber)
                    .HasMaxLength(ApplicationUserPhoneNumberMaxLength);
+
+            builder.Entity<Like>()
+                   .HasKey(x => new
+                   {
+                       x.AdId,
+                       x.ApplicationUserId,
+                   });
 
             base.OnModelCreating(builder);
 

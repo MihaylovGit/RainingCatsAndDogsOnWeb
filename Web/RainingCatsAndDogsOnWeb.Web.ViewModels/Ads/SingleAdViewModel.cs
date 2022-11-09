@@ -29,6 +29,8 @@
 
         public string ImageUrl { get; set; }
 
+        public int LikesCount { get; set; }
+
         public string PhoneNumber { get; set; }
 
         public DateTime CreatedOn { get; set; }
@@ -36,6 +38,8 @@
         public void CreateMappings(IProfileExpression configuration)
         {
             configuration.CreateMap<Ad, SingleAdViewModel>()
+                  .ForMember(x => x.LikesCount, opt =>
+                  opt.MapFrom(x => x.Likes.Select(l => l.LikesCount)))
                   .ForMember(x => x.ImageUrl, opt =>
                   opt.MapFrom(x => x.Images.Select(x => $"/images/{x.AddedByUserId}.{x.Extension}")));
 

@@ -1,9 +1,9 @@
 ﻿namespace RainingCatsAndDogsOnWeb.Data.Models
 {
-    using RainingCatsAndDogsOnWeb.Data.Common.Models;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
+    using RainingCatsAndDogsOnWeb.Data.Common.Models;
     using static RainingCatsAndDogsOnWeb.Common.DataConstants.Ad;
 
     public class Ad : BaseDeletableModel<int>
@@ -11,6 +11,7 @@
         public Ad()
         {
             this.Images = new HashSet<Image>();
+            this.Likes = new HashSet<Like>();
         }
 
         [Required]
@@ -38,5 +39,7 @@
         public virtual Category Category { get; set; }
 
         public virtual ICollection<Image> Images { get; set; }
+
+        public virtual ICollection<Like> Likes { get; set; }
     }
 }

@@ -1,12 +1,12 @@
 ﻿namespace RainingCatsAndDogsOnWeb.Web.Controllers
 {
+    using System.Linq;
+    using System.Threading.Tasks;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
     using RainingCatsAndDogsOnWeb.Data;
     using RainingCatsAndDogsOnWeb.Data.Models;
     using RainingCatsAndDogsOnWeb.Web.ViewModels.Comments;
-    using System.Linq;
-    using System.Threading.Tasks;
 
     public class CommentsController : Controller
     {
@@ -14,7 +14,7 @@
 
         public CommentsController(ApplicationDbContext dbContext)
         {
-            dbContext = dbContext;
+            this.dbContext = dbContext;
         }
 
         [HttpGet]
@@ -36,7 +36,7 @@
 
             await this.dbContext.SaveChangesAsync();
 
-            return this.RedirectToAction("All", "Comments");
+            return this.RedirectToAction("AllAdsComments", "Comments");
         }
 
         public async Task<IActionResult> All()
