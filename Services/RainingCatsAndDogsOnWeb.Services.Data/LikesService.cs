@@ -19,7 +19,7 @@
         public async Task SetLikeAsync(int adid, string userId, int likesCount)
         {
             var like = await this.likesRepository.All()
-                                           .FirstOrDefaultAsync(x => x.AdId == adid && x.ApplicationUserId == userId);
+                                                 .FirstOrDefaultAsync(x => x.AdId == adid && x.ApplicationUserId == userId);
 
             if (like != null && like.ApplicationUserId == userId)
             {
@@ -37,8 +37,6 @@
 
                 await this.likesRepository.AddAsync(like);
             }
-
-            like.LikesCount++;
 
             await this.likesRepository.SaveChangesAsync();
         }

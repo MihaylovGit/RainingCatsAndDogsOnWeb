@@ -6,6 +6,7 @@
     using AutoMapper;
     using RainingCatsAndDogsOnWeb.Data.Models;
     using RainingCatsAndDogsOnWeb.Services.Mapping;
+    using RainingCatsAndDogsOnWeb.Web.ViewModels.Likes;
 
     public class SingleAdViewModel : IMapFrom<Ad>, IHaveCustomMappings
     {
@@ -39,7 +40,7 @@
         {
             configuration.CreateMap<Ad, SingleAdViewModel>()
                   .ForMember(x => x.LikesCount, opt =>
-                  opt.MapFrom(x => x.Likes.Select(l => l.LikesCount)))
+                  opt.MapFrom(x => x.Likes))
                   .ForMember(x => x.ImageUrl, opt =>
                   opt.MapFrom(x => x.Images.Select(x => $"/images/{x.AddedByUserId}.{x.Extension}")));
 

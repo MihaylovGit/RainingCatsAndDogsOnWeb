@@ -1,7 +1,8 @@
 ﻿namespace RainingCatsAndDogsOnWeb.Data.Models
 {
-    using RainingCatsAndDogsOnWeb.Data.Common.Models;
     using System.ComponentModel.DataAnnotations.Schema;
+
+    using RainingCatsAndDogsOnWeb.Data.Common.Models;
 
     public class Like : BaseModel<int>
     {

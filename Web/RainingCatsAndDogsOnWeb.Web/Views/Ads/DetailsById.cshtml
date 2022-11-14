@@ -1,4 +1,5 @@
 ﻿@using RainingCatsAndDogsOnWeb.Web.ViewModels.Ads
+@using System.Security.Claims
 @model SingleAdViewModel
 
 @{
@@ -34,6 +35,10 @@
         @if (User.Identity.Name == Model.AddedByUserUserName)
         {
             <li>
+                <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                <span id="likesField">@Model.LikesCount Likes</span>
+            </li>
+            <li>
                 <i class="fa fa-comments" aria-hidden="true"></i>
                 <span>0 Comments</span>
             </li>
@@ -50,7 +55,7 @@
                 <span>0 Comments</span>
             </li>
             <br />
-            <button class="btn btn-block btn-primary" id="btnLike"><i class="fa fa-thumbs-up">Like</i> </button>
+            <button class="btn btn-block btn-primary" id="btnLike" asp-controller="Likes" asp-action="Like"><i class="fa fa-thumbs-up">Like</i> </button>
         }
 
     </ul>
@@ -64,20 +69,23 @@
 
 @section Scripts {
     <script>
-        let likes = $("#likesField span").text();
-
-        $('#btnLike').click(function () {
-            likes++;
-            $('#btnLike').attr('disabled', true);
+        $('#btnLike').click(function() {
+           
+            let likes = $('#likesField').text();
+            likes = parseInt(likes);
+            likes = likes + 1;
             let adid = @Model.Id;
             let data = { adid: adid, likesCount: likes }
-
-            $.ajax( {
+           
+            $('#likesField').html(`${likes} Likes`);
+            $('#btnLike').prop('disabled', true);
+        
+            $.ajax({
                 type: "POST",
                 url: "/api/Likes",
                 data: JSON.stringify(data),
-                success: function(data) {
-                   $("#likesField").html(`${likes} Likes`);
+                success: function (data) {
+                    $('#likesField').html(data.likes)
                 },
                 contentType: "application/json"
             });

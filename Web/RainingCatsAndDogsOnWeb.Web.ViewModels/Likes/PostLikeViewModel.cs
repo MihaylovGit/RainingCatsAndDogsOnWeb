@@ -1,7 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace RainingCatsAndDogsOnWeb.Web.ViewModels.Likes
+﻿namespace RainingCatsAndDogsOnWeb.Web.ViewModels.Likes
 {
+    using System.ComponentModel.DataAnnotations;
+
     public class PostLikeViewModel
     {
         public int AdId { get; set; }
