@@ -30,11 +30,9 @@ namespace RainingCatsAndDogsOnWeb.Data.Models
         // Deletable entity
         public bool IsDeleted { get; set; }
 
-        [Required]
         [MaxLength(ApplicationUserFirstNameMaxLength)]
         public string FirstName { get; set; }
 
-        [Required]
         [MaxLength(ApplicationUserLastNameMaxLength)]
         public string LastName { get; set; }
 

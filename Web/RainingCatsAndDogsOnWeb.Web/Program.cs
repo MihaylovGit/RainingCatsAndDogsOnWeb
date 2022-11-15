@@ -1,7 +1,8 @@
 ﻿namespace RainingCatsAndDogsOnWeb.Web
 {
+    using System.Net;
     using System.Reflection;
-
+    using Microsoft.AspNetCore.Authentication.Cookies;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Identity;
@@ -39,7 +40,7 @@
                 options => options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
             services.AddDefaultIdentity<ApplicationUser>(IdentityOptionsProvider.GetIdentityOptions)
-                .AddRoles<ApplicationRole>().AddEntityFrameworkStores<ApplicationDbContext>();
+                    .AddRoles<ApplicationRole>().AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.Configure<CookiePolicyOptions>(
                 options =>
@@ -80,11 +81,16 @@
             services.AddTransient<ISearchAdsService, SearchAdsService>();
 
             services.AddTransient<IEmailSender, NullMessageSender>();
+
+            services.AddAuthentication().AddGoogle(googleOptions =>
+            {
+                googleOptions.ClientId = "1095999963707-k91s63jt2mbikjfbtopaousllpu21qov.apps.googleusercontent.com";
+                googleOptions.ClientSecret = "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";
+            });
         }
 
         private static void Configure(WebApplication app)
         {
-            // Seed data on application startup
             using (var serviceScope = app.Services.CreateScope())
             {
                 var dbContext = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();

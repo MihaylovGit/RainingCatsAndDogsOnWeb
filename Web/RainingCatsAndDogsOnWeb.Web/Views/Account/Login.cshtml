@@ -1,11 +1,11 @@
 ﻿@model LoginViewModel
 @{
-    ViewData["Title"] = "Log in";
+    ViewData["Title"] = "Local Account Login";
 }
 
 <h1 class="text-center">@ViewData["Title"]</h1>
 <div class="row">
-    <div class="col-md-4 offset-md-4">
+    <div class="col-md-6">
         <section>
             <form id="account" method="post">
                 <hr />
@@ -25,5 +25,33 @@
                 </div>
             </form>
         </section>
+    <div class="col-md-6">
+        <section>
+            <h3>Use another service to log in</h3>
+            <hr />
+            @{
+                if ((Model.ExternalLogins?.Count ?? 0) == 0)
+                {
+                    <div>
+                        <p>
+                            There are no external authentication services configured.
+                        </p>
+                    </div>
+                }
+                else
+                {
+                    <form method="post" asp-action="ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl">
+                        <div>
+                            <p>
+                                @foreach (var provider in Model.ExternalLogins)
+                                {
+                                    <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Login using your @provider.DisplayName">Sign in with @provider.DisplayName</button>
+                                }
+                            </p>
+                        </div>
+                    </form>
+                }
+            }
+        </section>
     </div>
-</div>
+<div/>

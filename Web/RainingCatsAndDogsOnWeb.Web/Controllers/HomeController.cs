@@ -2,11 +2,13 @@
 {
     using System.Diagnostics;
     using System.Threading.Tasks;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using RainingCatsAndDogsOnWeb.Services.Data.Contracts;
     using RainingCatsAndDogsOnWeb.Web.ViewModels;
     using RainingCatsAndDogsOnWeb.Web.ViewModels.Home;
 
+    [Authorize]
     public class HomeController : BaseController
     {
         private readonly IGetCountsService countsService;
@@ -18,6 +20,7 @@
             this.adsService = adsService;
         }
 
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             var countsDto = this.countsService.GetCounts();

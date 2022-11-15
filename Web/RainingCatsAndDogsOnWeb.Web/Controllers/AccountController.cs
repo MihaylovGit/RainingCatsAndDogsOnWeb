@@ -1,14 +1,15 @@
 ﻿namespace RainingCatsAndDogsOnWeb.Web.Controllers
 {
-    using System;
+    using System.Linq;
+    using System.Security.Claims;
+    using System.Threading.Tasks;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using RainingCatsAndDogsOnWeb.Data.Models;
     using RainingCatsAndDogsOnWeb.Web.ViewModels.Users;
-
-    using System.Threading.Tasks;
-
+  
+    [Authorize]
     public class AccountController : Controller
     {
         private readonly SignInManager<ApplicationUser> signInManager;
@@ -60,21 +61,26 @@
 
             foreach (var error in result.Errors)
             {
-                this.ModelState.AddModelError(String.Empty, error.Description);
+                this.ModelState.AddModelError(string.Empty, error.Description);
             }
 
             return this.View(model);
         }
 
         [HttpGet]
-        public IActionResult Login()
+        [AllowAnonymous]
+        public async Task<IActionResult> Login(string returnUrl)
         {
             if (this.User.Identity?.IsAuthenticated ?? false)
             {
                 return this.RedirectToAction("AllAds", "Ads");
             }
 
-            var model = new LoginViewModel();
+            LoginViewModel model = new LoginViewModel
+            {
+                ReturnUrl = returnUrl,
+                ExternalLogins = (await this.signInManager.GetExternalAuthenticationSchemesAsync()).ToList(),
+            };
 
             return this.View(model);
         }
@@ -99,7 +105,7 @@
                 }
             }
 
-            this.ModelState.AddModelError(String.Empty, "Invalid login");
+            this.ModelState.AddModelError(string.Empty, "Invalid login");
 
             return this.View(model);
         }
@@ -109,6 +115,83 @@
             await this.signInManager.SignOutAsync();
 
             return this.RedirectToAction("Index", "Home");
+        }
+
+        public async Task<ApplicationUser> GetCurrentUser()
+        {
+            var principle = this.HttpContext.User;
+
+            return await this.userManager.GetUserAsync(principle);
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public IActionResult ExternalLogin(string provider, string returnUrl)
+        {
+            var redirectUrl = this.Url.Action("ExternalLoginCallback", "Account", new { ReturnUrl = returnUrl });
+
+            var properties = this.signInManager.ConfigureExternalAuthenticationProperties(provider, redirectUrl);
+
+            return new ChallengeResult(provider, properties);
+        }
+
+        public async Task<IActionResult> ExternalLoginCallback(string returnUrl = null, string remoteError = null)
+        {
+            returnUrl = returnUrl ?? this.Url.Content("~/");
+
+            LoginViewModel loginViewModel = new LoginViewModel
+            {
+                ReturnUrl = returnUrl,
+                ExternalLogins = (await this.signInManager.GetExternalAuthenticationSchemesAsync()).ToList(),
+            };
+
+            if (remoteError != null)
+            {
+                this.ModelState.AddModelError(string.Empty, $"Error from external provider: {remoteError}");
+
+                return this.View("Login", loginViewModel);
+            }
+
+            var info = await this.signInManager.GetExternalLoginInfoAsync();
+            if (info == null)
+            {
+                this.ModelState.AddModelError(string.Empty, "Error loading external login information");
+
+                return this.View("login", loginViewModel);
+            }
+
+            var signInResult = await this.signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: false, bypassTwoFactor: true);
+            if (signInResult.Succeeded)
+            {
+                return this.LocalRedirect(returnUrl);
+            }
+            else
+            {
+                var email = info.Principal.FindFirstValue(ClaimTypes.Email);
+
+                if (email != null)
+                {
+                    var user = await this.userManager.FindByEmailAsync(email);
+                    if (user == null)
+                    {
+                        user = new ApplicationUser
+                        {
+                            UserName = info.Principal.FindFirstValue(ClaimTypes.Email),
+                            Email = info.Principal.FindFirstValue(ClaimTypes.Email),
+                        };
+                    }
+
+                    await this.userManager.AddLoginAsync(user, info);
+                    await this.signInManager.SignInAsync(user, isPersistent: false);
+
+                    return this.LocalRedirect(returnUrl);
+                }
+
+                this.ViewBag.ErrorTitle = $"Email claim not received from: {info.LoginProvider}";
+                this.ViewBag.ErrorMessage = "Please contact your provider support";
+
+                return this.View("Error");
+            }
         }
     }
 }
