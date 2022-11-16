@@ -36,7 +36,7 @@
         {
             <li>
                 <i class="fa fa-thumbs-up" aria-hidden="true"></i>
-                <span id="likesField">@Model.LikesCount Likes</span>
+                <span id="likesCount">@Model.LikesCount Likes</span>
             </li>
             <li>
                 <i class="fa fa-comments" aria-hidden="true"></i>
@@ -47,7 +47,7 @@
         {
             <li>
                 <i class="fa fa-thumbs-up" aria-hidden="true"></i>
-                <span id="likesField">@Model.LikesCount Likes</span>
+                <span id="likesCount">@Model.LikesCount Likes</span>
             </li>
 
             <li>
@@ -69,29 +69,37 @@
 
 @section Scripts {
     <script>
-        $('#btnLike').click(function() {
-           
-            let likes = $('#likesField').text();
-            likes = parseInt(likes);
-            likes = likes + 1;
-            let adid = @Model.Id;
-            let data = { adid: adid, likesCount: likes }
-           
-            $('#likesField').html(`${likes} Likes`);
+        let buttonState = localStorage.getItem("buttonState");
+        console.log(buttonState);
+        if (buttonState == "disabled") {
             $('#btnLike').prop('disabled', true);
-        
-            $.ajax({
-                type: "POST",
-                url: "/api/Likes",
-                data: JSON.stringify(data),
-                success: function (data) {
-                    $('#likesField').html(data.likes)
-                },
-                contentType: "application/json"
-            });
-        });
-    </script>
+        } else {
+            $('#btnLike').click(function () {
+                console.log("inside");
 
+                console.log("inside");
+                let likes = $('#likesCount').text();
+                likes = parseInt(likes) + 1;
+                localStorage.setItem("buttonState", "disabled");
+                $('#btnLike').prop('disabled', true);
+
+                let adid = @Model.Id;
+                let data = { adid: adid, likesCount: likes }
+
+                $('#likesCount').html(`${likes} Likes`);
+
+                $.ajax({
+                    type: "POST",
+                    url: "/api/Likes",
+                    data: JSON.stringify(data),
+                    success: function (data) {
+                        $('#likesCount').html(data.likes)
+                    },
+                    contentType: "application/json"
+                });
+            });
+        }
+    </script>
 }
 
 
