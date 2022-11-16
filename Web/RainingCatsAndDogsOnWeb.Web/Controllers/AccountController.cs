@@ -135,6 +135,7 @@
             return new ChallengeResult(provider, properties);
         }
 
+        [AllowAnonymous]
         public async Task<IActionResult> ExternalLoginCallback(string returnUrl = null, string remoteError = null)
         {
             returnUrl = returnUrl ?? this.Url.Content("~/");
@@ -157,7 +158,7 @@
             {
                 this.ModelState.AddModelError(string.Empty, "Error loading external login information");
 
-                return this.View("login", loginViewModel);
+                return this.RedirectToAction("Login", new { ReturnUrl = returnUrl });
             }
 
             var signInResult = await this.signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: false, bypassTwoFactor: true);

@@ -1,7 +1,9 @@
 ﻿namespace RainingCatsAndDogsOnWeb.Web
 {
+    using System.Configuration;
     using System.Net;
     using System.Reflection;
+   
     using Microsoft.AspNetCore.Authentication.Cookies;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Http;
@@ -82,11 +84,17 @@
 
             services.AddTransient<IEmailSender, NullMessageSender>();
 
-            services.AddAuthentication().AddGoogle(googleOptions =>
+            services.AddAuthentication()
+                    .AddGoogle(googleOptions =>
             {
-                googleOptions.ClientId = "1095999963707-k91s63jt2mbikjfbtopaousllpu21qov.apps.googleusercontent.com";
-                googleOptions.ClientSecret = "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";
-            });
+                googleOptions.ClientId = configuration["Authentication:Google:ClientId"];
+                googleOptions.ClientSecret = configuration["Authentication:Google:ClientSecret"];
+            })
+              .AddFacebook(facebookOptions =>
+              {
+                  facebookOptions.AppId = configuration["Authentication:Facebook:AppId"];
+                  facebookOptions.AppSecret = configuration["Authentication:Facebook:AppSecret"];
+              });
         }
 
         private static void Configure(WebApplication app)
