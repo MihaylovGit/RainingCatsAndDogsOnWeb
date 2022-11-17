@@ -12,8 +12,8 @@
 
 <div class="homes-content">
     <h3>@Model.Title</h3>
-    <i class="fa fa-user" aria-hidden="true"></i>
-    <p> Added by: @Model.AddedByUserFirstName @Model.AddedByUserLastName on @Model.CreatedOn.ToString("D")</p>
+
+    <p> <i class="fa fa-user" aria-hidden="true"></i> Added by: @Model.AddedByUserFirstName @Model.AddedByUserLastName on @Model.CreatedOn.ToString("D")</p>
     <p class="homes-address mb-3">
         <a href="https://www.google.com/maps/place/Bulgaria">
             <i class="fa fa-map-marker" aria-hidden="true"></i>
@@ -26,9 +26,10 @@
     <br>
 
     <div>
-        <br />
-        <span class="h5" style="background-color:powderblue">Description: </span>
+        <br>
+        <span class="h5">Description: <i class="fa-solid fa-arrow-down-short-wide"></i></span>
         <p>@Model.Description</p>
+
     </div>
 
     <ul class="homes-list clearfix">
