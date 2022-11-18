@@ -81,6 +81,8 @@
             services.AddTransient<ICategoriesService, CategoriesService>();
             services.AddTransient<ILikesService, LikesService>();
             services.AddTransient<ISearchAdsService, SearchAdsService>();
+            services.AddScoped<IBlogService, BlogService>();
+
 
             services.AddTransient<IEmailSender, NullMessageSender>();
 

@@ -46,6 +46,18 @@
         {
             public const int ReplyContentMaxLength = 500;
         }
+
+        public class Blog
+        {
+            public const int BlogTitleMaxLength = 100;
+
+            public const int BlogContentMaxLength = 500;
+        }
+
+        public class Post
+        {
+            public const int PostContentMaxLength = 500;
+        }
     }
 }
 
