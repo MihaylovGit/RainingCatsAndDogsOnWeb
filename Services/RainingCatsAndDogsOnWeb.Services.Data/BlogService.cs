@@ -1,9 +1,13 @@
 ﻿namespace RainingCatsAndDogsOnWeb.Services.Data
 {
     using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Linq;
     using System.Security.Claims;
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Identity;
+    using Microsoft.EntityFrameworkCore;
     using RainingCatsAndDogsOnWeb.Data.Common.Repositories;
     using RainingCatsAndDogsOnWeb.Data.Models;
     using RainingCatsAndDogsOnWeb.Data.Repositories;
@@ -30,13 +34,13 @@
             return blog;
         }
 
-        public async Task<Blog> CreateBlog(CreateBlogViewModel model, ClaimsPrincipal claimsPrincipal)
+        public IEnumerable<Blog> GetBlogs(ApplicationUser applicationUser)
         {
-            Blog blog = model.Blog;
-            blog.Creator = await this.userManager.GetUserAsync(claimsPrincipal);
-
-            blog = await this.Add(blog);
-            return blog;
+            return this.blogRepository.All()
+                                      .Include(b => b.Creator)
+                                      .Include(b => b.Approver)
+                                      .Include(b => b.Posts)
+                                      .Where(b => b.Creator == applicationUser);
         }
     }
 }

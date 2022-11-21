@@ -1,6 +1,7 @@
 ﻿namespace RainingCatsAndDogsOnWeb.Web
 {
     using System.Configuration;
+    using System.IO;
     using System.Net;
     using System.Reflection;
    
@@ -12,6 +13,7 @@
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.FileProviders;
     using Microsoft.Extensions.Hosting;
     using RainingCatsAndDogsOnWeb.Data;
     using RainingCatsAndDogsOnWeb.Data.Common;
@@ -23,6 +25,7 @@
     using RainingCatsAndDogsOnWeb.Services.Data.Contracts;
     using RainingCatsAndDogsOnWeb.Services.Mapping;
     using RainingCatsAndDogsOnWeb.Services.Messaging;
+
     using RainingCatsAndDogsOnWeb.Web.ViewModels;
 
     public class Program
@@ -40,10 +43,10 @@
         {
             services.AddDbContext<ApplicationDbContext>(
                 options => options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
-
+            
             services.AddDefaultIdentity<ApplicationUser>(IdentityOptionsProvider.GetIdentityOptions)
                     .AddRoles<ApplicationRole>().AddEntityFrameworkStores<ApplicationDbContext>();
-
+          
             services.Configure<CookiePolicyOptions>(
                 options =>
                 {
@@ -82,8 +85,8 @@
             services.AddTransient<ILikesService, LikesService>();
             services.AddTransient<ISearchAdsService, SearchAdsService>();
             services.AddScoped<IBlogService, BlogService>();
-
-
+            services.AddScoped<IBlogBusinessManager, RainingCatsAndDogsOnWeb.Web.BlogBusinessManager.BlogBusinessManager>();
+            services.AddSingleton<IFileProvider>(new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot")));
             services.AddTransient<IEmailSender, NullMessageSender>();
 
             services.AddAuthentication()

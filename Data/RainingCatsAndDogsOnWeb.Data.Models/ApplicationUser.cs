@@ -31,9 +31,11 @@ namespace RainingCatsAndDogsOnWeb.Data.Models
         public bool IsDeleted { get; set; }
 
         [MaxLength(ApplicationUserFirstNameMaxLength)]
+        [PersonalData]
         public string FirstName { get; set; }
 
         [MaxLength(ApplicationUserLastNameMaxLength)]
+        [PersonalData]
         public string LastName { get; set; }
 
         public DateTime? DeletedOn { get; set; }

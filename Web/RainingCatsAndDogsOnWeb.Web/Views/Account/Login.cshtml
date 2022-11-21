@@ -7,7 +7,7 @@
 <div class="row">
     <div class="col-md-6">
         <section>
-            <form id="account" method="post">
+            <form id="account" method="post" asp-controller="Account" asp-action="Login">
                 <hr />
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="text-center mb-3">
@@ -23,8 +23,10 @@
                 <div class="text-center">
                     <button id="login-submit" type="submit" class="btn btn-primary">Log in</button>
                 </div>
+                <br/>
             </form>
         </section>
+
         <div class="col-md-6">
             <section>
                 <h3>Use another service to log in</h3>
@@ -55,4 +57,5 @@
                 }
             </section>
         </div>
-        <div />
+    </div>
+    <div />
