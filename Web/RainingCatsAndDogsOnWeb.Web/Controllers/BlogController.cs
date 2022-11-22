@@ -10,18 +10,28 @@
     [Authorize]
     public class BlogController : Controller
     {
-        //private readonly IBlogService blogService;
         private readonly IBlogBusinessManager businessManager;
+        private readonly IBlogService blogService;
 
-        public BlogController(IBlogBusinessManager businessManager)
+        public BlogController(IBlogBusinessManager businessManager, IBlogService blogService)
         {
-            //this.blogService = blogService;
             this.businessManager = businessManager;
+            this.blogService = blogService;
         }
 
-        public IActionResult Default()
+        public IActionResult Default(int id = 1)
         {
-            return this.View();
+            const int BlogsPerPage = 6;
+
+            var viewModel = new BlogsListViewModel()
+            {
+                BlogsPerPage = BlogsPerPage,
+                PageNumber = id,
+                BlogsCount = this.blogService.GetBlogsCount(),
+                AllBlogs = this.blogService.GetAllBlogs<BlogsInListViewModel>(id, BlogsPerPage),
+            };
+
+            return this.View(viewModel);
         }
 
         public IActionResult Create()
@@ -34,7 +44,7 @@
         {
             await this.businessManager.CreateBlog(model, this.User);
 
-            return this.RedirectToAction("Create");
+            return this.RedirectToAction("Default");
         }
     }
 }

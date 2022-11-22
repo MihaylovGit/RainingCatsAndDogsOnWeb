@@ -1,18 +1,15 @@
 ﻿namespace RainingCatsAndDogsOnWeb.Services.Data
 {
-    using System;
-    using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Security.Claims;
     using System.Threading.Tasks;
+
     using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
     using RainingCatsAndDogsOnWeb.Data.Common.Repositories;
     using RainingCatsAndDogsOnWeb.Data.Models;
-    using RainingCatsAndDogsOnWeb.Data.Repositories;
     using RainingCatsAndDogsOnWeb.Services.Data.Contracts;
-    using RainingCatsAndDogsOnWeb.Web.ViewModels.Blog;
+    using RainingCatsAndDogsOnWeb.Services.Mapping;
 
     public class BlogService : IBlogService
     {
@@ -34,13 +31,34 @@
             return blog;
         }
 
-        public IEnumerable<Blog> GetBlogs(ApplicationUser applicationUser)
+        public IEnumerable<T> GetAllBlogs<T>(int pageNumber, int blogsPerPage)
         {
-            return this.blogRepository.All()
+            return this.blogRepository.AllAsNoTracking()
                                       .Include(b => b.Creator)
                                       .Include(b => b.Approver)
                                       .Include(b => b.Posts)
-                                      .Where(b => b.Creator == applicationUser);
+                                      .OrderByDescending(x => x.Id)
+                                      .Skip((pageNumber - 1) * blogsPerPage)
+                                      .To<T>()
+                                      .ToList();
+        }
+
+        public IEnumerable<T> GetMyBlogs<T>(ApplicationUser applicationUser, int pageNumber, int blogsPerPage)
+        {
+            return this.blogRepository.AllAsNoTracking()
+                                      .Include(b => b.Creator)
+                                      .Include(b => b.Approver)
+                                      .Include(b => b.Posts)
+                                      .Where(b => b.Creator == applicationUser)
+                                      .OrderByDescending(x => x.Id)
+                                      .Skip((pageNumber - 1) * blogsPerPage)
+                                      .To<T>()
+                                      .ToList();
+        }
+
+        public int GetBlogsCount()
+        {
+            return this.blogRepository.All().Count();
         }
     }
 }

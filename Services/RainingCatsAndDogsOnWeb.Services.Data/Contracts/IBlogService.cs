@@ -9,6 +9,10 @@
     {
         Task<Blog> Add(Blog blog);
 
-        IEnumerable<Blog> GetBlogs(ApplicationUser applicationUser);
+        IEnumerable<T> GetAllBlogs<T>(int pageNumber, int adsPerPage);
+
+        IEnumerable<T> GetMyBlogs<T>(ApplicationUser applicationUser, int pageNumber, int blogsPerPage);
+
+        int GetBlogsCount();
     }
 }
