@@ -1,5 +1,111 @@
 ﻿@using RainingCatsAndDogsOnWeb.Common
 <!DOCTYPE html>
+
+<html lang="en-US">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" media="all" href="https://www.claringtonvet.ca/wp-content/themes/patchwork-resp/style.css?ver=1.0-661" />
+    <title>@this.ViewData["Title"] - @GlobalConstants.SystemName</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/bootstrap.css">
+    <link href="~/lib/font-awesome/css/all.css" rel="stylesheet" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/styles.css" asp-append-version="true" />
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg bg-light">
+            <div id="navigation">
+                <div class="container-fluid">
+                    <div class="belt">
+                        <nav id="access" role="navigation">
+                            <div class="dropdown">
+                                <ul id="sticky_menu">
+                                    <li>
+                                        <a asp-area="" asp-controller="Home" asp-action="Index">HOME</a><button class="mobileOnly down-mcaret">
+                                            <i class="fa fa-chevron-down"></i>
+                                        </button>
+                                    </li>
+
+                                    @if (this.User.Identity.IsAuthenticated)
+                                    {
+                                        <li>
+                                            <a asp-area="" asp-controller="Ads" asp-action="Create">POST NEW AD</a><button class="mobileOnly down-mcaret">
+                                                <i class="fa fa-chevron-down"></i>
+                                            </button>
+                                        </li>
+                                        <li>
+                                            <a asp-area="" asp-controller="Ads" asp-action="MyAds">
+                                                ALL
+                                                ADS
+                                            </a><button class="mobileOnly down-mcaret">
+                                                <i class="fa fa-chevron-down"></i>
+                                            </button>
+                                        </li>
+                                        <li>
+                                            <a asp-area="" asp-controller="Ads" asp-action="MyAds">
+                                                MY
+                                                ADS
+                                            </a><button class="mobileOnly down-mcaret">
+                                                <i class="fa fa-chevron-down"></i>
+                                            </button>
+                                        </li>
+                                        <li>
+                                            <a asp-area="" asp-controller="Blog" asp-action="Default">
+                                                BLOG
+                                            </a><button class="mobileOnly down-mcaret">
+                                                <i class="fa fa-chevron-down"></i>
+                                            </button>
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="ToogleMenuOuter"></div>
+    <partial name="_CookieConsentPartial" />
+    <main role="main" class="pb-3">
+        @this.RenderBody()
+    </main>
+    <div id="wrapper">
+        <div class="headline"
+             style="background:url(https://www.claringtonvet.ca/wp-content/themes/patchwork-resp/images/headlines/both/6.png) no-repeat;">
+            <h1 class="entry-title">
+                Raining Cats&Dogs On Web
+            </h1>
+        </div>
+    </div>
+</body>
+
+<footer class="border-top footer text-muted">
+    <div class="container">
+        &copy; @DateTime.Now.Year - @GlobalConstants.SystemName - All right reserved
+    </div>
+</footer>
+<img src="https://res.cloudinary.com/jerrick/image/upload/v1604537555/5fa34cd37b0c2b001c0ed286.jpg" asp-append-version="true" />
+<script src="~/lib/jquery/dist/jquery.min.js" asp-append-version="true"></script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js" asp-append-version="true"></script>
+<script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js" asp-append-version="true"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.min.js" asp-append-version="true"></script>
+<script src="~/js/site.min.js" asp-append-version="true"></script>
+@await this.RenderSectionAsync("Scripts", required: false)
+</html>
+
+
+
+
+
+
+@*@using RainingCatsAndDogsOnWeb.Common
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -15,7 +121,7 @@
     <header>
         <nav class="navbar navbar-expand-lg bg-light">
             <div class="container-fluid">
-               
+
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -76,4 +182,4 @@
     <script src="~/js/site.min.js" asp-append-version="true"></script>
     @await this.RenderSectionAsync("Scripts", required: false)
 </body>
-</html>
+</html>*@
