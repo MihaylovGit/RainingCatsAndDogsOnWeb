@@ -5,7 +5,9 @@
 }
 
 <br>
-<h1 class="text-center">@this.ViewData["Title"]</h1>
+<div class="row top top-buffer">
+    <h1 class="text-center">@this.ViewData["Title"]</h1>
+</div>
 <br>
 <div class="text-center row">
     @foreach (var ad in this.Model.AllAds)

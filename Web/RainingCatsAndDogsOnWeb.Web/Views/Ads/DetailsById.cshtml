@@ -6,11 +6,11 @@
     ViewData["Title"] = @Model.Title;
 }
 
-<div class="homes">
+<div class="mx-auto">
     <img src="@Model.ImageUrl" class="img-fluid w-100">
 </div>
 
-<div class="homes-content">
+<div class="wrapper">
     <h3>@Model.Title</h3>
 
     <p> <i class="fa fa-user" aria-hidden="true"></i> Added by: @Model.AddedByUserFirstName @Model.AddedByUserLastName on @Model.CreatedOn.ToString("D")</p>
@@ -20,9 +20,10 @@
             <span>@Model.Location</span>
         </a>
     </p>
-    <i class="fa-solid fa-phone"></i>
-    <span>@Model.PhoneNumber</span>
-
+    <div>
+        <i class="fa-solid fa-phone"></i>
+        <span>@Model.PhoneNumber</span>
+    </div>
     <br>
 
     <div>
@@ -71,14 +72,12 @@
 @section Scripts {
     <script>
         let buttonState = localStorage.getItem("buttonState");
-        console.log(buttonState);
+      
         if (buttonState == "disabled") {
             $('#btnLike').prop('disabled', true);
         } else {
             $('#btnLike').click(function () {
-                console.log("inside");
-
-                console.log("inside");
+                
                 let likes = $('#likesCount').text();
                 likes = parseInt(likes) + 1;
                 localStorage.setItem("buttonState", "disabled");

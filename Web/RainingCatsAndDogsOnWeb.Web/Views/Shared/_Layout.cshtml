@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" media="all" href="https://www.claringtonvet.ca/wp-content/themes/patchwork-resp/style.css?ver=1.0-661" />
+
     <title>@this.ViewData["Title"] - @GlobalConstants.SystemName</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/bootstrap.css">
@@ -18,7 +19,7 @@
 
 <body>
     <header>
-        <nav class="navbar navbar-expand-lg bg-light">
+        <nav class="navbar">
             <div id="navigation">
                 <div class="container-fluid">
                     <div class="belt">
@@ -39,7 +40,7 @@
                                             </button>
                                         </li>
                                         <li>
-                                            <a asp-area="" asp-controller="Ads" asp-action="MyAds">
+                                            <a asp-area="" asp-controller="Ads" asp-action="AllAds">
                                                 ALL
                                                 ADS
                                             </a><button class="mobileOnly down-mcaret">
@@ -63,6 +64,8 @@
                                         </li>
                                     }
                                 </ul>
+
+                                <partial name="_LoginPartial" />
                             </div>
                         </nav>
                     </div>
@@ -75,22 +78,15 @@
     <main role="main" class="pb-3">
         @this.RenderBody()
     </main>
-    <div id="wrapper">
-        <div class="headline"
-             style="background:url(https://www.claringtonvet.ca/wp-content/themes/patchwork-resp/images/headlines/both/6.png) no-repeat;">
-            <h1 class="entry-title">
-                Raining Cats&Dogs On Web
-            </h1>
-        </div>
-    </div>
+
 </body>
 
-<footer class="border-top footer text-muted">
+<footer>
     <div class="container">
+        <img id="footerImage" src="~/img/footer2.webp" class="container-fluid" />
         &copy; @DateTime.Now.Year - @GlobalConstants.SystemName - All right reserved
     </div>
 </footer>
-<img src="https://res.cloudinary.com/jerrick/image/upload/v1604537555/5fa34cd37b0c2b001c0ed286.jpg" asp-append-version="true" />
 <script src="~/lib/jquery/dist/jquery.min.js" asp-append-version="true"></script>
 <script src="~/lib/jquery-validation/dist/jquery.validate.min.js" asp-append-version="true"></script>
 <script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js" asp-append-version="true"></script>

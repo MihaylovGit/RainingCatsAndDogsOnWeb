@@ -458,16 +458,29 @@ legend + * {
 }
 
 [type=search] {
-    float: right;
-    position: absolute;
-    right: 50px;
-    -webkit-appearance: textfield;
+    position: relative;
+    top: 150px;
 }
 
 #searchBox {
     float: right;
+    position: relative;
+    top: 150px;
 }
 
+#searchButton {
+    float: right;
+    position: relative;
+    top: 150px;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin-top: 100px;
+    margin-left: 10px;
+}
 /* rtl:raw:
 [type="tel"],
 [type="url"],
@@ -613,6 +626,11 @@ progress {
 .initialism {
     font-size: 0.875em;
     text-transform: uppercase;
+}
+
+.belt {
+    position: relative;
+    top: 100px;
 }
 
 .blockquote {
@@ -4096,6 +4114,8 @@ textarea.form-control-lg {
     padding: var(--bs-nav-link-padding-y) var(--bs-nav-link-padding-x);
     font-size: var(--bs-nav-link-font-size);
     font-weight: var(--bs-nav-link-font-weight);
+    position: relative;
+    float: right;
     color: var(--bs-nav-link-color);
     text-decoration: none;
     transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
@@ -12648,4 +12668,46 @@ legend {
 .list-group-item h6,
 .list-group-item .h6 {
     color: inherit;
+}
+
+.search {
+    width: 100%;
+    position: relative;
+    display: flex;
+}
+
+.searchTerm {
+    width: 100%;
+    border: 3px solid #00B4CC;
+    border-right: none;
+    padding: 5px;
+    height: 50px;
+    border-radius: 5px 0 0 5px;
+    outline: none;
+    color: #9DBFAF;
+}
+
+    .searchTerm:focus {
+        color: #00B4CC;
+    }
+
+.searchButton {
+    width: 50px;
+    height: 50px;
+    border: 1px solid #00B4CC;
+    background: #00B4CC;
+    text-align: center;
+    color: #fff;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+/*Resize the wrap to see the search bar change!*/
+.wrap {
+    width: 30%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
