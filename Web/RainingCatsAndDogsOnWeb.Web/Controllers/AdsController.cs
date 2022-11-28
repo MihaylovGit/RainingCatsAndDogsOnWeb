@@ -31,7 +31,7 @@
         // Ads/DogAds/5
         public IActionResult AllAds(int id = 1)
         {
-            const int AdsPerPage = 6;
+            const int AdsPerPage = 12;
 
             var viewModel = new AdsListViewModel()
             {

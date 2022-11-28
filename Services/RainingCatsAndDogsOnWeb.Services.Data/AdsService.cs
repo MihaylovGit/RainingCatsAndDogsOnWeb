@@ -90,6 +90,7 @@
             var allAds = this.adsRepository.AllAsNoTracking()
                                            .OrderByDescending(x => x.Id)
                                            .Skip((pageNumber - 1) * adsPerPage)
+                                           .Take(adsPerPage)
                                            .To<T>()
                                            .ToList();
 
