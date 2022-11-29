@@ -3,9 +3,10 @@
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
-
+    using AngleSharp;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
+    using RainingCatsAndDogsOnWeb.Services;
 
     public class ApplicationDbContextSeeder : ISeeder
     {
@@ -28,7 +29,7 @@
                               new RolesSeeder(),
                               new CategoriesSeeder(),
                               new UsersSeeder(),
-                              new AdsSeeder(),
+                              //new AdsSeeder(),
                           };
 
             foreach (var seeder in seeders)

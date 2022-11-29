@@ -1,42 +1,25 @@
 ﻿namespace RainingCatsAndDogsOnWeb.Services
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Net;
     using System.Threading.Tasks;
+
     using AngleSharp;
     using RainingCatsAndDogsOnWeb.Data.Common.Repositories;
     using RainingCatsAndDogsOnWeb.Data.Models;
 
     public class AdsScraperService : IAdsScraperService
     {
-        private readonly IConfiguration config;
         private readonly IBrowsingContext context;
-        private readonly IDeletableEntityRepository<Ad> adsRepository;
 
-        public AdsScraperService(IDeletableEntityRepository<Ad> adsRepository)
+        public AdsScraperService(IBrowsingContext context)
         {
-            this.config = Configuration.Default.WithDefaultLoader();
-            this.context = BrowsingContext.New(this.config);
-            this.adsRepository = adsRepository;
-        }
-        
-        public void PopulateDbWithAds()
-        {
-            Parallel.For(1, 20, (i) =>
-            {
-                try
-                {
-                    GetAd(this.context, i);
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
-            });
+            this.context = context;
         }
 
-        private void GetAd(IBrowsingContext context, int id)
+        public List<Ad> GetData(IBrowsingContext context, int id)
         {
             var address = $"https://www.alo.bg/obiavi/domashni-lubimci/kucheta-prodava/r-{id}";
             var document = context.OpenAsync(address)
@@ -54,8 +37,15 @@
             var descriptionElements = document.GetElementsByClassName("listvip-desc").Select(x => x.TextContent).ToList();
             var userElements = document.GetElementsByClassName("listvip-publisher").Select(x => x.TextContent).ToList();
 
+            var ads = new List<Ad>();
+
             for (int i = 0; i < priceElements.Count; i++)
             {
+                if (titleElements[i] == null || priceElements[i] == null || locationElements[i] == null || descriptionElements[i] == null)
+                {
+                    continue;
+                }
+
                 var currentAd = new Ad
                 {
                     Title = titleElements[i],
@@ -64,10 +54,10 @@
                     Description = descriptionElements[i],
                 };
 
-                this.adsRepository.AddAsync(currentAd);
+                ads.Add(currentAd);
             }
 
-            this.adsRepository.SaveChangesAsync();
+            return ads;
         }
     }
 }

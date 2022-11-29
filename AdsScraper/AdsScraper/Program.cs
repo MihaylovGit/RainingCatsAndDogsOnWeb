@@ -9,7 +9,7 @@ namespace AdsScraper
         private readonly IConfiguration config;
         private readonly IBrowsingContext context;
 
-        public Program()
+        public Program(IConfiguration config, IBrowsingContext context)
         {
             this.config = Configuration.Default.WithDefaultLoader();
             this.context = BrowsingContext.New(this.config);
@@ -62,8 +62,17 @@ namespace AdsScraper
                     Description = descriptionElements[i]
                 };
 
+                //Console.WriteLine(currentAd.Title);
+                //Console.WriteLine(currentAd.Price);
+                //Console.WriteLine(currentAd.Location);
+                //Console.WriteLine(currentAd.Description);
+                //Console.WriteLine("------------------------");
+
                 ads.Add(currentAd);
             }
+
+            Console.WriteLine(ads.Count);
         }
     }
 }
+

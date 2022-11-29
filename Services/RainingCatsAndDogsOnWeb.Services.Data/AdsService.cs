@@ -5,6 +5,7 @@
     using System.IO;
     using System.Linq;
     using System.Threading.Tasks;
+
     using Microsoft.EntityFrameworkCore;
     using RainingCatsAndDogsOnWeb.Data.Common.Repositories;
     using RainingCatsAndDogsOnWeb.Data.Models;
@@ -75,7 +76,11 @@
 
         public T DetailsById<T>(int id)
         {
-            var ad = this.adsRepository.AllAsNoTracking().Where(x => x.Id == id).To<T>().FirstOrDefault();
+            var ad = this.adsRepository.AllAsNoTracking()
+                                       .Include(x => x.Images)
+                                       .Where(x => x.Id == id)
+                                       .To<T>()
+                                       .FirstOrDefault();
 
             return ad;
         }

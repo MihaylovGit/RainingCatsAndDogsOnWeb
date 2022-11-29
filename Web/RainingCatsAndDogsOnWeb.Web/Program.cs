@@ -21,6 +21,7 @@
     using RainingCatsAndDogsOnWeb.Data.Models;
     using RainingCatsAndDogsOnWeb.Data.Repositories;
     using RainingCatsAndDogsOnWeb.Data.Seeding;
+    using RainingCatsAndDogsOnWeb.Services;
     using RainingCatsAndDogsOnWeb.Services.Data;
     using RainingCatsAndDogsOnWeb.Services.Data.Contracts;
     using RainingCatsAndDogsOnWeb.Services.Mapping;
@@ -80,6 +81,7 @@
             services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
             services.AddScoped<IDbQueryRunner, DbQueryRunner>();
             services.AddScoped<IAdsService, AdsService>();
+            services.AddScoped<IAdsScraperService, AdsScraperService>();
             services.AddTransient<IGetCountsService, GetCountsService>();
             services.AddTransient<ICategoriesService, CategoriesService>();
             services.AddTransient<ILikesService, LikesService>();

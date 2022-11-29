@@ -8,12 +8,12 @@ namespace AdsScraper
 {
     public class Ad
     {
-        public string? Title { get; set; }
+        public string Title { get; set; } = null!;
 
-        public string? Price { get; set; }
+        public string Price { get; set; } = null!;
 
-        public string? Location { get; set; }
+        public string Location { get; set; } = null!;
 
-        public string? Description { get; set; }
+        public string Description { get; set; } = null!;
     }
 }
