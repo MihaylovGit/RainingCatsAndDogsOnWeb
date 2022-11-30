@@ -1,23 +1,31 @@
-﻿using AngleSharp;
-using AngleSharp.Dom;
-using System;
-using System.Net;
-using System.Text;
-
-namespace AdsScraper
+﻿namespace RainingCatsAndDogsOnWeb.Services
 {
-    public class Program
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Net;
+    using System.Text;
+    using System.Threading.Tasks;
+
+    using AngleSharp;
+    using AngleSharp.Dom;
+    using RainingCatsAndDogsOnWeb.Data.Common.Repositories;
+    using RainingCatsAndDogsOnWeb.Data.Models;
+
+    public class AdsScraperService : IAdsScraperService
     {
         private readonly IConfiguration config;
         private readonly IBrowsingContext context;
+        private readonly IDeletableEntityRepository<Ad> adsRepository;
 
-        public Program(IConfiguration config, IBrowsingContext context)
+        public AdsScraperService(IConfiguration config, IBrowsingContext context, IDeletableEntityRepository<Ad> adsRepository)
         {
             this.config = Configuration.Default.WithDefaultLoader();
             this.context = BrowsingContext.New(this.config);
+            this.adsRepository = adsRepository;
         }
 
-        public static async Task Main()
+        public async Task PopulateDbWithAds()
         {
             Console.OutputEncoding = Encoding.UTF8;
             List<Ad> ads = new List<Ad>();
@@ -47,18 +55,18 @@ namespace AdsScraper
                     var currentAd = new Ad
                     {
                         Title = titleElements[j],
-                        Price = priceElements[j],
+                        Price = decimal.Parse(priceElements[j]),
                         Location = locationElements[j],
                         Description = descriptionElements[j],
                         OriginalUrl = dogImages[j],
                     };
 
-                    Console.WriteLine(currentAd.Title);
-                    Console.WriteLine(currentAd.Price);
-                    Console.WriteLine(currentAd.Location);
-                    Console.WriteLine(currentAd.Description);
-                    Console.WriteLine(currentAd.OriginalUrl);
-                    Console.WriteLine("------------------------");
+                    //Console.WriteLine(currentAd.Title);
+                    //Console.WriteLine(currentAd.Price);
+                    //Console.WriteLine(currentAd.Location);
+                    //Console.WriteLine(currentAd.Description);
+                    //Console.WriteLine(currentAd.OriginalUrl);
+                    //Console.WriteLine("------------------------");
 
                     ads.Add(currentAd);
                 }
@@ -87,26 +95,27 @@ namespace AdsScraper
                     var currentAd = new Ad
                     {
                         Title = titleElements[h],
-                        Price = priceElements[h],
+                        Price = decimal.Parse(priceElements[h]),
                         Location = locationElements[h],
                         Description = descriptionElements[h],
                         OriginalUrl = catImages[h],
                     };
 
-                    Console.WriteLine(currentAd.Title);
-                    Console.WriteLine(currentAd.Price);
-                    Console.WriteLine(currentAd.Location);
-                    Console.WriteLine(currentAd.Description);
-                    Console.WriteLine(currentAd.OriginalUrl);
-                    Console.WriteLine("------------------------");
+                    //Console.WriteLine(currentAd.Title);
+                    //Console.WriteLine(currentAd.Price);
+                    //Console.WriteLine(currentAd.Location);
+                    //Console.WriteLine(currentAd.Description);
+                    //Console.WriteLine(currentAd.OriginalUrl);
+                    //Console.WriteLine("------------------------");
 
                     ads.Add(currentAd);
                 }
             }
 
-            Console.WriteLine(ads.Count);
+            foreach (var ad in ads)
+            {
+                await this.adsRepository.AddAsync(ad);
+            }
         }
     }
 }
-
-

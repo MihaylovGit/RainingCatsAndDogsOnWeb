@@ -3,37 +3,21 @@
     using System;
     using System.Threading.Tasks;
 
-    using AngleSharp;
-    using RainingCatsAndDogsOnWeb.Services;
-
     public class AdsSeeder : ISeeder
     {
-        private readonly ApplicationDbContext dbContext;
-        private readonly IServiceProvider serviceProvider;
-        private readonly IAdsScraperService adsScraperService;
-        private readonly IBrowsingContext context;
-
-        public AdsSeeder(ApplicationDbContext dbContext, IServiceProvider serviceProvider, IAdsScraperService adsScraperService, IBrowsingContext context)
-        {
-            this.dbContext = dbContext;
-            this.serviceProvider = serviceProvider;
-            this.adsScraperService = adsScraperService;
-            this.context = context;
-        }
-
         public async Task SeedAsync(ApplicationDbContext dbContext, IServiceProvider serviceProvider)
         {
-            for (int i = 1; i < 10; i++)
-            {
-               var data = this.adsScraperService.GetData(this.context, i);
+        //    for (int i = 1; i < 10; i++)
+        //    {
+        //       var data = this.adsScraperService.GetData(this.context, i);
 
-                foreach (var ad in data)
-                {
-                    await dbContext.Ads.AddAsync(ad);
-                }
-            }
+        //        foreach (var ad in data)
+        //        {
+        //            await dbContext.Ads.AddAsync(ad);
+        //        }
+        //    }
 
-            await this.dbContext.SaveChangesAsync();
+        //    await this.dbContext.SaveChangesAsync();
 
 
             //if (!this.dbContext.Ads.Any())

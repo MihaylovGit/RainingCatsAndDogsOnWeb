@@ -28,6 +28,8 @@
         [MaxLength(AdDescriptionMaxLength)]
         public string Description { get; set; }
 
+        public string OriginalUrl { get; set; }
+
         [ForeignKey(nameof(ApplicationUser))]
         public string AddedByUserId { get; set; }
 

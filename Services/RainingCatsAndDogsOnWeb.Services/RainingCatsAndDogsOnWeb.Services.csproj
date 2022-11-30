@@ -24,6 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Data\RainingCatsAndDogsOnWeb.Data.Models\RainingCatsAndDogsOnWeb.Data.Models.csproj" />
     <ProjectReference Include="..\RainingCatsAndDogsOnWeb.Services.Data\RainingCatsAndDogsOnWeb.Services.Data.csproj" />
   </ItemGroup>
 
