@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="AngleSharp" Version="0.17.1" />
+    <PackageReference Include="AngleSharp" Version="0.17.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.9">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -25,7 +25,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Data\RainingCatsAndDogsOnWeb.Data.Models\RainingCatsAndDogsOnWeb.Data.Models.csproj" />
-    <ProjectReference Include="..\RainingCatsAndDogsOnWeb.Services.Data\RainingCatsAndDogsOnWeb.Services.Data.csproj" />
   </ItemGroup>
 
 </Project>

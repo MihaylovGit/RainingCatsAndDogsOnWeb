@@ -4,7 +4,6 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Net;
-    using System.Text;
     using System.Threading.Tasks;
 
     using AngleSharp;
@@ -18,26 +17,26 @@
         private readonly IBrowsingContext context;
         private readonly IDeletableEntityRepository<Ad> adsRepository;
 
-        public AdsScraperService(IConfiguration config, IBrowsingContext context, IDeletableEntityRepository<Ad> adsRepository)
+        public AdsScraperService(IDeletableEntityRepository<Ad> adsRepository)
         {
             this.config = Configuration.Default.WithDefaultLoader();
             this.context = BrowsingContext.New(this.config);
             this.adsRepository = adsRepository;
         }
 
-        public async Task PopulateDbWithAds()
+        public async Task PopulateDbWithAds(int count)
         {
-            Console.OutputEncoding = Encoding.UTF8;
-            List<Ad> ads = new List<Ad>();
             var config = Configuration.Default.WithDefaultLoader();
             var context = BrowsingContext.New(config);
 
-            for (int i = 1; i < 24; i++)
-            {
-                var firstAddress = $"https://www.alo.bg/obiavi/domashni-lubimci/kucheta-prodava/?page={i}";
-                var secondAddress = $"https://www.alo.bg/obiavi/domashni-lubimci/kotki-prodava/?page={i}";
+            List<Ad> ads = new List<Ad>();
+            List<Image> images = new List<Image>();
 
-                var document = await context.OpenAsync(firstAddress);
+            for (int i = 1; i < count; i++)
+            {
+                var address = $"https://www.alo.bg/obiavi/domashni-lubimci/kucheta-prodava/?page={i}";
+
+                var document = await context.OpenAsync(address);
 
                 if (document.StatusCode == HttpStatusCode.NotFound)
                 {
@@ -55,20 +54,16 @@
                     var currentAd = new Ad
                     {
                         Title = titleElements[j],
-                        Price = decimal.Parse(priceElements[j]),
+                        Price = priceElements[j],
                         Location = locationElements[j],
-                        Description = descriptionElements[j],
+                        Description = descriptionElements[j] ?? titleElements[j],
                         OriginalUrl = dogImages[j],
+                        CategoryId = 2,
                     };
 
-                    //Console.WriteLine(currentAd.Title);
-                    //Console.WriteLine(currentAd.Price);
-                    //Console.WriteLine(currentAd.Location);
-                    //Console.WriteLine(currentAd.Description);
-                    //Console.WriteLine(currentAd.OriginalUrl);
-                    //Console.WriteLine("------------------------");
+                    await this.adsRepository.AddAsync(currentAd);
 
-                    ads.Add(currentAd);
+                    await this.adsRepository.SaveChangesAsync();
                 }
             }
 
@@ -77,7 +72,6 @@
                 var address = $"https://www.alo.bg/obiavi/domashni-lubimci/kotki-prodava/?page={k}";
 
                 var document = await context.OpenAsync(address);
-
 
                 if (document.StatusCode == HttpStatusCode.NotFound)
                 {
@@ -95,26 +89,23 @@
                     var currentAd = new Ad
                     {
                         Title = titleElements[h],
-                        Price = decimal.Parse(priceElements[h]),
+                        Price = priceElements[h],
                         Location = locationElements[h],
-                        Description = descriptionElements[h],
+                        Description = descriptionElements[h] ?? titleElements[h],
                         OriginalUrl = catImages[h],
+                        CategoryId = 1,
                     };
 
-                    //Console.WriteLine(currentAd.Title);
-                    //Console.WriteLine(currentAd.Price);
-                    //Console.WriteLine(currentAd.Location);
-                    //Console.WriteLine(currentAd.Description);
-                    //Console.WriteLine(currentAd.OriginalUrl);
-                    //Console.WriteLine("------------------------");
+                    var image = new Image
+                    {
+                        Extension = currentAd.OriginalUrl,
+                        AdId = currentAd.Id,
+                    };
 
-                    ads.Add(currentAd);
+                    await this.adsRepository.AddAsync(currentAd);
+
+                    await this.adsRepository.SaveChangesAsync();
                 }
-            }
-
-            foreach (var ad in ads)
-            {
-                await this.adsRepository.AddAsync(ad);
             }
         }
     }

@@ -1,12 +1,12 @@
-﻿namespace RainingCatsAndDogsOnWeb.Data.Seeding
-{
-    using System;
-    using System.Threading.Tasks;
+﻿//namespace RainingCatsAndDogsOnWeb.Data.Seeding
+//{
+//    using System;
+//    using System.Threading.Tasks;
 
-    public class AdsSeeder : ISeeder
-    {
-        public async Task SeedAsync(ApplicationDbContext dbContext, IServiceProvider serviceProvider)
-        {
+//    public class AdsSeeder : ISeeder
+//    {
+//        public async Task SeedAsync(ApplicationDbContext dbContext, IServiceProvider serviceProvider)
+//        {
         //    for (int i = 1; i < 10; i++)
         //    {
         //       var data = this.adsScraperService.GetData(this.context, i);
@@ -488,7 +488,7 @@
             //           }
             //       },
             //   };
-        }
-    }
-}
+//        }
+//    }
+//}
 

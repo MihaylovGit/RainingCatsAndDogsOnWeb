@@ -17,8 +17,7 @@ namespace RainingCatsAndDogsOnWeb.Web.ViewModels.Ads
         [StringLength(AdLocationMaxLength, MinimumLength = AdLocationMinLength)]
         public string Location { get; set; }
 
-        [Column(TypeName = "decimal(18, 4)")]
-        public decimal Price { get; set; }
+        public string Price { get; set; }
 
         [Required]
         [StringLength(AdDescriptionMaxLength, MinimumLength = AdDescriptionMinLength)]

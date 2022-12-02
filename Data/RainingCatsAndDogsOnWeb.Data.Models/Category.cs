@@ -2,7 +2,9 @@
 {
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+
     using RainingCatsAndDogsOnWeb.Data.Common.Models;
+
     using static RainingCatsAndDogsOnWeb.Common.DataConstants.Category;
 
     public class Category : BaseDeletableModel<int>

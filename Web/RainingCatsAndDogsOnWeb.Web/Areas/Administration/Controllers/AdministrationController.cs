@@ -1,6 +1,7 @@
 ﻿namespace RainingCatsAndDogsOnWeb.Web.Areas.Administration.Controllers
 {
     using RainingCatsAndDogsOnWeb.Common;
+
     using RainingCatsAndDogsOnWeb.Web.Controllers;
 
     using Microsoft.AspNetCore.Authorization;

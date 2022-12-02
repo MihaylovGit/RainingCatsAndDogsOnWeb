@@ -14,7 +14,7 @@
     using RainingCatsAndDogsOnWeb.Web.ViewModels.Ad;
     using RainingCatsAndDogsOnWeb.Web.ViewModels.Ads;
 
-    public class AdsService : IAdsService
+    public class AdsService : IAdsService, IMapFrom<Ad>
     {
         private readonly IDeletableEntityRepository<Ad> adsRepository;
         private readonly string[] allowedExtensions = new string[] { "jpg", "png", "jpeg", "gif" };

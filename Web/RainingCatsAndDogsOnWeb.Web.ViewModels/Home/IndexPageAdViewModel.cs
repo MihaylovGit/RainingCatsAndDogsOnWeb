@@ -1,10 +1,8 @@
 ﻿namespace RainingCatsAndDogsOnWeb.Web.ViewModels.Home
 {
-    using RainingCatsAndDogsOnWeb.Services.Mapping;
-
-    using RainingCatsAndDogsOnWeb.Data.Models;
     using AutoMapper;
-    using RainingCatsAndDogsOnWeb.Web.ViewModels.Ads;
+    using RainingCatsAndDogsOnWeb.Data.Models;
+    using RainingCatsAndDogsOnWeb.Services.Mapping;
     using System.Linq;
 
     public class IndexPageAdViewModel : IMapFrom<Ad>, IHaveCustomMappings
@@ -15,7 +13,7 @@
 
         public string Location { get; set; }
 
-        public decimal Price { get; set; }
+        public string Price { get; set; }
 
         public string ApplicationUserFirstName { get; set; }
 

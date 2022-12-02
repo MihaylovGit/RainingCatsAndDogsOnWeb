@@ -1,11 +1,7 @@
 ﻿namespace RainingCatsAndDogsOnWeb.Web
 {
-    using System.Configuration;
     using System.IO;
-    using System.Net;
     using System.Reflection;
-   
-    using Microsoft.AspNetCore.Authentication.Cookies;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Identity;
@@ -26,7 +22,6 @@
     using RainingCatsAndDogsOnWeb.Services.Data.Contracts;
     using RainingCatsAndDogsOnWeb.Services.Mapping;
     using RainingCatsAndDogsOnWeb.Services.Messaging;
-
     using RainingCatsAndDogsOnWeb.Web.ViewModels;
 
     public class Program
@@ -40,18 +35,18 @@
             app.Run();
         }
 
-        private static void ConfigureServices(IServiceCollection services, IConfiguration configuration)
+        private static void ConfigureServices(IServiceCollection services, Microsoft.Extensions.Configuration.IConfiguration configuration)
         {
             services.AddDbContext<ApplicationDbContext>(
                 options => options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
             
             services.AddDefaultIdentity<ApplicationUser>(IdentityOptionsProvider.GetIdentityOptions)
                     .AddRoles<ApplicationRole>().AddEntityFrameworkStores<ApplicationDbContext>();
-          
+            
             services.Configure<CookiePolicyOptions>(
                 options =>
                 {
-                    options.CheckConsentNeeded = context => true; 
+                    options.CheckConsentNeeded = context => true;
                     options.MinimumSameSitePolicy = SameSiteMode.None;
                 });
 
@@ -72,6 +67,7 @@
                 {
                     options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
                 }).AddRazorRuntimeCompilation();
+
             services.AddRazorPages();
             services.AddDatabaseDeveloperPageExceptionFilter();
 
@@ -81,7 +77,7 @@
             services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
             services.AddScoped<IDbQueryRunner, DbQueryRunner>();
             services.AddScoped<IAdsService, AdsService>();
-            services.AddScoped<IAdsScraperService, AdsScraperService>();
+            services.AddTransient<IAdsScraperService, AdsScraperService>();
             services.AddTransient<IGetCountsService, GetCountsService>();
             services.AddTransient<ICategoriesService, CategoriesService>();
             services.AddTransient<ILikesService, LikesService>();
@@ -129,7 +125,7 @@
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
-
+           
             app.UseRouting();
 
             app.UseAuthentication();

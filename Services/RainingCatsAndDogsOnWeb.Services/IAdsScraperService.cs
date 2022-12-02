@@ -4,6 +4,6 @@
 
     public interface IAdsScraperService
     {
-       Task PopulateDbWithAds();
+       Task PopulateDbWithAds(int count);
     }
 }

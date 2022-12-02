@@ -75,10 +75,6 @@
                    });
 
             builder.Entity<Ad>()
-                   .Property(x => x.Price)
-                   .HasPrecision(18, 2);
-
-            builder.Entity<Ad>()
                    .HasMany(x => x.Likes);
 
             builder.Entity<ApplicationUser>()
