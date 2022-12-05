@@ -2,6 +2,7 @@
 {
     using System.IO;
     using System.Reflection;
+
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Identity;
@@ -125,7 +126,6 @@
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
-           
             app.UseRouting();
 
             app.UseAuthentication();

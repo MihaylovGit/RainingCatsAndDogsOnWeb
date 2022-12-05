@@ -5,10 +5,10 @@
     using System.Reflection;
     using System.Threading;
     using System.Threading.Tasks;
-    using static RainingCatsAndDogsOnWeb.Common.DataConstants.ApplicationUser;
     using RainingCatsAndDogsOnWeb.Data.Common.Models;
 
     using RainingCatsAndDogsOnWeb.Data.Models;
+    using static RainingCatsAndDogsOnWeb.Common.DataConstants.ApplicationUser;
 
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;

@@ -16,12 +16,14 @@
         private readonly IConfiguration config;
         private readonly IBrowsingContext context;
         private readonly IDeletableEntityRepository<Ad> adsRepository;
+        private readonly IDeletableEntityRepository<Image> imagesRepository;
 
-        public AdsScraperService(IDeletableEntityRepository<Ad> adsRepository)
+        public AdsScraperService(IDeletableEntityRepository<Ad> adsRepository, IDeletableEntityRepository<Image> imagesRepository)
         {
             this.config = Configuration.Default.WithDefaultLoader();
             this.context = BrowsingContext.New(this.config);
             this.adsRepository = adsRepository;
+            this.imagesRepository = imagesRepository;
         }
 
         public async Task PopulateDbWithAds(int count)
@@ -57,13 +59,22 @@
                         Price = priceElements[j],
                         Location = locationElements[j],
                         Description = descriptionElements[j] ?? titleElements[j],
-                        OriginalUrl = dogImages[j],
+                        OriginalUrl = "alo.bg/" + dogImages[j],
                         CategoryId = 2,
                     };
 
+                    var image = new Image
+                    {
+                        RemoteImageUrl = currentAd.OriginalUrl,
+                        Extension = dogImages[j].Split('.', StringSplitOptions.RemoveEmptyEntries)[1],
+                        AdId = currentAd.Id,
+                    };
+
                     await this.adsRepository.AddAsync(currentAd);
+                    await this.imagesRepository.AddAsync(image);
 
                     await this.adsRepository.SaveChangesAsync();
+                    await this.imagesRepository.SaveChangesAsync();
                 }
             }
 
@@ -92,19 +103,22 @@
                         Price = priceElements[h],
                         Location = locationElements[h],
                         Description = descriptionElements[h] ?? titleElements[h],
-                        OriginalUrl = catImages[h],
+                        OriginalUrl = "alo.bg/" + catImages[h],
                         CategoryId = 1,
                     };
 
                     var image = new Image
                     {
-                        Extension = currentAd.OriginalUrl,
+                        RemoteImageUrl = currentAd.OriginalUrl,
+                        Extension = catImages[h].Split('.', StringSplitOptions.RemoveEmptyEntries)[1],
                         AdId = currentAd.Id,
                     };
 
                     await this.adsRepository.AddAsync(currentAd);
+                    await this.imagesRepository.AddAsync(image);
 
                     await this.adsRepository.SaveChangesAsync();
+                    await this.imagesRepository.SaveChangesAsync();
                 }
             }
         }

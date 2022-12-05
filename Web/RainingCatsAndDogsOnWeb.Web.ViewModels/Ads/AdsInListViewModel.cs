@@ -11,7 +11,7 @@
     {
         public int Id { get; set; }
 
-        public string ImageUrl { get; set; }
+        public string OriginalUrl { get; set; }
 
         public string Title { get; set; }
 
@@ -28,10 +28,10 @@
         public void CreateMappings(IProfileExpression configuration)
         {
             configuration.CreateMap<Ad, AdsInListViewModel>()
-                 .ForMember(x => x.ImageUrl, opt =>
+                 .ForMember(x => x.OriginalUrl, opt =>
                  opt.MapFrom(x => x.Images.FirstOrDefault().RemoteImageUrl != null ?
                  x.Images.FirstOrDefault().RemoteImageUrl :
-                 "/images/ads/" + x.Images.FirstOrDefault().Id + "." + x.Images.FirstOrDefault().Extension));
+                 x.OriginalUrl));
         }
     }
 }

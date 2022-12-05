@@ -1,22 +1,26 @@
 ﻿@using RainingCatsAndDogsOnWeb.Web.ViewModels.Ads;
 @model AdsListViewModel
 @{
-    this.ViewData["Title"] = $"You can find your dream pet between {@Model.AdsCount} ads";
+    this.ViewData["Title"] = "All Ads Page - Best pet exchange website worldwide";
+    this.ViewData["Content"] = $"You can find your dream pet between {@Model.AdsCount} ads";
 }
 
 <br>
-<div class="col-md-4 text-center offset-4" style="width: 18rem;">
-    <h1 class="text-truncate">@this.ViewData["Title"]</h1>
-</div>
+<br>
+<br>
+<br>
 <br>
 
+<h1 class="text-center">@ViewData["Content"]</h1>
+<br>
+<br>
 <div class="container-fluid text-center">
     <div class="row row-cols-6 text-center">
         @foreach (var ad in this.Model.AllAds)
         {
             <div class="card shadow-sm mb-4">
                 <img class="card-img-top img-fluid" style="width: 17.5rem;"
-                 src="@ad.ImageUrl" alt="@ad.Title">
+                 src="@ad.OriginalUrl" alt="@ad.Title">
                 <div class="card-body d-flex flex-column">
                     <h5 class="card-title text-uppercase">@ad.Title</h5>
                     <p class="card-text text-muted">
