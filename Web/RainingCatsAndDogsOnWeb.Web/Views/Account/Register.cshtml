@@ -3,12 +3,11 @@
     ViewData["Title"] = "Register";
 }
 
-<h1 class="text-center">@ViewData["Title"]</h1>
-
-<div class="row">
+ <br />
+<div class="wrapper">
     <div class="col-md-4 offset-md-4">
         <form id="registerForm" method="post" asp-controller="Account" asp-action="Register">
-            <hr />
+           
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="text-center mb-3">
                 <label asp-for="@Model.FirstName">First Name</label>

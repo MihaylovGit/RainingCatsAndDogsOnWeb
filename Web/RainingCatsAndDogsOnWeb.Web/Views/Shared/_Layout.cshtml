@@ -26,8 +26,18 @@
                         <nav id="access" role="navigation">
                             <div class="dropdown">
                                 <ul id="sticky_menu">
-                                    <li>
+                                    <li class="nav-item">
                                         <a asp-area="" asp-controller="Home" asp-action="Index">HOME</a><button class="mobileOnly down-mcaret">
+                                            <i class="fa fa-chevron-down"></i>
+                                        </button>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a asp-area="" asp-controller="Account" asp-action="Register">REGISTER</a><button class="mobileOnly down-mcaret">
+                                            <i class="fa fa-chevron-down"></i>
+                                        </button>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a asp-area="" asp-controller="Account" asp-action="Login">LOGIN</a><button class="mobileOnly down-mcaret">
                                             <i class="fa fa-chevron-down"></i>
                                         </button>
                                     </li>
