@@ -6,6 +6,7 @@
     using Microsoft.AspNetCore.Mvc;
     using RainingCatsAndDogsOnWeb.Common;
     using RainingCatsAndDogsOnWeb.Services;
+    using RainingCatsAndDogsOnWeb.Web.Controllers;
 
     [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
     public class AdsCollectorController : BaseController
@@ -34,7 +35,6 @@
 
                 return this.RedirectToAction("AllAds", "Ads");
             }
-           
             return this.View("Unauthorized");
         }
     }

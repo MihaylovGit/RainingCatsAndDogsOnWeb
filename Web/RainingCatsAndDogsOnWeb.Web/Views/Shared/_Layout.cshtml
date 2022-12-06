@@ -8,8 +8,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" media="all" href="https://www.claringtonvet.ca/wp-content/themes/patchwork-resp/style.css?ver=1.0-661" />
-
-    <title>@this.ViewData["Title"] - @GlobalConstants.SystemName</title>
+    <link rel="shortcut icon" href="https://www.claringtonvet.ca/wp-content/themes/patchwork-resp/favicon.ico" type="image/x-icon" />
+    <title>@GlobalConstants.SystemName</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/bootstrap.css">
     <link href="~/lib/font-awesome/css/all.css" rel="stylesheet" asp-append-version="true" />
@@ -20,35 +20,30 @@
 <body>
     <header>
         <nav class="navbar">
+            <partial name="_LoginPartial" />
             <div id="navigation">
-                <div class="container-fluid">
-                    <div class="belt">
                         <nav id="access" role="navigation">
-                            <div class="dropdown">
-                                <ul id="sticky_menu">
+                        <div class="belt">
+                                <ul id="sticky_menu" class="clearfix">
                                     <li class="nav-item">
                                         <a asp-area="" asp-controller="Home" asp-action="Index">HOME</a><button class="mobileOnly down-mcaret">
                                             <i class="fa fa-chevron-down"></i>
                                         </button>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a asp-area="" asp-controller="Account" asp-action="Register">REGISTER</a><button class="mobileOnly down-mcaret">
-                                            <i class="fa fa-chevron-down"></i>
                                         </button>
                                     </li>
-                                    <li class="nav-item">
-                                        <a asp-area="" asp-controller="Account" asp-action="Login">LOGIN</a><button class="mobileOnly down-mcaret">
-                                            <i class="fa fa-chevron-down"></i>
-                                        </button>
+
+                                    @* @if (this.User.IsInRole("Administrator"))
+                                    {*@
+                                <li class="nav-item menu-item-has-children has_children">
+                                        <a class="dropbtn">ADMIN</a>
+                                        <div class="dropdown-content">
+                                            <a asp-controller="Admin" asp-action="CreateRole">Create a Role</a>
+                                            <a asp-controller="Admin" asp-action="CreateAdminWithRole">Create Admin</a>
+                                            <a asp-controller="AdsCollector" asp-action="LoadAds">Ads Collector</a>
+                                        </div>
                                     </li>
-                                    @if (this.User.IsInRole("Administrator"))
-                                    {
-                                        <li>
-                                            <a asp-area="" asp-controller="AdsCollector" asp-action="LoadAds">ADMIN</a><button class="mobileOnly down-mcaret">
-                                                <i class="fa fa-chevron-down"></i>
-                                            </button>
-                                        </li>
-                                    }
+
+                                    @*  }*@
                                     @if (this.User.Identity.IsAuthenticated)
                                     {
                                         <li>
@@ -80,14 +75,24 @@
                                             </button>
                                         </li>
                                     }
+                                    else
+                                    {
+                                        <li class="nav-item">
+                                            <a asp-area="" asp-controller="Account" asp-action="Register">REGISTER</a><button class="mobileOnly down-mcaret">
+                                                <i class="fa fa-chevron-down"></i>
+                                            </button>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a asp-area="" asp-controller="Account" asp-action="Login">LOGIN</a><button class="mobileOnly down-mcaret">
+                                                <i class="fa fa-chevron-down"></i>
+                                            </button>
+                                        </li>
+                                    }
                                 </ul>
-
-                                <partial name="_LoginPartial" />
-                            </div>
-                        </nav>
-                    </div>
-                </div>
-            </div>
+        </nav>
+        </div>
+        </div>
+        </div>
         </nav>
     </header>
     <div class="ToogleMenuOuter"></div>
@@ -109,6 +114,15 @@
 <script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js" asp-append-version="true"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap.min.js" asp-append-version="true"></script>
 <script src="~/js/site.min.js" asp-append-version="true"></script>
+<script>
+    $(function () {
+        $('.dropdown').hover(function () {
+            $(this).addClass('open');
+        },
+            function () {
+                $(this).removeClass('open');
+            });
+    });</script>
 @await this.RenderSectionAsync("Scripts", required: false)
 </html>
 

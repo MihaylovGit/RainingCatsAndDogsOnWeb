@@ -1,9 +1,11 @@
 ﻿namespace RainingCatsAndDogsOnWeb.Web.ViewModels.Home
 {
     using AutoMapper;
+    using System.Linq;
+
     using RainingCatsAndDogsOnWeb.Data.Models;
     using RainingCatsAndDogsOnWeb.Services.Mapping;
-    using System.Linq;
+
 
     public class IndexPageAdViewModel : IMapFrom<Ad>, IHaveCustomMappings
     {

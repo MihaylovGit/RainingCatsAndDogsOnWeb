@@ -2,11 +2,9 @@
 {
     using System;
     using System.Linq;
-
     using AutoMapper;
     using RainingCatsAndDogsOnWeb.Data.Models;
     using RainingCatsAndDogsOnWeb.Services.Mapping;
-    using RainingCatsAndDogsOnWeb.Web.ViewModels.Likes;
 
     public class SingleAdViewModel : IMapFrom<Ad>, IHaveCustomMappings
     {
@@ -16,7 +14,7 @@
 
         public string Location { get; set; }
 
-        public decimal Price { get; set; }
+        public string Price { get; set; }
 
         public string Description { get; set; }
 

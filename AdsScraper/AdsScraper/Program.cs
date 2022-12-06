@@ -50,7 +50,7 @@ namespace AdsScraper
                         Price = priceElements[j],
                         Location = locationElements[j],
                         Description = descriptionElements[j],
-                        OriginalUrl = dogImages[j],
+                        OriginalUrl = "alo.bg" + dogImages[j],
                     };
 
                     Console.WriteLine(currentAd.Title);
@@ -90,7 +90,7 @@ namespace AdsScraper
                         Price = priceElements[h],
                         Location = locationElements[h],
                         Description = descriptionElements[h],
-                        OriginalUrl = catImages[h],
+                        OriginalUrl = "alo.bg" + catImages[h],
                     };
 
                     Console.WriteLine(currentAd.Title);

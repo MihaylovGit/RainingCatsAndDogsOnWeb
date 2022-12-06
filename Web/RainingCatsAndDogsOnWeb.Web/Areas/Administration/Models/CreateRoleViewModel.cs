@@ -1,6 +1,5 @@
-﻿namespace RainingCatsAndDogsOnWeb.Web.ViewModels.Account
+﻿namespace RainingCatsAndDogsOnWeb.Web.Areas.Administration.Models
 {
-    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
 
     public class CreateRoleViewModel

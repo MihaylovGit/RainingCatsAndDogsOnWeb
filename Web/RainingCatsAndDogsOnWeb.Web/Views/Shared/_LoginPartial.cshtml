@@ -4,11 +4,11 @@
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 
-<ul class="navbar-nav">
+<ul id="loginNav" class="navbar navbar-default" style="position:absolute; right: 20px; top: 0px;">
     @if (this.SignInManager.IsSignedIn(this.User))
     {
-        <li class="list-group">
-            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @this.User.Identity.Name!</a>
+        <li>
+            <a class="nav-link text-dark " asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @this.User.Identity.Name!</a>
         </li>
 
         if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
@@ -17,19 +17,23 @@
                 <a class="nav-link text-dark" asp-area="Administration" asp-controller="Dashboard" asp-action="Index" title="Admin">Admin</a>
             </li>
         }
-        <li class="nav-item">
-            <form class="form-inline" asp-controller="Account" asp-action="Logout" asp-route-returnUrl="@this.Url.Action("Index", "Home", new { area = string.Empty })">
-                <button type="submit" class="btn btn-primary btn-sm">Logout</button>
+        <li>
+            <form class="navbar-brand" asp-controller="Account" asp-action="Logout" asp-route-returnUrl="@this.Url.Action("Index", "Home", new { area = string.Empty })">
+                <div class="row">
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-primary btn-lg float-right" style="float: right">Logout</button>
+                    </div>
+                </div>
             </form>
         </li>
     }
     @*else
     {
-        <li class="nav-item col-12 float-end">
-            <a class="nav-link text-dark" asp-controller="Account" asp-action="Register">REGISTER</a>
-        </li>
-        <li class="nav-item col-12 float-end">
-            <a class="nav-link text-dark" asp-controller="Account" asp-action="Login">LOGIN</a>
-        </li>
+    <li class="nav-item col-12 float-end">
+    <a class="nav-link text-dark" asp-controller="Account" asp-action="Register">REGISTER</a>
+    </li>
+    <li class="nav-item col-12 float-end">
+    <a class="nav-link text-dark" asp-controller="Account" asp-action="Login">LOGIN</a>
+    </li>
     }*@
 </ul>
