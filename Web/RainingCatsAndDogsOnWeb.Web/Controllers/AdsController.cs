@@ -13,6 +13,7 @@
     using RainingCatsAndDogsOnWeb.Web.ViewModels.Ad;
     using RainingCatsAndDogsOnWeb.Web.ViewModels.Ads;
 
+    [Authorize]
     public class AdsController : Controller
     {
         private readonly IAdsService adsService;
@@ -28,7 +29,6 @@
             this.environment = environment;
         }
 
-        // Ads/DogAds/5
         public IActionResult AllAds(int id = 1)
         {
             const int AdsPerPage = 12;
@@ -69,7 +69,6 @@
             return this.View(viewModel);
         }
 
-        [Authorize]
         public IActionResult Create()
         {
             var viewModel = new CreateAdViewModel
@@ -81,7 +80,6 @@
         }
 
         [HttpPost]
-        [Authorize]
         public async Task<IActionResult> Create(CreateAdViewModel input)
         {
             if (!this.ModelState.IsValid)
@@ -109,7 +107,6 @@
             return this.View();
         }
 
-        [Authorize]
         public IActionResult DetailsById(int id)
         {
             var ad = this.adsService.DetailsById<SingleAdViewModel>(id);
@@ -117,7 +114,6 @@
             return this.View(ad);
         }
 
-        [Authorize]
         public IActionResult Edit(int id)
         {
             var viewModel = this.adsService.DetailsById<EditAdViewModel>(id);
@@ -127,7 +123,6 @@
         }
 
         [HttpPost]
-        [Authorize]
         public async Task<IActionResult> Edit(int id, EditAdViewModel model)
         {
             if (!this.ModelState.IsValid)
@@ -143,7 +138,6 @@
         }
 
         [HttpPost]
-        [Authorize]
         public async Task<IActionResult> Delete(int id)
         {
             await this.adsService.DeleteAsync(id);

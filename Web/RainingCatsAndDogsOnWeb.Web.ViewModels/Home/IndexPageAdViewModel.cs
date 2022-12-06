@@ -28,8 +28,8 @@
             configuration.CreateMap<Ad, IndexPageAdViewModel>()
                   .ForMember(x => x.ImageUrl, opt =>
                   opt.MapFrom(x => x.Images.FirstOrDefault().RemoteImageUrl != null ?
-                  x.Images.FirstOrDefault().RemoteImageUrl :
-                  "/images/ads/" + x.Images.FirstOrDefault().Id + "." + x.Images.FirstOrDefault().Extension));
+                  x.Images.FirstOrDefault().RemoteImageUrl : x.OriginalUrl));
+                  //"/images/ads/" + x.Images.FirstOrDefault().Id + "." + x.Images.FirstOrDefault().Extension));
         }
     }
 }

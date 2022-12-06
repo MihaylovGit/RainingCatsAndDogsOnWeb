@@ -28,7 +28,7 @@
             var viewModel = new IndexViewModel
             {
                 AdsCount = countsDto.AdsCount,
-                RandomAds = await this.adsService.GetRandom<IndexPageAdViewModel>(4),
+                RandomAds = await this.adsService.GetRandom<IndexPageAdViewModel>(6),
             };
 
             return this.View(viewModel);

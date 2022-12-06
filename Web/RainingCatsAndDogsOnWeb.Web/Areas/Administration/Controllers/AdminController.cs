@@ -1,13 +1,15 @@
 ﻿namespace RainingCatsAndDogsOnWeb.Web.Areas.Administration.Controllers
 {
+    using System.Threading.Tasks;
+
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
+
     using RainingCatsAndDogsOnWeb.Data.Models;
     using RainingCatsAndDogsOnWeb.Web.Areas.Administration.Models;
 
-    using System.Threading.Tasks;
-
+    [Authorize(Roles = "Administrator")]
     public class AdminController : Controller
     {
         private readonly RoleManager<ApplicationRole> roleManager;
@@ -31,7 +33,6 @@
         }
 
         [HttpPost]
-        //[Authorize(Roles = "Administrator")]
         public async Task<IActionResult> CreateRole(CreateRoleViewModel model)
         {
             if (this.ModelState.IsValid)
@@ -57,7 +58,6 @@
         }
 
         [HttpPost]
-        [Authorize]
         private async Task CreateAdminWithRole()
         {
             var roleExists = await this.roleManager.RoleExistsAsync("Administrator");
