@@ -8,8 +8,8 @@
     using RainingCatsAndDogsOnWeb.Services;
     using RainingCatsAndDogsOnWeb.Web.Controllers;
 
-    [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
-    public class AdsCollectorController : BaseController
+    //[Authorize(Roles = GlobalConstants.AdministratorRoleName)]
+    public class AdsCollectorController : Controller
     {
         public const int Count = 24;
 
@@ -26,16 +26,11 @@
         }
 
         [HttpPost]
-        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> LoadAds()
         {
-            if (this.User.IsInRole("Administrator"))
-            {
-                await this.adsScraperService.PopulateDbWithAds(Count);
+            await this.adsScraperService.PopulateDbWithAds(Count);
 
-                return this.RedirectToAction("AllAds", "Ads");
-            }
-            return this.View("Unauthorized");
+            return this.RedirectToAction("AllAds", "Ads");
         }
     }
 }

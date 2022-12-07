@@ -39,17 +39,17 @@
             return this.RedirectToAction("AllAdsComments", "Comments");
         }
 
-        public async Task<IActionResult> All()
-        {
-            var comments = await this.dbContext.Comments
-                                          .Select(c => new CommentViewModel
-                                          {
-                                              Id = c.Id,
-                                              Content = c.Content,
-                                              Replies = c.Replies,
-                                          }).ToListAsync();
+        //public async Task<IActionResult> All()
+        //{
+        //    var comments = await this.dbContext.Comments
+        //                                  .Select(c => new CommentViewModel
+        //                                  {
+        //                                      Id = c.Id,
+        //                                      Content = c.Content,
+        //                                      Replies = c.Replies,
+        //                                  }).ToListAsync();
 
-            return this.View(comments);
-        }
+        //    return this.View(comments);
+        //}
     }
 }

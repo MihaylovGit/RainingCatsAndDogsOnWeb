@@ -1,9 +1,10 @@
 ﻿namespace RainingCatsAndDogsOnWeb.Data.Seeding
 {
-    using RainingCatsAndDogsOnWeb.Data.Models;
     using System;
     using System.Linq;
     using System.Threading.Tasks;
+
+    using RainingCatsAndDogsOnWeb.Data.Models;
 
     public class CategoriesSeeder : ISeeder
     {

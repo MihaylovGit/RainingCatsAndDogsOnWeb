@@ -4,10 +4,14 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Net;
+    using System.Security.Cryptography.X509Certificates;
     using System.Threading.Tasks;
 
     using AngleSharp;
+    using AngleSharp.Common;
     using AngleSharp.Dom;
+    using AngleSharp.Html.Dom;
+    using Microsoft.EntityFrameworkCore;
     using RainingCatsAndDogsOnWeb.Data.Common.Repositories;
     using RainingCatsAndDogsOnWeb.Data.Models;
 
@@ -30,8 +34,6 @@
         {
             var config = Configuration.Default.WithDefaultLoader();
             var context = BrowsingContext.New(config);
-
-            List<Ad> ads = new List<Ad>();
             List<Image> images = new List<Image>();
 
             for (int i = 1; i < count; i++)
@@ -63,18 +65,9 @@
                         CategoryId = 2,
                     };
 
-                    var image = new Image
-                    {
-                        RemoteImageUrl = currentAd.OriginalUrl,
-                        Extension = dogImages[j].Split('.', StringSplitOptions.RemoveEmptyEntries)[1],
-                        AdId = currentAd.Id,
-                    };
-
                     await this.adsRepository.AddAsync(currentAd);
-                    await this.imagesRepository.AddAsync(image);
 
                     await this.adsRepository.SaveChangesAsync();
-                    await this.imagesRepository.SaveChangesAsync();
                 }
             }
 
@@ -107,17 +100,24 @@
                         CategoryId = 1,
                     };
 
-                    var image = new Image
-                    {
-                        RemoteImageUrl = currentAd.OriginalUrl,
-                        Extension = catImages[h].Split('.', StringSplitOptions.RemoveEmptyEntries)[1],
-                        AdId = currentAd.Id,
-                    };
-
                     await this.adsRepository.AddAsync(currentAd);
-                    await this.imagesRepository.AddAsync(image);
 
                     await this.adsRepository.SaveChangesAsync();
+                }
+
+                var allAds = await this.adsRepository.All().ToListAsync();
+                foreach (var ad in allAds)
+                {
+                    var originalUrlSplitted = ad.OriginalUrl.Split('.').ToArray();
+                    var image = new Image
+                    {
+                        RemoteImageUrl = ad.OriginalUrl,
+                        Extension = originalUrlSplitted[2],
+                        AdId = ad.Id,
+                    };
+
+                    await this.imagesRepository.AddAsync(image);
+
                     await this.imagesRepository.SaveChangesAsync();
                 }
             }

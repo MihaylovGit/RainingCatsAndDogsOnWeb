@@ -12,14 +12,14 @@ using RainingCatsAndDogsOnWeb.Data;
 namespace RainingCatsAndDogsOnWeb.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221107155147_CreateEntities")]
+    [Migration("20221207114425_CreateEntities")]
     partial class CreateEntities
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.9")
+                .HasAnnotation("ProductVersion", "6.0.10")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
@@ -152,8 +152,8 @@ namespace RainingCatsAndDogsOnWeb.Data.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
@@ -166,14 +166,16 @@ namespace RainingCatsAndDogsOnWeb.Data.Migrations
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<decimal>("Price")
-                        .HasPrecision(18, 2)
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<string>("OriginalUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Price")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("Id");
 
@@ -253,7 +255,6 @@ namespace RainingCatsAndDogsOnWeb.Data.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("FirstName")
-                        .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
@@ -261,7 +262,6 @@ namespace RainingCatsAndDogsOnWeb.Data.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("LastName")
-                        .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
@@ -374,12 +374,17 @@ namespace RainingCatsAndDogsOnWeb.Data.Migrations
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("PostId")
+                        .HasColumnType("int");
+
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("IsDeleted");
+
+                    b.HasIndex("PostId");
 
                     b.HasIndex("UserId");
 
@@ -426,18 +431,45 @@ namespace RainingCatsAndDogsOnWeb.Data.Migrations
                     b.ToTable("Images");
                 });
 
-            modelBuilder.Entity("RainingCatsAndDogsOnWeb.Data.Models.Reply", b =>
+            modelBuilder.Entity("RainingCatsAndDogsOnWeb.Data.Models.Like", b =>
                 {
-                    b.Property<int>("UserId")
+                    b.Property<int>("AdId")
                         .HasColumnType("int");
 
-                    b.Property<int>("CommentId")
+                    b.Property<string>("ApplicationUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Id")
                         .HasColumnType("int");
+
+                    b.Property<int>("LikesCount")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("AdId", "ApplicationUserId");
+
+                    b.HasIndex("ApplicationUserId");
+
+                    b.ToTable("Likes");
+                });
+
+            modelBuilder.Entity("RainingCatsAndDogsOnWeb.Data.Models.Post", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Content")
                         .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
 
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
@@ -445,27 +477,27 @@ namespace RainingCatsAndDogsOnWeb.Data.Migrations
                     b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
-
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("UserId1")
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.HasKey("UserId", "CommentId");
-
-                    b.HasIndex("CommentId");
+                    b.HasKey("Id");
 
                     b.HasIndex("IsDeleted");
 
-                    b.HasIndex("UserId1");
+                    b.HasIndex("UserId");
 
-                    b.ToTable("Replies");
+                    b.ToTable("Posts");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -538,9 +570,17 @@ namespace RainingCatsAndDogsOnWeb.Data.Migrations
 
             modelBuilder.Entity("RainingCatsAndDogsOnWeb.Data.Models.Comment", b =>
                 {
+                    b.HasOne("RainingCatsAndDogsOnWeb.Data.Models.Post", "Post")
+                        .WithMany("Comments")
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.HasOne("RainingCatsAndDogsOnWeb.Data.Models.ApplicationUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId");
+
+                    b.Navigation("Post");
 
                     b.Navigation("User");
                 });
@@ -562,19 +602,30 @@ namespace RainingCatsAndDogsOnWeb.Data.Migrations
                     b.Navigation("AddedByUser");
                 });
 
-            modelBuilder.Entity("RainingCatsAndDogsOnWeb.Data.Models.Reply", b =>
+            modelBuilder.Entity("RainingCatsAndDogsOnWeb.Data.Models.Like", b =>
                 {
-                    b.HasOne("RainingCatsAndDogsOnWeb.Data.Models.Comment", "Comment")
-                        .WithMany("Replies")
-                        .HasForeignKey("CommentId")
+                    b.HasOne("RainingCatsAndDogsOnWeb.Data.Models.Ad", "Ad")
+                        .WithMany("Likes")
+                        .HasForeignKey("AdId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.HasOne("RainingCatsAndDogsOnWeb.Data.Models.ApplicationUser", "ApplicationUser")
+                        .WithMany("Likes")
+                        .HasForeignKey("ApplicationUserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Ad");
+
+                    b.Navigation("ApplicationUser");
+                });
+
+            modelBuilder.Entity("RainingCatsAndDogsOnWeb.Data.Models.Post", b =>
+                {
                     b.HasOne("RainingCatsAndDogsOnWeb.Data.Models.ApplicationUser", "User")
                         .WithMany()
-                        .HasForeignKey("UserId1");
-
-                    b.Navigation("Comment");
+                        .HasForeignKey("UserId");
 
                     b.Navigation("User");
                 });
@@ -582,11 +633,15 @@ namespace RainingCatsAndDogsOnWeb.Data.Migrations
             modelBuilder.Entity("RainingCatsAndDogsOnWeb.Data.Models.Ad", b =>
                 {
                     b.Navigation("Images");
+
+                    b.Navigation("Likes");
                 });
 
             modelBuilder.Entity("RainingCatsAndDogsOnWeb.Data.Models.ApplicationUser", b =>
                 {
                     b.Navigation("Claims");
+
+                    b.Navigation("Likes");
 
                     b.Navigation("Logins");
 
@@ -598,9 +653,9 @@ namespace RainingCatsAndDogsOnWeb.Data.Migrations
                     b.Navigation("Ads");
                 });
 
-            modelBuilder.Entity("RainingCatsAndDogsOnWeb.Data.Models.Comment", b =>
+            modelBuilder.Entity("RainingCatsAndDogsOnWeb.Data.Models.Post", b =>
                 {
-                    b.Navigation("Replies");
+                    b.Navigation("Comments");
                 });
 #pragma warning restore 612, 618
         }

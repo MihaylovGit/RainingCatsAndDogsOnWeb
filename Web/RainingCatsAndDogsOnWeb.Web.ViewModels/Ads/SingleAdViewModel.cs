@@ -24,6 +24,10 @@
 
         public string AddedByUserLastName { get; set; }
 
+        public string AddedByAdmin { get; set; } = "Admin";
+
+        public string AdminPhoneNumber { get; set; } = "088 33 68 290";
+
         public string CategoryName { get; set; }
 
         public string ImageUrl { get; set; }

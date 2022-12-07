@@ -5,9 +5,11 @@
     using System.Reflection;
     using System.Threading;
     using System.Threading.Tasks;
-    using RainingCatsAndDogsOnWeb.Data.Common.Models;
 
     using RainingCatsAndDogsOnWeb.Data.Models;
+
+    using RainingCatsAndDogsOnWeb.Data.Common.Models;
+
     using static RainingCatsAndDogsOnWeb.Common.DataConstants.ApplicationUser;
 
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -31,15 +33,11 @@
 
         public DbSet<Image> Images { get; set; }
 
+        public DbSet<Post> Posts { get; set; }
+
         public DbSet<Comment> Comments { get; set; }
 
-        public DbSet<Reply> Replies { get; set; }
-
         public DbSet<Like> Likes { get; set; }
-
-        public DbSet<Blog> Blogs { get; set; }
-
-        public DbSet<Post> Posts { get; set; }
 
         public override int SaveChanges() => this.SaveChanges(true);
 
@@ -63,19 +61,12 @@
         protected override void OnModelCreating(ModelBuilder builder)
         {
             // Needed for Identity models configuration
-            builder.Entity<Comment>()
-                   .HasMany(c => c.Replies)
-                   .WithOne(c => c.Comment);
-
-            builder.Entity<Reply>()
-                   .HasKey(x => new
-                   {
-                       x.UserId,
-                       x.CommentId,
-                   });
-
             builder.Entity<Ad>()
-                   .HasMany(x => x.Likes);
+                  .HasMany(x => x.Likes);
+
+            builder.Entity<Post>()
+                   .HasMany(c => c.Comments)
+                   .WithOne(c => c.Post);
 
             builder.Entity<ApplicationUser>()
                    .Property(x => x.PhoneNumber)

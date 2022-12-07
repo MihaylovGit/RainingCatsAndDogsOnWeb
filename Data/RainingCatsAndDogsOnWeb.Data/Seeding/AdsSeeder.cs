@@ -476,7 +476,7 @@
                    },
                };
 
-               await this.dbContext.Ads.AddRangeAsync(ads);
+                await this.dbContext.Ads.AddRangeAsync(ads);
 
                 await this.dbContext.SaveChangesAsync();
             }

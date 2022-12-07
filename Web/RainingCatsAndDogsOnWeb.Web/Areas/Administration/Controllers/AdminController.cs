@@ -9,7 +9,7 @@
     using RainingCatsAndDogsOnWeb.Data.Models;
     using RainingCatsAndDogsOnWeb.Web.Areas.Administration.Models;
 
-    [Authorize(Roles = "Administrator")]
+    //[Authorize(Roles = "Administrator")]
     public class AdminController : Controller
     {
         private readonly RoleManager<ApplicationRole> roleManager;
@@ -58,7 +58,7 @@
         }
 
         [HttpPost]
-        private async Task CreateAdminWithRole()
+        public async Task CreateAdminWithRole()
         {
             var roleExists = await this.roleManager.RoleExistsAsync("Administrator");
             var userExists = await this.userManager.FindByEmailAsync("admin@gmail.com");

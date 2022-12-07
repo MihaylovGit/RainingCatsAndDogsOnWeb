@@ -88,17 +88,17 @@
             services.AddSingleton<IFileProvider>(new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot")));
             services.AddTransient<IEmailSender, NullMessageSender>();
 
-            //services.AddAuthentication()
-            //        .AddGoogle(googleOptions =>
-            //{
-            //    googleOptions.ClientId = configuration["Authentication:Google:ClientId"];
-            //    googleOptions.ClientSecret = configuration["Authentication:Google:ClientSecret"];
-            //})
-            //  .AddFacebook(facebookOptions =>
-            //  {
-            //      facebookOptions.AppId = configuration["Authentication:Facebook:AppId"];
-            //      facebookOptions.AppSecret = configuration["Authentication:Facebook:AppSecret"];
-            //  });
+            services.AddAuthentication()
+                    .AddGoogle(googleOptions =>
+            {
+                googleOptions.ClientId = configuration["Authentication:Google:ClientId"];
+                googleOptions.ClientSecret = configuration["Authentication:Google:ClientSecret"];
+            })
+              .AddFacebook(facebookOptions =>
+              {
+                  facebookOptions.AppId = configuration["Authentication:Facebook:AppId"];
+                  facebookOptions.AppSecret = configuration["Authentication:Facebook:AppSecret"];
+              });
         }
 
         private static void Configure(WebApplication app)

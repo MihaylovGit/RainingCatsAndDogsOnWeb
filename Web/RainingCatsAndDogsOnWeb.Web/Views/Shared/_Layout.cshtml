@@ -28,22 +28,21 @@
                             <li class="nav-item">
                                 <a asp-area="" asp-controller="Home" asp-action="Index">HOME</a><button class="mobileOnly down-mcaret">
                                     <i class="fa fa-chevron-down"></i>
-                                </button>
-                                </button>
                             </li>
-
+                            </button>
                             @* @if (this.User.IsInRole("Administrator"))
                             {*@
                             <li class="nav-item menu-item-has-children has_children">
                                 <a class="dropbtn">ADMIN</a>
                                 <div class="dropdown-content">
-                                    <a asp-controller="Admin" asp-action="CreateRole">Create a Role</a>
-                                    <a asp-controller="Admin" asp-action="CreateAdminWithRole">Create Admin</a>
-                                    <a asp-controller="AdsCollector" asp-action="LoadAds">Ads Collector</a>
+                                    <form id="myForm" asp-controller="AdsCollector" asp-action="LoadAds" method="post">
+                                        <a asp-controller="Admin" asp-action="CreateRole">Create a Role</a>
+                                        <a asp-controller="Admin" asp-action="CreateAdminWithRole">Create Admin</a>
+                                        <a id="adsCollector" asp-controller="AdsCollector" asp-action="LoadAds">Ads Collector</a>
+                                    </form>
                                 </div>
                             </li>
-
-                            @*  }*@
+                              
                             @if (this.User.Identity.IsAuthenticated)
                             {
                                 <li>
@@ -114,18 +113,26 @@
 <script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js" asp-append-version="true"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap.min.js" asp-append-version="true"></script>
 <script src="~/js/site.min.js" asp-append-version="true"></script>
-<script>
-    $(function() {
-        $('.dropdown').hover(function() {
+@*<script>
+    $(function () {
+        $('.dropdown').hover(function () {
             $(this).addClass('open');
         },
-            function() {
+            function () {
                 $(this).removeClass('open');
             });
-    });</script>
+    });
+</script>*@
+
+<script>
+        document.getElementById("adsCollector").addEventListener("click", function (e) {
+            e.preventDefault();
+           document.getElementById('myForm').submit();
+    });
+</script>
+
 @await this.RenderSectionAsync("Scripts", required: false)
 </html>
-
 
 
 
