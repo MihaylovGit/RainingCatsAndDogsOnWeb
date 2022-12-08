@@ -12137,4 +12137,10 @@ header.masthead {
         outline: none;
         padding: 5px 20px !important;
 
-    } 
+    }
+
+.centered {
+    display: block;
+    margin: 0 auto;
+}
+

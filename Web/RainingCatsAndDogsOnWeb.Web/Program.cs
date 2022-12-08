@@ -86,6 +86,10 @@
             services.AddScoped<IBlogService, BlogService>();
             services.AddTransient<IEmailSender, NullMessageSender>();
 
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = "/Account/Login";
+            });
             services.AddAuthentication()
                     .AddGoogle(googleOptions =>
             {
