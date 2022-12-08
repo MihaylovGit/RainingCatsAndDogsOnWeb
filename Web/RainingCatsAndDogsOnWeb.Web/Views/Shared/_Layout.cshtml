@@ -35,14 +35,18 @@
                             <li class="nav-item menu-item-has-children has_children">
                                 <a class="dropbtn">ADMIN</a>
                                 <div class="dropdown-content">
-                                    <form id="myForm" asp-controller="AdsCollector" asp-action="LoadAds" method="post">
-                                        <a asp-controller="Admin" asp-action="CreateRole">Create a Role</a>
-                                        <a asp-controller="Admin" asp-action="CreateAdminWithRole">Create Admin</a>
-                                        <a id="adsCollector" asp-controller="AdsCollector" asp-action="LoadAds">Ads Collector</a>
+                                    <form id="myForm1" method="post" asp-controller="Admin" asp-action="CreateAdminRole">
+                                        <a id="createAdmin" asp-controller="Admin" asp-action="CreateAdminRole">Create Admin</a>
+                                    </form>
+                                    <form id="myForm2" method="post" asp-controller="Admin" asp-action="CreateRole">
+                                        <a id="createRole" asp-action="CreateRole">Create a Role</a>
+                                    </form>
+                                    <form id="myForm3" method="post" asp-controller="AdsCollector" asp-action="LoadAds">
+                                        <a id="adsCollector" asp-action="LoadAds">Load Ads</a>
                                     </form>
                                 </div>
                             </li>
-                              
+
                             @if (this.User.Identity.IsAuthenticated)
                             {
                                 <li>
@@ -113,21 +117,25 @@
 <script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js" asp-append-version="true"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap.min.js" asp-append-version="true"></script>
 <script src="~/js/site.min.js" asp-append-version="true"></script>
-@*<script>
-    $(function () {
-        $('.dropdown').hover(function () {
-            $(this).addClass('open');
-        },
-            function () {
-                $(this).removeClass('open');
-            });
-    });
-</script>*@
 
 <script>
-        document.getElementById("adsCollector").addEventListener("click", function (e) {
-            e.preventDefault();
-           document.getElementById('myForm').submit();
+    document.getElementById("createAdmin").addEventListener("click", function (e) {
+        e.preventDefault();
+        document.getElementById('myForm1').submit();
+    });
+</script>
+
+<script>
+    document.getElementById("createRole").addEventListener("click", function (e) {
+        e.preventDefault();
+        document.getElementById('myForm2').submit();
+    });
+</script>
+
+<script>
+    document.getElementById("adsCollector").addEventListener("click", function (e) {
+        e.preventDefault();
+        document.getElementById('myForm3').submit();
     });
 </script>
 

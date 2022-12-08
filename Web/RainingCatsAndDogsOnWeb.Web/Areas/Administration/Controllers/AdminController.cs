@@ -58,12 +58,12 @@
         }
 
         [HttpPost]
-        public async Task CreateAdminWithRole()
+        public async Task CreateAdminRole()
         {
             var roleExists = await this.roleManager.RoleExistsAsync("Administrator");
-            var userExists = await this.userManager.FindByEmailAsync("admin@gmail.com");
+            var user = await this.userManager.FindByEmailAsync("admin@gmail.com");
 
-            if (!roleExists || userExists == null)
+            if (!roleExists || user == null)
             {
                 if (!roleExists)
                 {
@@ -73,13 +73,13 @@
                     await this.roleManager.CreateAsync(role);
                 }
 
-                if (userExists == null)
+                if (user == null)
                 {
-                    var user = new ApplicationUser();
+                    user = new ApplicationUser();
                     user.UserName = "admin@gmail.com";
                     user.Email = "admin@gmail.com";
 
-                    string userPassword = "1q2w3e4r5t6y7u8i9o0p";
+                    string userPassword = "1q2w3e4r";
 
                     IdentityResult checkUser = await this.userManager.CreateAsync(user, userPassword);
 
@@ -87,6 +87,10 @@
                     {
                         var result = await this.userManager.AddToRoleAsync(user, "Administrator");
                     }
+                }
+                else
+                {
+                    await this.userManager.AddToRoleAsync(user, "Administrator");
                 }
             }
         }
