@@ -1,10 +1,22 @@
 ﻿@using RainingCatsAndDogsOnWeb.Web.ViewModels.Blog
-@model BlogsListViewModel
+@model BlogIndexViewModel
 @{
     this.ViewData["Title"] = "Blog";
 }
-<h1>@this.ViewData["Title"]</h1>
 
+<div class="text-center">
+    <h1 class="display-4">Welcome to our @this.ViewData["Title"] section</h1>
+</div>
+
+@foreach (var category in Model.Categories)
+    {
+        <div class="media">
+            <img class="mr-3" src="@category.ImageUrl" width="100" alt="@category.Name">
+            <div class="media-body">
+                <h5 class="mt-0"><a> asp-controller="Blog" asp-action="Index" @category.Name (@category.PostsCount)</a></h5>
+            </div>
+        </div>
+    }
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,35 +25,18 @@
         <button class="btn btn-primary">Create a post</button>
     </form>
     <br />
-   <div class="wrap">
-   <div class="search">
-      <input type="text" class="searchTerm" placeholder="What are you looking for?">
-      <button type="submit" class="searchButton">
-        <i class="fa fa-search"></i>
-     </button>
-   </div>
-</div>
+    <div class="wrap">
+        <div class="search">
+            <input type="text" class="searchTerm" placeholder="What are you looking for?">
+            <button type="submit" class="searchButton">
+                <i class="fa fa-search"></i>
+            </button>
+        </div>
+    </div>
 
     <br>
     <h1 class="text-center">@this.ViewData["Title"]</h1>
     <br>
-    <div class="text-center row">
-        @foreach (var blog in this.Model.AllBlogs)
-        {
-            <div class="rounded float-left" alt="Responsive image">
-                <img class="rounded mx-auto d-block" style="width: 18rem;"
-                 src="/images/blogs/@blog.Id/HeaderImage.jpg" alt="@blog.Title">
-                <div class="card-body">
-                    <h5 class="card-title mt-1">@blog.Title</h5>
-                    <p class="mb-0">Content: @blog.Content</p>
-                </div>
-
-                <form class="input-group-sm" asp-route-id="@blog.Id" asp-controller="Blog" asp-action="Default" method="post">
-                    <input type="submit" value="Leave a comment" class="fs-6 btn btn-success mb-3 p-2" />
-                </form>
-            </div>
-        }
-    </div>
     <hr />
     <partial name="_BlogPagingPartial" model="@Model" />
 

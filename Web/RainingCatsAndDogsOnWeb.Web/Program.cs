@@ -84,8 +84,6 @@
             services.AddTransient<ILikesService, LikesService>();
             services.AddTransient<ISearchAdsService, SearchAdsService>();
             services.AddScoped<IBlogService, BlogService>();
-            services.AddScoped<IBlogBusinessManager, RainingCatsAndDogsOnWeb.Web.BlogBusinessManager.BlogBusinessManager>();
-            services.AddSingleton<IFileProvider>(new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot")));
             services.AddTransient<IEmailSender, NullMessageSender>();
 
             services.AddAuthentication()

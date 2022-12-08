@@ -61,7 +61,7 @@
                         Price = priceElements[j],
                         Location = locationElements[j],
                         Description = descriptionElements[j] ?? titleElements[j],
-                        OriginalUrl = "alo.bg/" + dogImages[j],
+                        OriginalUrl = "https://alo.bg/" + dogImages[j],
                         CategoryId = 2,
                     };
 
@@ -96,7 +96,7 @@
                         Price = priceElements[h],
                         Location = locationElements[h],
                         Description = descriptionElements[h] ?? titleElements[h],
-                        OriginalUrl = "alo.bg/" + catImages[h],
+                        OriginalUrl = "https://alo.bg/" + catImages[h],
                         CategoryId = 1,
                     };
 

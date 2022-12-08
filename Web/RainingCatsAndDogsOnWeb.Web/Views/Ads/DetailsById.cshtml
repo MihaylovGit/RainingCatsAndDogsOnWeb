@@ -11,74 +11,73 @@
 </div>
 
 <div class="wrapper">
-    <h3>@Model.Title</h3>
+    <div class="detail-card">
+        <h3>@Model.Title</h3>
 
-    <p> <i class="fa fa-user" aria-hidden="true"></i> Added by: @if (@Model.AddedByUserUserName != null)
-        {
-            @Model.AddedByUserFirstName 
-            @Model.AddedByUserLastName
-        }
-        else
-        {
-            @Model.AddedByAdmin
-        }
-        on @Model.CreatedOn.ToString("D")</p>
-    <p class="homes-address mb-3">
-        <a href="https://www.google.com/maps/place/Bulgaria">
-            <i class="fa fa-map-marker" aria-hidden="true"></i>
-            <span>@Model.Location</span>
-        </a>
-    </p>
-    <div>
-        <i class="fa-solid fa-phone"></i>
-        <span>@if(@Model.PhoneNumber != null)
+        <p> <i class="fa fa-user" aria-hidden="true"></i> Added by: @if (@Model.AddedByUserUserName != null)
             {
-            @Model.PhoneNumber
+                <span>
+                    @Model.AddedByUserFirstName
+                    @Model.AddedByUserLastName
+                </span>
             }
             else
             {
-                @Model.AdminPhoneNumber
+                @Model.AddedByAdmin
             }
-            </span>
-    </div>
-    <br>
-
-    <div>
+            on @Model.CreatedOn.ToString("D")</p>
+        <p class="homes-address mb-3">
+            <a href="https://www.google.com/maps/place/Bulgaria">
+                <i class="fa fa-map-marker" aria-hidden="true"></i>
+                <span>@Model.Location</span>
+            </a>
+        </p>
+        <div>
+            <i class="fa-solid fa-phone"></i>
+            <span>@if(@Model.PhoneNumber != null)
+                {
+                @Model.PhoneNumber
+                }
+                else
+                {
+                    @Model.AdminPhoneNumber
+                }
+                </span>
+        </div>
         <br>
-        <span class="h5">Description: <i class="fa-solid fa-arrow-down-short-wide"></i></span>
-            <p class="">@Model.Description</p>
+
+        <div>
+            <br>
+            <span class="h5">Description: <i class="fa-solid fa-arrow-down-short-wide"></i></span>
+                <p class="">@Model.Description</p>
+        </div>
+
+        <ul class="homes-list clearfix">
+            @if (User.Identity.Name == Model.AddedByUserUserName)
+            {
+                <li>
+                    <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                    <span id="likesCount">@Model.LikesCount Likes</span>
+                </li>
+            }
+            else
+            {
+                <li>
+                    <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                    <span id="likesCount">@Model.LikesCount Likes</span>
+                </li>
+
+                <br />
+                <button class="btn btn-block btn-primary" id="btnLike" asp-controller="Likes" asp-action="Like"><i class="fa fa-thumbs-up">Like</i> </button>
+            }
+
+        </ul>
+        <div class="price-properties">
+            <h3 class="title mt-3">
+            </h3>
+            <p class="h3">Price: @Model.Price</p>
+        </div>
     </div>
-
-    <ul class="homes-list clearfix">
-        @if (User.Identity.Name == Model.AddedByUserUserName)
-        {
-            <li>
-                <i class="fa fa-thumbs-up" aria-hidden="true"></i>
-                <span id="likesCount">@Model.LikesCount Likes</span>
-            </li>
-            <li>
-                <i class="fa fa-comments" aria-hidden="true"></i>
-                <span>0 Comments</span>
-            </li>
-        }
-        else
-        {
-            <li>
-                <i class="fa fa-thumbs-up" aria-hidden="true"></i>
-                <span id="likesCount">@Model.LikesCount Likes</span>
-            </li>
-
-            <br />
-            <button class="btn btn-block btn-primary" id="btnLike" asp-controller="Likes" asp-action="Like"><i class="fa fa-thumbs-up">Like</i> </button>
-        }
-
-    </ul>
-    <div class="price-properties">
-        <h3 class="title mt-3">
-        </h3>
-        <p class="h3">Price: @Model.Price</p>
-    </div>
-
 </div>
 
 @section Scripts {

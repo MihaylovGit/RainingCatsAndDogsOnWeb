@@ -10,28 +10,28 @@
     [Authorize]
     public class BlogController : Controller
     {
-        private readonly IBlogBusinessManager businessManager;
         private readonly IBlogService blogService;
+        private readonly ICategoriesService categoriesService;
 
-        public BlogController(IBlogBusinessManager businessManager, IBlogService blogService)
+        public BlogController(IBlogService blogService, ICategoriesService categoriesService)
         {
-            this.businessManager = businessManager;
             this.blogService = blogService;
+            this.categoriesService = categoriesService;
         }
 
-        public IActionResult Default(int id = 1)
+        public IActionResult Index()
         {
-            const int BlogsPerPage = 6;
-
-            var viewModel = new BlogsListViewModel()
+            var viewModel = new BlogIndexViewModel
             {
-                BlogsPerPage = BlogsPerPage,
-                PageNumber = id,
-                BlogsCount = this.blogService.GetBlogsCount(),
-                AllBlogs = this.blogService.GetAllBlogs<BlogsInListViewModel>(id, BlogsPerPage),
+                Categories = this.categoriesService.GetAllCategories<IndexCategoryViewModel>(),
             };
 
             return this.View(viewModel);
+        }
+
+        public IActionResult UnderConstruction()
+        {
+            return this.View();
         }
 
         public IActionResult Create()
@@ -39,12 +39,12 @@
             return this.View(new CreateBlogViewModel());
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Add(CreateBlogViewModel model)
-        {
-            await this.businessManager.CreateBlog(model, this.User);
+        //[HttpPost]
+        //public async Task<IActionResult> Add(CreateBlogViewModel model)
+        //{
+        //    await this.blogService.CreateBlog(model, this.User);
 
-            return this.RedirectToAction("Default");
-        }
+        //    return this.RedirectToAction("Default");
+        //}
     }
 }

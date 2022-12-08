@@ -5,7 +5,6 @@
 }
 
 <h2 class="text-center">@ViewData["Title"]</h2>
-<hr />
 
 <div class="text-center row">
     @foreach (var ad in this.Model.AllAds)
@@ -20,12 +19,12 @@
                 <div>
                     <p class="mb-0 h5" style="background-color:powderblue">Location:</p>
                 </div>
-                 <p class="mb-0 h6">@ad.Location</p>
+                <p class="mb-0 h6">@ad.Location</p>
                 <hr>
                 <div>
                     <p class="mb-0 h5" style="background-color:powderblue">Price:</p>
                 </div>
-                <p class="mb-0 h6">Price: @ad.Price лв.</p>
+                <p class="mb-0 h6">Price: @ad.Price</p>
                 <hr>
                 <div>
                     <p class="mb-0 h5" style="background-color:powderblue">Description:</p>
@@ -34,17 +33,19 @@
                 <hr>
             </div>
 
-            <form class="input-group-sm" id="deleteForm" asp-route-id="@ad.Id" asp-controller="Ads" asp-action="Edit" method="get">
+            <form class="input-group-sm" id="editForm" asp-route-Id="@ad.Id" asp-controller="Ads" asp-action="Edit" method="get">
                 <div>
                     <button class="btn btn-success" type="submit">Edit</button>
                 </div>
             </form>
             <br>
-            <form class="input-group-sm" id="deleteForm" asp-route-id="@ad.Id" asp-controller="Ads" asp-action="Delete">
-            </form>
-            <div>
-                <button class="btn btn-danger" type="submit" data-bs-toggle="modal" data-bs-target="#modalDelete">Delete</button>
+            <form class="input-group-sm" id="deleteForm" asp-route-Id="@ad.Id" asp-controller="Ads" asp-action="Delete" method="post">
+                 <div>
+                <button class="btn btn-danger deleteBtn" type="button" data-bs-toggle="modal" data-bs-target="#modalDelete">Delete</button>
             </div>
+            </form>
+           
+           
         </div>
     }
 </div>
@@ -64,8 +65,23 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" data-bs-dismiss="modal">No</button>
-                <button type="button" class="btn btn-danger" onclick="editForm.submit()">Yes</button>
+                <button type="button" class="btn btn-danger" id="deleteConfirmButton">Yes</button>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+    let deleteBtnPressed = null;
+    document.querySelectorAll('.deleteBtn').forEach((item) => {
+        item.addEventListener('click', (e) => {
+            deleteBtnPressed = item;
+        });
+    });
+
+    document.getElementById('deleteConfirmButton').addEventListener('click',(e) => {
+        deleteBtnPressed.closest('form').submit();
+    });
+    
+
+</script>

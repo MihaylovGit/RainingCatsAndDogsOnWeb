@@ -27,7 +27,7 @@
                               new RolesSeeder(),
                               new CategoriesSeeder(),
                               new UsersSeeder(),
-                              //new AdsSeeder(),
+                              new AdsSeeder(dbContext),
                           };
 
             foreach (var seeder in seeders)

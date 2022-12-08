@@ -13,12 +13,10 @@
 
     public class BlogService : IBlogService
     {
-        private readonly UserManager<ApplicationUser> userManager;
         private readonly IDeletableEntityRepository<Blog> blogRepository;
 
-        public BlogService(UserManager<ApplicationUser> userManager, IDeletableEntityRepository<Blog> blogRepository)
+        public BlogService(IDeletableEntityRepository<Blog> blogRepository)
         {
-            this.userManager = userManager;
             this.blogRepository = blogRepository;
         }
 

@@ -7,6 +7,7 @@
     using System.Threading.Tasks;
 
     using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore.Metadata.Internal;
     using RainingCatsAndDogsOnWeb.Data.Common.Repositories;
     using RainingCatsAndDogsOnWeb.Data.Models;
     using RainingCatsAndDogsOnWeb.Services.Data.Contracts;
@@ -39,7 +40,7 @@
             };
 
             // /wwwroot/images/ads/gjgjk-gfkf34556-=g4565.jpeg
-            Directory.CreateDirectory($"{imagePath}/ads/");
+            Directory.CreateDirectory($"{imagePath}/");
 
             foreach (var image in input.Images)
             {
@@ -55,7 +56,7 @@
                     Extension = extension,
                 };
 
-                var physicalPath = $"{imagePath}/ads/{dbImage.Id}.{extension}";
+                var physicalPath = $"{imagePath}/{dbImage.Id}.{extension}";
 
                 newAd.Images.Add(dbImage);
 
@@ -70,6 +71,11 @@
         public async Task DeleteAsync(int id)
         {
             var ad = await this.adsRepository.All().FirstOrDefaultAsync(x => x.Id == id);
+            if (ad == null)
+            {
+                throw new ArgumentException("Invalid ad ID");
+            }
+
             this.adsRepository.Delete(ad);
             await this.adsRepository.SaveChangesAsync();
         }

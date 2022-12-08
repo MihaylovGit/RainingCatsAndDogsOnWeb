@@ -114,6 +114,7 @@
             return this.View(ad);
         }
 
+        [HttpGet]
         public IActionResult Edit(int id)
         {
             var viewModel = this.adsService.DetailsById<EditAdViewModel>(id);

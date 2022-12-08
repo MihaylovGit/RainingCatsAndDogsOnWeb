@@ -29,6 +29,11 @@
 
         public virtual ApplicationUser User { get; set; }
 
+        [ForeignKey(nameof(Category))]
+        public int CategoryId { get; set; }
+
+        public virtual Category Category { get; set; }
+
         public ICollection<Comment> Comments { get; set; }
     }
 }
