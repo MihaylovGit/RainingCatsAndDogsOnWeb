@@ -12,7 +12,7 @@ using RainingCatsAndDogsOnWeb.Data;
 namespace RainingCatsAndDogsOnWeb.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221208070845_InitialCreate")]
+    [Migration("20221209124901_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

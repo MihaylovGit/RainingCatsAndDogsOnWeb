@@ -28,10 +28,10 @@
         public void CreateMappings(IProfileExpression configuration)
         {
             configuration.CreateMap<Ad, AdsInListViewModel>()
-                 .ForMember(x => x.OriginalUrl, opt =>
-                 opt.MapFrom(x => x.Images.FirstOrDefault().RemoteImageUrl != null ?
-                 x.Images.FirstOrDefault().RemoteImageUrl :
-                 "/images/ads/" + x.Images.FirstOrDefault().Id + "." + x.Images.FirstOrDefault().Extension));
+                       .ForMember(x => x.OriginalUrl, opt =>
+                       opt.MapFrom(x => x.Images.FirstOrDefault().RemoteImageUrl != null ?
+                       x.Images.FirstOrDefault().RemoteImageUrl :
+                       "/images/ads/" + x.Images.FirstOrDefault().Id + "." + x.Images.FirstOrDefault().Extension));
         }
     }
 }

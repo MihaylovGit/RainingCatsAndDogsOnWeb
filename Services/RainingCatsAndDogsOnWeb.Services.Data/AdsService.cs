@@ -11,6 +11,7 @@
     using RainingCatsAndDogsOnWeb.Data.Common.Repositories;
     using RainingCatsAndDogsOnWeb.Data.Models;
     using RainingCatsAndDogsOnWeb.Services.Data.Contracts;
+    using RainingCatsAndDogsOnWeb.Services.Data.Models;
     using RainingCatsAndDogsOnWeb.Services.Mapping;
     using RainingCatsAndDogsOnWeb.Web.ViewModels.Ad;
     using RainingCatsAndDogsOnWeb.Web.ViewModels.Ads;
@@ -19,13 +20,14 @@
     {
         private readonly IDeletableEntityRepository<Ad> adsRepository;
         private readonly string[] allowedExtensions = new string[] { "jpg", "png", "jpeg", "gif" };
+        private readonly IGetCountsService countsService;
 
-        public AdsService(IDeletableEntityRepository<Ad> adsRepository)
+        public AdsService(IDeletableEntityRepository<Ad> adsRepository, IGetCountsService countsService)
         {
             this.adsRepository = adsRepository;
+            this.countsService = countsService;
         }
 
-        // IF I Have enough time to make CreateAsync<T>
         public async Task CreateAsync(CreateAdViewModel input, string userId, string imagePath)
         {
             var newAd = new Ad
@@ -110,10 +112,16 @@
 
         public async Task<IEnumerable<T>> GetRandom<T>(int count)
         {
+            int total = this.countsService.GetCounts().AdsCount;
+            Random rand = new Random();
+
+            int offset = rand.Next(0, total);
+
             return await this.adsRepository.All()
-                               .OrderBy(x => x.Id)
+                               .Skip(offset)
                                .Take(count)
-                               .To<T>().ToListAsync();
+                               .To<T>()
+                               .ToListAsync();
         }
 
         public IEnumerable<T> GetUserAds<T>(string userId)

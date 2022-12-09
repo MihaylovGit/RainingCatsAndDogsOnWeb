@@ -2,6 +2,7 @@
 {
     using System;
     using System.Linq;
+
     using AutoMapper;
     using RainingCatsAndDogsOnWeb.Data.Models;
     using RainingCatsAndDogsOnWeb.Services.Mapping;
@@ -30,7 +31,7 @@
 
         public string CategoryName { get; set; }
 
-        public string ImageUrl { get; set; }
+        public string OriginalUrl { get; set; }
 
         public int LikesCount { get; set; }
 
@@ -41,13 +42,14 @@
         public void CreateMappings(IProfileExpression configuration)
         {
             configuration.CreateMap<Ad, SingleAdViewModel>()
-                  .ForMember(x => x.LikesCount, opt =>
-                  opt.MapFrom(x => x.Likes))
-                  .ForMember(x => x.ImageUrl, opt =>
-                  opt.MapFrom(x => x.Images.Select(x => $"/images/{x.AddedByUserId}.{x.Extension}")));
-
-            configuration.CreateMap<Ad, SingleAdViewModel>()
-                         .ForMember(x => x.PhoneNumber, opt => opt.MapFrom(x => x.AddedByUser.PhoneNumber));
+                  //.ForMember(x => x.LikesCount, opt =>
+                  //opt.MapFrom(x => x.Likes.Select(l => l.LikesCount)))
+                  .ForMember(x => x.OriginalUrl, opt =>
+                       opt.MapFrom(x => x.Images.FirstOrDefault().RemoteImageUrl != null ?
+                       x.Images.FirstOrDefault().RemoteImageUrl :
+                       "/images/ads/" + x.Images.FirstOrDefault().Id + "." + x.Images.FirstOrDefault().Extension))
+                  .ForMember(x => x.PhoneNumber, opt =>
+                  opt.MapFrom(x => x.AddedByUser.PhoneNumber));
         }
     }
 }

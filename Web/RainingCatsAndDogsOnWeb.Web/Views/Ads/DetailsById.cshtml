@@ -6,15 +6,16 @@
     ViewData["Title"] = @Model.Title;
 }
 
-<div class="mx-auto">
-    <img src="@Model.ImageUrl" class="img-fluid w-50">
-</div>
-
 <div class="wrapper">
     <div class="detail-card">
+        <div class="card col-4" style="width: 15rem; ">
+            <img class="card-img-top" style="width: 18rem;"
+                 src="@Model.OriginalUrl" alt="@Model.Title">
+        </div>
         <h3>@Model.Title</h3>
 
-        <p> <i class="fa fa-user" aria-hidden="true"></i> Added by: @if (@Model.AddedByUserUserName != null)
+        <p>
+            <i class="fa fa-user" aria-hidden="true"></i> Added by: @if (@Model.AddedByUserUserName != null)
             {
                 <span>
                     @Model.AddedByUserFirstName
@@ -25,7 +26,8 @@
             {
                 @Model.AddedByAdmin
             }
-            on @Model.CreatedOn.ToString("D")</p>
+            on @Model.CreatedOn.ToString("D")
+        </p>
         <p class="homes-address mb-3">
             <a href="https://www.google.com/maps/place/Bulgaria">
                 <i class="fa fa-map-marker" aria-hidden="true"></i>
@@ -34,22 +36,23 @@
         </p>
         <div>
             <i class="fa-solid fa-phone"></i>
-            <span>@if(@Model.PhoneNumber != null)
+            <span>
+                @if (@Model.PhoneNumber != null)
                 {
-                @Model.PhoneNumber
+                    @Model.PhoneNumber
                 }
                 else
                 {
                     @Model.AdminPhoneNumber
                 }
-                </span>
+            </span>
         </div>
         <br>
 
         <div>
             <br>
             <span class="h5">Description: <i class="fa-solid fa-arrow-down-short-wide"></i></span>
-                <p class="">@Model.Description</p>
+            <p class="">@Model.Description</p>
         </div>
 
         <ul class="homes-list clearfix">
@@ -67,7 +70,6 @@
                     <span id="likesCount">@Model.LikesCount Likes</span>
                 </li>
 
-                <br />
                 <button class="btn btn-block btn-primary" id="btnLike" asp-controller="Likes" asp-action="Like"><i class="fa fa-thumbs-up">Like</i> </button>
             }
 
@@ -83,12 +85,12 @@
 @section Scripts {
     <script>
         let buttonState = localStorage.getItem("buttonState");
-      
+
         if (buttonState == "disabled") {
             $('#btnLike').prop('disabled', true);
         } else {
             $('#btnLike').click(function () {
-                
+
                 let likes = $('#likesCount').text();
                 likes = parseInt(likes) + 1;
                 localStorage.setItem("buttonState", "disabled");

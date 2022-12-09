@@ -58,7 +58,7 @@
         }
 
         [HttpPost]
-        public async Task CreateAdminRole()
+        public async Task CreateAdmin()
         {
             var roleExists = await this.roleManager.RoleExistsAsync("Administrator");
             var user = await this.userManager.FindByEmailAsync("admin@gmail.com");
@@ -85,13 +85,15 @@
 
                     if (checkUser.Succeeded)
                     {
-                        var result = await this.userManager.AddToRoleAsync(user, "Administrator");
+                        await this.userManager.AddToRoleAsync(user, "Administrator");
                     }
                 }
                 else
                 {
                     await this.userManager.AddToRoleAsync(user, "Administrator");
                 }
+
+                this.View("CreateAdmin", "Admin");
             }
         }
     }
