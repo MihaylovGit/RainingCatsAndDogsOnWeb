@@ -16,6 +16,8 @@
 
         int GetAdsCount();
 
+        int GetPagesCount(int adsPerPage);
+
         int GetUserAdsCount(string userId);
 
         T DetailsById<T>(int adid);

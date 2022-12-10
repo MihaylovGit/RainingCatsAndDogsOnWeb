@@ -79,17 +79,20 @@
         </div>
     </div>
 </div>
-
+<form method="post" id="antiForgeryForm">
+</form>
 @section Scripts {
     <script>
         $('#btnLike').click(function () {
 
             let likesAsText = $('#likesCount').text().split(' ');
             let likes = likesAsText[0];
-            console.log(likes);
+           
             $('#btnLike').prop('disabled', true);
 
             let adid = @Model.Id;
+            let antiForgeryToken = $('#antiForgeryForm input[name=__RequestVerificationToken]').val();
+            console.log(antiForgeryToken);
             let likesCount = likes;
             let data = { adid: adid, likesCount: likes }
            
@@ -99,13 +102,14 @@
                 type: "POST",
                 url: "/api/Likes",
                 data: JSON.stringify(data),
+                headers: {
+                    'X-CSRF-TOKEN': antiForgeryToken
+                },
                 success: function (data) {
                     $('#likesCount').html(data.likes)
                 },
                 contentType: "application/json"
             });
-
-            console.log(data.likesCount);
         });
                         
     </script>

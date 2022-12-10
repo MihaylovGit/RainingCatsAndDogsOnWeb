@@ -4,6 +4,7 @@
     using System.Linq;
     using System.Security.Claims;
     using System.Threading.Tasks;
+
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Identity;
@@ -41,6 +42,11 @@
                 AllAds = this.adsService.GetAllAds<AdsInListViewModel>(id, AdsPerPage),
             };
 
+            if (id > this.adsService.GetPagesCount(viewModel.AdsPerPage))
+            {
+                return this.View("PageNotFound", "Ads");
+            }
+
             return this.View(viewModel);
         }
 
@@ -69,7 +75,7 @@
 
             return this.View(viewModel);
         }
-
+        
         public IActionResult Create()
         {
             var viewModel = new CreateAdViewModel
@@ -147,6 +153,11 @@
         }
 
         public IActionResult EmptyCollection()
+        {
+            return this.View();
+        }
+
+        public IActionResult PageNotFound()
         {
             return this.View();
         }

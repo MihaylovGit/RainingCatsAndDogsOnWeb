@@ -2,6 +2,7 @@
 {
     using System.Diagnostics;
     using System.Threading.Tasks;
+
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using RainingCatsAndDogsOnWeb.Services.Data.Contracts;
@@ -40,5 +41,7 @@
             return this.View(
                 new ErrorViewModel { RequestId = Activity.Current?.Id ?? this.HttpContext.TraceIdentifier });
         }
+
+       
     }
 }

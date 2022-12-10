@@ -27,7 +27,6 @@
 
         [HttpPost]
         [Authorize]
-        [IgnoreAntiforgeryToken]
         public async Task<ActionResult<LikeResponseViewModel>> Like(LikeViewModel model)
         {
             var user = await this.userManager.GetUserAsync(this.HttpContext.User);

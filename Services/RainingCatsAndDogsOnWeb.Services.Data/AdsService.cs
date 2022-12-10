@@ -98,6 +98,13 @@
             return this.adsRepository.All().Count();
         }
 
+        public int GetPagesCount(int adsPerPage)
+        {
+            int pagesCount = this.GetAdsCount() / adsPerPage;
+
+            return pagesCount;
+        }
+
         public IEnumerable<T> GetAllAds<T>(int pageNumber, int adsPerPage)
         {
             var allAds = this.adsRepository.AllAsNoTracking()

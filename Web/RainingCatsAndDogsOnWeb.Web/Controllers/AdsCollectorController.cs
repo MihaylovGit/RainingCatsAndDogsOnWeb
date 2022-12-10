@@ -8,7 +8,7 @@
     using RainingCatsAndDogsOnWeb.Services;
     using RainingCatsAndDogsOnWeb.Web.Controllers;
 
-    //[Authorize(Roles = GlobalConstants.AdministratorRoleName)]
+    [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
     public class AdsCollectorController : Controller
     {
         public const int Count = 24;

@@ -58,42 +58,26 @@
         }
 
         [HttpPost]
-        public async Task CreateAdmin()
+        public async Task<IActionResult> AddUserToAdminRole()
         {
-            var roleExists = await this.roleManager.RoleExistsAsync("Administrator");
-            var user = await this.userManager.FindByEmailAsync("admin@gmail.com");
-
-            if (!roleExists || user == null)
+            if (!await this.roleManager.RoleExistsAsync("Administrator"))
             {
-                if (!roleExists)
+                await this.roleManager.CreateAsync(new ApplicationRole
                 {
-                    var role = new ApplicationRole();
-                    role.Name = "Administrator";
+                    Name = "Administrator",
+                });
+            }
 
-                    await this.roleManager.CreateAsync(role);
-                }
+            var user = await this.userManager.GetUserAsync(this.User);
 
-                if (user == null)
-                {
-                    user = new ApplicationUser();
-                    user.UserName = "admin@gmail.com";
-                    user.Email = "admin@gmail.com";
-
-                    string userPassword = "1q2w3e4r";
-
-                    IdentityResult checkUser = await this.userManager.CreateAsync(user, userPassword);
-
-                    if (checkUser.Succeeded)
-                    {
-                        await this.userManager.AddToRoleAsync(user, "Administrator");
-                    }
-                }
-                else
-                {
-                    await this.userManager.AddToRoleAsync(user, "Administrator");
-                }
-
-                this.View("CreateAdmin", "Admin");
+            var result = await this.userManager.AddToRoleAsync(user, "Administrator");
+            if (result.Succeeded)
+            {
+                return this.View("CreateAdminSuccessful", "Admin");
+            }
+            else
+            {
+                return this.View("NotFound", "Home");
             }
         }
     }

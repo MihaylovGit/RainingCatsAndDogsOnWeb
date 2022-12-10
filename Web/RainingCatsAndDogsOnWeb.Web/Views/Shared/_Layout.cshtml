@@ -30,13 +30,13 @@
                                     <i class="fa fa-chevron-down"></i>
                             </li>
                             </button>
-                           @* @if (this.User.IsInRole("Administrator"))
-                            {*@
+                           @if (this.User.IsInRole("Administrator"))
+                            {
                                 <li class="nav-item menu-item-has-children has_children">
                                     <a class="dropbtn">ADMIN</a>
                                     <div class="dropdown-content">
-                                        <form id="myForm1" method="post" asp-controller="Admin" asp-action="CreateAdmin">
-                                            <a id="createAdmin" asp-controller="Admin" asp-action="CreateAdmin">Create Admin</a>
+                                    <form id="myForm1" method="post" asp-controller="Admin" asp-action="AddUserToAdminRole">
+                                        <a id="createAdmin" asp-controller="Admin" asp-action="AddUserToAdminRole">Create Admin</a>
                                         </form>
                                         <form id="myForm2" method="post" asp-controller="Admin" asp-action="CreateRole">
                                             <a id="createRole" asp-action="CreateRole">Create a Role</a>
@@ -46,7 +46,7 @@
                                         </form>
                                     </div>
                                 </li>
-                           @* }*@
+                            }
                             @if (this.User.Identity.IsAuthenticated)
                             {
                                 <li>
