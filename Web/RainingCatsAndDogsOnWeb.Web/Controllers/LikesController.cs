@@ -9,6 +9,7 @@
     using Microsoft.AspNetCore.Mvc;
     using RainingCatsAndDogsOnWeb.Data.Models;
     using RainingCatsAndDogsOnWeb.Services.Data.Contracts;
+    using RainingCatsAndDogsOnWeb.Web.ViewModels.Ads;
     using RainingCatsAndDogsOnWeb.Web.ViewModels.Likes;
 
     [ApiController]
@@ -27,20 +28,14 @@
         [HttpPost]
         [Authorize]
         [IgnoreAntiforgeryToken]
-        public async Task<ActionResult<PostLikeResponseViewModel>> Like(PostLikeViewModel model)
+        public async Task<ActionResult<LikeResponseViewModel>> Like(LikeViewModel model)
         {
             var user = await this.userManager.GetUserAsync(this.HttpContext.User);
-            var userId = user.Id;
-            var adsLikedByUser = user.Likes.Select(x => x.LikesCount).ToList();
-
-            if (adsLikedByUser.Contains(model.AdId))
-            {
-                return this.View(model);
-            }
+            string userId = user.Id;
 
             await this.likesService.SetLikeAsync(model.AdId, userId, model.LikesCount);
 
-            return new PostLikeResponseViewModel { LikesCount = model.LikesCount };
+            return new LikeResponseViewModel { LikesCount = model.LikesCount };
         }
     }
 }

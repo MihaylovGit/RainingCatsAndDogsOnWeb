@@ -1,5 +1,7 @@
 ﻿namespace RainingCatsAndDogsOnWeb.Services.Data
 {
+    using System.Collections.Generic;
+    using System.Linq;
     using System.Threading.Tasks;
 
     using Microsoft.EntityFrameworkCore;
@@ -32,7 +34,7 @@
                 {
                     AdId = adid,
                     ApplicationUserId = userId,
-                    LikesCount = likesCount,
+                    LikesCount = likesCount + 1,
                 };
 
                 await this.likesRepository.AddAsync(like);

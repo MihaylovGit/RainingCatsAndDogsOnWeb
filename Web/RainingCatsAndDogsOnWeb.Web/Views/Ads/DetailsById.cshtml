@@ -8,9 +8,8 @@
 
 <div class="wrapper">
     <div class="detail-card">
-        <div class="card col-4" style="width: 15rem; ">
-            <img class="card-img-top" style="width: 18rem;"
-                 src="@Model.OriginalUrl" alt="@Model.Title">
+        <div class="detail-card-img">
+            <img class="card-img-top" src="@Model.OriginalUrl" alt="@Model.Title" />
         </div>
         <h3>@Model.Title</h3>
 
@@ -55,25 +54,24 @@
             <p class="">@Model.Description</p>
         </div>
 
-        <ul class="homes-list clearfix">
+        <div class="likes">
             @if (User.Identity.Name == Model.AddedByUserUserName)
             {
-                <li>
+                <div>
                     <i class="fa fa-thumbs-up" aria-hidden="true"></i>
                     <span id="likesCount">@Model.LikesCount Likes</span>
-                </li>
+                </div>
             }
             else
             {
-                <li>
+                <div>
                     <i class="fa fa-thumbs-up" aria-hidden="true"></i>
                     <span id="likesCount">@Model.LikesCount Likes</span>
-                </li>
-
-                <button class="btn btn-block btn-primary" id="btnLike" asp-controller="Likes" asp-action="Like"><i class="fa fa-thumbs-up">Like</i> </button>
+                </div>
+                <button class="btn btn-block btn-primary" id="btnLike" type="submit"><i class="fa fa-thumbs-up">Like</i> </button>
             }
 
-        </ul>
+        </div>
         <div class="price-properties">
             <h3 class="title mt-3">
             </h3>
@@ -84,34 +82,32 @@
 
 @section Scripts {
     <script>
-        let buttonState = localStorage.getItem("buttonState");
+        $('#btnLike').click(function () {
 
-        if (buttonState == "disabled") {
+            let likesAsText = $('#likesCount').text().split(' ');
+            let likes = likesAsText[0];
+            console.log(likes);
             $('#btnLike').prop('disabled', true);
-        } else {
-            $('#btnLike').click(function () {
 
-                let likes = $('#likesCount').text();
-                likes = parseInt(likes) + 1;
-                localStorage.setItem("buttonState", "disabled");
-                $('#btnLike').prop('disabled', true);
-
-                let adid = @Model.Id;
-                let data = { adid: adid, likesCount: likes }
-
-                $('#likesCount').html(`${likes} Likes`);
-
-                $.ajax({
-                    type: "POST",
-                    url: "/api/Likes",
-                    data: JSON.stringify(data),
-                    success: function (data) {
-                        $('#likesCount').html(data.likes)
-                    },
-                    contentType: "application/json"
-                });
+            let adid = @Model.Id;
+            let likesCount = likes;
+            let data = { adid: adid, likesCount: likes }
+           
+            $('#likesCount').html(`${likes} Likes`);
+            
+            $.ajax({
+                type: "POST",
+                url: "/api/Likes",
+                data: JSON.stringify(data),
+                success: function (data) {
+                    $('#likesCount').html(data.likes)
+                },
+                contentType: "application/json"
             });
-        }
+
+            console.log(data.likesCount);
+        });
+                        
     </script>
 }
 

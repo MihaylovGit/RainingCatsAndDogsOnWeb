@@ -44,7 +44,7 @@
             return this.View(viewModel);
         }
 
-        public IActionResult MyAds()
+        public IActionResult MyAds(int id = 1)
         {
             var userId = this.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
             if (userId == null)
@@ -56,6 +56,7 @@
 
             var viewModel = new AdsListViewModel()
             {
+                PageNumber = id,
                 AdsPerPage = AdsPerPage,
                 AdsCount = this.adsService.GetUserAdsCount(userId),
                 AllAds = this.adsService.GetUserAds<AdsInListViewModel>(userId),

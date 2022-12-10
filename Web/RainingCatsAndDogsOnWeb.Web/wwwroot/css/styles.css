@@ -12143,4 +12143,14 @@ header.masthead {
     display: block;
     margin: 0 auto;
 }
+.likes .btn{
+    margin-top: 15px;
+}
+.detail-card-img {
+    margin: 0 0 40px 0;
+}
+.detail-card-img img {
+    max-width: 100%;
+    width: auto;
+}
 

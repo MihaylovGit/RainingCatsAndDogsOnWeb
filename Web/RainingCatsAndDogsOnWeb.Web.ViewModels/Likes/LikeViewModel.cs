@@ -2,7 +2,7 @@
 {
     using System.ComponentModel.DataAnnotations;
 
-    public class PostLikeViewModel
+    public class LikeViewModel
     {
         public int AdId { get; set; }
 

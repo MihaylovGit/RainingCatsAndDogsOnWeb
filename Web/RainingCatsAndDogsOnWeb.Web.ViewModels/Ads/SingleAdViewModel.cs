@@ -1,11 +1,10 @@
 ﻿namespace RainingCatsAndDogsOnWeb.Web.ViewModels.Ads
 {
-    using System;
-    using System.Linq;
-
     using AutoMapper;
     using RainingCatsAndDogsOnWeb.Data.Models;
     using RainingCatsAndDogsOnWeb.Services.Mapping;
+    using System;
+    using System.Linq;
 
     public class SingleAdViewModel : IMapFrom<Ad>, IHaveCustomMappings
     {
@@ -42,8 +41,6 @@
         public void CreateMappings(IProfileExpression configuration)
         {
             configuration.CreateMap<Ad, SingleAdViewModel>()
-                  //.ForMember(x => x.LikesCount, opt =>
-                  //opt.MapFrom(x => x.Likes.Select(l => l.LikesCount)))
                   .ForMember(x => x.OriginalUrl, opt =>
                        opt.MapFrom(x => x.Images.FirstOrDefault().RemoteImageUrl != null ?
                        x.Images.FirstOrDefault().RemoteImageUrl :
