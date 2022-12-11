@@ -8,14 +8,33 @@
     <h1 class="display-4">Welcome to our @this.ViewData["Title"] section</h1>
 </div>
 
+
+<div class="flex-grow-1 search-bar">
+    <form method="get" asp-controller="SearchAds" asp-action="Index">
+        <div style="position:relative;" class="position-relative">
+
+            <input type="text" placeholder="What are you looking for?" name="searchString" />
+
+            <button class="text-center position-absolute btn btn-sm btn-success" type="submit">Search</button>
+
+        </div>
+    </form>
+</div>
+
 @foreach (var category in Model.Categories)
     {
-        <div class="media">
-            <img class="mr-3" src="@category.ImageUrl" width="100" alt="@category.Name">
+    <ul class="list-unstyled">
+        <li class="media">
+            <img class="img-fluid img-thumbnail" src="@category.ImageUrl" alt="@category.Name" width="200" height="200">
             <div class="media-body">
-                <h5 class="mt-0"><a> asp-controller="Blog" asp-action="Index" @category.Name (@category.PostsCount)</a></h5>
+                <h5 class="mt-0 mb-1">
+                    <form method="get" asp-controller="Categories" asp-action="PostsByCategoryName">
+                        <a id="getPostsByCategory" name="@category.Name" asp-controller="Categories" asp-action="PostsByCategoryName">@category.Name (@category.PostsCount)</a>
+                    </form>
+                </h5>
             </div>
-        </div>
+        </li>
+    </ul>
     }
 <!DOCTYPE html>
 <html lang="en">
@@ -24,21 +43,9 @@
     <form method="post" asp-controller="Blog" asp-action="Create">
         <button class="btn btn-primary">Create a post</button>
     </form>
-    <br />
-    <div class="wrap">
-        <div class="search">
-            <input type="text" class="searchTerm" placeholder="What are you looking for?">
-            <button type="submit" class="searchButton">
-                <i class="fa fa-search"></i>
-            </button>
-        </div>
-    </div>
 
-    <br>
-    <h1 class="text-center">@this.ViewData["Title"]</h1>
-    <br>
-    <hr />
-    <partial name="_BlogPagingPartial" model="@Model" />
+    </script>
+    @*<partial name="_BlogPagingPartial" model="@Model" />*@
 
     <!-- loader -->
 

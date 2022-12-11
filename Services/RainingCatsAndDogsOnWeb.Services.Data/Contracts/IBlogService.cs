@@ -4,10 +4,11 @@
     using System.Threading.Tasks;
 
     using RainingCatsAndDogsOnWeb.Data.Models;
+    using RainingCatsAndDogsOnWeb.Web.ViewModels.Blog;
 
     public interface IBlogService
     {
-        Task<Blog> Add(Blog blog);
+        Task<Blog> CreateBlog(Blog blog);
 
         IEnumerable<T> GetAllBlogs<T>(int pageNumber, int adsPerPage);
 

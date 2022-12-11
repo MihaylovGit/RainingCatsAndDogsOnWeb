@@ -1,9 +1,10 @@
 ﻿namespace RainingCatsAndDogsOnWeb.Web.ViewModels.Categories
 {
-    using RainingCatsAndDogsOnWeb.Data.Models;
-    using RainingCatsAndDogsOnWeb.Services.Mapping;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+
+    using RainingCatsAndDogsOnWeb.Data.Models;
+    using RainingCatsAndDogsOnWeb.Services.Mapping;
 
     using static RainingCatsAndDogsOnWeb.Common.DataConstants.Category;
 

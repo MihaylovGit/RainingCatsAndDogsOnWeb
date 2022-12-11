@@ -20,7 +20,7 @@
             this.blogRepository = blogRepository;
         }
 
-        public async Task<Blog> Add(Blog blog)
+        public async Task<Blog> CreateBlog(Blog blog)
         {
             await this.blogRepository.AddAsync(blog);
 

@@ -12,12 +12,12 @@
 
         public bool HasNextPage => this.PageNumber < this.PagesCount;
 
-        public int PagesCount => (int)Math.Ceiling((double)this.BlogsCount / this.BlogsPerPage);
+        public int PagesCount => (int)Math.Ceiling((double)this.PostsCount / this.PostsPerPage);
 
         public int NextPageNumber => this.PageNumber + 1;
 
-        public int BlogsCount { get; set; }
+        public int PostsCount { get; set; }
 
-        public int BlogsPerPage { get; set; }
+        public int PostsPerPage { get; set; }
     }
 }

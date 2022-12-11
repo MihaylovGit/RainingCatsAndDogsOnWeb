@@ -1,11 +1,12 @@
 ﻿namespace RainingCatsAndDogsOnWeb.Services.Data
 {
+    using System.Collections.Generic;
+    using System.Linq;
+
     using RainingCatsAndDogsOnWeb.Data.Common.Repositories;
     using RainingCatsAndDogsOnWeb.Data.Models;
     using RainingCatsAndDogsOnWeb.Services.Data.Contracts;
     using RainingCatsAndDogsOnWeb.Services.Mapping;
-    using System.Collections.Generic;
-    using System.Linq;
 
     public class CategoriesService : ICategoriesService
     {

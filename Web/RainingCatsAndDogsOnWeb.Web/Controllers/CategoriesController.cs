@@ -1,6 +1,7 @@
 ﻿namespace RainingCatsAndDogsOnWeb.Web.Controllers
 {
     using Microsoft.AspNetCore.Mvc;
+    using RainingCatsAndDogsOnWeb.Data.Models;
     using RainingCatsAndDogsOnWeb.Services.Data.Contracts;
     using RainingCatsAndDogsOnWeb.Web.ViewModels.Categories;
 
@@ -13,11 +14,18 @@
             this.categoriesServise = categoriesServise;
         }
 
-        public IActionResult ByName(string name)
+        public IActionResult PostsByCategoryName(string name)
         {
             var viewModel = this.categoriesServise.GetByName<CategoryViewModel>(name);
 
             return this.View(viewModel);
+        }
+
+        public IActionResult AllPostCategories()
+        {
+            var categories = this.categoriesServise.GetAllCategories<Category>();
+
+            return this.View();
         }
     }
 }

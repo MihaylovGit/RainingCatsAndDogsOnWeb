@@ -18,6 +18,8 @@
         [StringLength(PostContentMaxLength, MinimumLength = PostContentMinLength)]
         public string Content { get; set; }
 
+        public string ShortContent => this.Content?.Length > 50 ? this.Content.Substring(0, 50) + "..." : this.Content;
+
         public DateTime CreatedOn { get; set; }
 
         public string UserUserName { get; set; }
