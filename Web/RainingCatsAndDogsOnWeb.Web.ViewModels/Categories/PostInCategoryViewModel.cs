@@ -3,6 +3,7 @@
     using System;
     using System.ComponentModel.DataAnnotations;
 
+    using Microsoft.AspNetCore.Http;
     using RainingCatsAndDogsOnWeb.Data.Models;
     using RainingCatsAndDogsOnWeb.Services.Mapping;
 
@@ -10,6 +11,10 @@
 
     public class PostInCategoryViewModel : IMapFrom<Post>
     {
+        [Required]
+        [Display(Name = "Header Image")]
+        public IFormFile PostHeaderImage { get; set; }
+
         [Required]
         [StringLength(PostTitleMaxLength, MinimumLength = PostTitleMinLength)]
         public string Title { get; set; }

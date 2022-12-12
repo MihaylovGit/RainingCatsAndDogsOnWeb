@@ -16,24 +16,29 @@
                     </div>
                     <div class="card-body">
                         <div class="form-group">
-                            <label asp-for="BlogHeaderImage"></label>
+                            <label asp-for="PostHeaderImage"></label>
                             <div class="custom-file">
                                 <input asp-for="PostHeaderImage" class="custom-file-input" accept="image/*" />
                             </div>
                             <span asp-validation-for="PostHeaderImage" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <label asp-for="Blog.Title"></label>
-                            <input asp-for="Blog.Title" class="form-control" required />
-                            <span asp-validation-for="Blog.Title" class="text-danger"></span>
+                            <label asp-for="@Model.CategoryId"></label>
+                            <input asp-for="@Model.CategoryId" class="form-control" required />
+                            <span asp-validation-for="@Model.CategoryId" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <label asp-for="Blog.Content"></label>
-                            <textarea asp-for="Blog.Content" class="form-control"></textarea>
-                            <span asp-validation-for="Blog.Content" class="text-danger"></span>
+                            <label asp-for="@Model.Title"></label>
+                            <input asp-for="@Model.Title" class="form-control" required />
+                            <span asp-validation-for="@Model.Title" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="@Model.Content"></label>
+                            <textarea asp-for="@Model.Content" class="form-control"></textarea>
+                            <span asp-validation-for="@Model.Content" class="text-danger"></span>
                         </div>
                         <br>
-                        <button class="btn btn-primary" type="submit">Submit</button>
+                        <button asp-action="Create" class="btn btn-primary" type="submit">Submit</button>
                     </div>
                 </form>
             </div>

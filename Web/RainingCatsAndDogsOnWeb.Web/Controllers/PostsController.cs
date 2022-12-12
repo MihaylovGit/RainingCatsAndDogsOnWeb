@@ -1,13 +1,13 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using RainingCatsAndDogsOnWeb.Data.Models;
-using RainingCatsAndDogsOnWeb.Services.Data.Contracts;
-using RainingCatsAndDogsOnWeb.Web.ViewModels.Posts;
-using System.Threading.Tasks;
-
-namespace RainingCatsAndDogsOnWeb.Web.Controllers
+﻿namespace RainingCatsAndDogsOnWeb.Web.Controllers
 {
+    using System.Threading.Tasks;
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.AspNetCore.Mvc;
+    using RainingCatsAndDogsOnWeb.Data.Models;
+    using RainingCatsAndDogsOnWeb.Services.Data.Contracts;
+    using RainingCatsAndDogsOnWeb.Web.ViewModels.Posts;
+
     public class PostsController : Controller
     {
         private readonly IPostsService postsService;
@@ -44,17 +44,10 @@ namespace RainingCatsAndDogsOnWeb.Web.Controllers
             }
 
             var user = await this.userManager.GetUserAsync(this.User);
-            var post = new Post
-            {
-                CategoryId = model.CategoryId,
-                Title = model.Title,
-                Content = model.Content,
-                UserId = user.Id,
-            };
 
-            await this.postsService.CreatePost(post);
+            int postId = await this.postsService.CreatePost(model.Title, model.Content, model.CategoryId, user.Id);
 
-            return this.RedirectToAction("ById", new { id = post.Id });
+            return this.RedirectToAction(nameof(this.ById), new { id = postId });
         }
     }
 }
