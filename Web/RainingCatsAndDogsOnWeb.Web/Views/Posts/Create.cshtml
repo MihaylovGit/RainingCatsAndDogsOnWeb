@@ -1,12 +1,15 @@
-﻿@using RainingCatsAndDogsOnWeb.Web.ViewModels.Blog
-@model CreateBlogViewModel
+﻿@using RainingCatsAndDogsOnWeb.Web.ViewModels.Posts
+@model CreatePostViewModel
+@{
+    this.ViewData["Title"] = "New blog post";
+}
 
 <div class="container-fluid">
     <h1 class="mt-4">Create</h1>
     <div class="row">
         <div class="card-lg-6">
             <div class="card mb-4">
-                <form id="CreateBlogForm" asp-controller="Blog" asp-action="Add" method="post" enctype="multipart/form-data">
+                <form method="post" asp-controller="Posts" asp-action="Create" enctype="multipart/form-data">
                     <div class="card-header">
                         <i class="fas fa-pen-fancy mr-1"></i>
                         Write a Post
@@ -15,9 +18,9 @@
                         <div class="form-group">
                             <label asp-for="BlogHeaderImage"></label>
                             <div class="custom-file">
-                                <input asp-for="BlogHeaderImage" class="custom-file-input" accept="image/*" />
+                                <input asp-for="PostHeaderImage" class="custom-file-input" accept="image/*" />
                             </div>
-                            <span asp-validation-for="BlogHeaderImage" class="text-danger"></span>
+                            <span asp-validation-for="PostHeaderImage" class="text-danger"></span>
                         </div>
                         <div class="form-group">
                             <label asp-for="Blog.Title"></label>

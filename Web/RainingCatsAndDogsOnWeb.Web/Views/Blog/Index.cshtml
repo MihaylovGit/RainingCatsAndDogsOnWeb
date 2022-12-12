@@ -22,20 +22,18 @@
 </div>
 
 @foreach (var category in Model.Categories)
-    {
+{
     <ul class="list-unstyled">
         <li class="media">
             <img class="img-fluid img-thumbnail" src="@category.ImageUrl" alt="@category.Name" width="200" height="200">
             <div class="media-body">
                 <h5 class="mt-0 mb-1">
-                    <form method="get" asp-controller="Categories" asp-action="PostsByCategoryName">
-                        <a id="getPostsByCategory" name="@category.Name" asp-controller="Categories" asp-action="PostsByCategoryName">@category.Name (@category.PostsCount)</a>
-                    </form>
+                    <a asp-route-name="@category.Name" asp-controller="Categories" asp-action="PostsByCategoryName">@category.Name (@category.PostsCount)</a>
                 </h5>
             </div>
         </li>
     </ul>
-    }
+}
 <!DOCTYPE html>
 <html lang="en">
 

@@ -34,18 +34,5 @@
             return this.View();
         }
 
-        [HttpGet]
-        public IActionResult Create()
-        {
-            return this.View(new CreateBlogViewModel());
-        }
-
-        //[HttpPost]
-        //public async Task<IActionResult> Create(CreateBlogViewModel model)
-        //{
-        //    await this.blogService.CreateBlog(model);
-
-        //    return this.RedirectToAction("Index", "Blog");
-        //}
     }
 }
