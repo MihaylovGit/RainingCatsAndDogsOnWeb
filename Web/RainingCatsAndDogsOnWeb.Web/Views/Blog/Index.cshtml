@@ -8,18 +8,6 @@
     <h1 class="display-4">Welcome to our @this.ViewData["Title"] section</h1>
 </div>
 
-@*<div class="flex-grow-1 search-bar">
-    <form method="get" asp-controller="SearchAds" asp-action="Index">
-        <div style="position:relative;" class="position-relative">
-
-            <input type="text" placeholder="What are you looking for?" name="searchString" />
-
-            <button class="text-center position-absolute btn btn-sm btn-success" type="submit">Search</button>
-
-        </div>
-    </form>
-</div>*@
-
 @foreach (var category in Model.Categories)
 {
     <ul class="list-unstyled">

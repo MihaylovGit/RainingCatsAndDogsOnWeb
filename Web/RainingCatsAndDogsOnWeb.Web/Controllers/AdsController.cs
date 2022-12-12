@@ -44,7 +44,7 @@
 
             if (id > this.adsService.GetPagesCount(viewModel.AdsPerPage))
             {
-                return this.View("PageNotFound", "Ads");
+                return this.View("PageNotFound");
             }
 
             return this.View(viewModel);
@@ -67,6 +67,11 @@
                 AdsCount = this.adsService.GetUserAdsCount(userId),
                 AllAds = this.adsService.GetUserAds<AdsInListViewModel>(userId),
             };
+
+            if (id > (int)Math.Ceiling((double)viewModel.AdsCount / viewModel.AdsPerPage))
+            {
+                return this.View("PageNotFound");
+            }
 
             if (viewModel.AdsCount == 0)
             {
@@ -117,6 +122,10 @@
         public IActionResult DetailsById(int id)
         {
             var ad = this.adsService.DetailsById<SingleAdViewModel>(id);
+            if (ad == null)
+            {
+                return this.View("PageNotFound");
+            }
 
             return this.View(ad);
         }
@@ -153,11 +162,6 @@
         }
 
         public IActionResult EmptyCollection()
-        {
-            return this.View();
-        }
-
-        public IActionResult PageNotFound()
         {
             return this.View();
         }

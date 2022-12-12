@@ -21,10 +21,15 @@
             this.categoriesService = categoriesService;
             this.userManager = userManager;
         }
+
         [Authorize]
         public async Task<IActionResult> ById(int id)
         {
             var postViewModel = await this.postsService.GetById<PostViewModel>(id);
+            if (postViewModel == null)
+            {
+                return this.View("PageNotFound", "Home");
+            }
 
             return this.View(postViewModel);
         }
