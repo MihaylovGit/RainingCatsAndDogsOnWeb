@@ -18,14 +18,20 @@
         public async Task<IActionResult> Index(string searchString)
         {
             var posts = await this.searchBlogPostsService.GetAllPosts<PostInCategoryViewModel>();
+            posts = posts.Where(x => x.Title.ToLower().Contains(searchString.ToLower()) ||
+             x.Content.ToLower().Contains(searchString.ToLower()));
 
-            if (!string.IsNullOrEmpty(searchString))
+            if (string.IsNullOrEmpty(searchString) || string.IsNullOrWhiteSpace(searchString) || posts.Count() == 0)
             {
-                posts = posts.Where(x => x.Title.ToLower().Contains(searchString.ToLower()) ||
-                x.Content.ToLower().Contains(searchString.ToLower()));
+                return this.View(nameof(this.NoResultsFound));
             }
 
             return this.View(posts);
+        }
+
+        public IActionResult NoResultsFound()
+        {
+            return this.View();
         }
     }
 }

@@ -19,14 +19,20 @@
         public async Task<IActionResult> Index(string searchString)
         {
             var ads = await this.searchAdsService.GetAllAds<AdsInListViewModel>();
+            ads = ads.Where(x => x.Title.ToLower().Contains(searchString.ToLower()) ||
+               x.Location.ToLower().Contains(searchString.ToLower()) || x.Description.ToLower().Contains(searchString.ToLower()));
 
-            if (!string.IsNullOrEmpty(searchString))
+            if (string.IsNullOrEmpty(searchString) || string.IsNullOrWhiteSpace(searchString) || ads.Count() == 0)
             {
-                ads = ads.Where(x => x.Title.ToLower().Contains(searchString.ToLower()) ||
-                x.Location.ToLower().Contains(searchString.ToLower()) || x.Description.ToLower().Contains(searchString.ToLower()));
+                return this.View(nameof(this.NoResultsFound));
             }
 
             return this.View(ads);
+        }
+
+        public IActionResult NoResultsFound()
+        {
+            return this.View();
         }
     }
 }

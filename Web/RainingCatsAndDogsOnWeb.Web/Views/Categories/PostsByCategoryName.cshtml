@@ -10,7 +10,7 @@
 
         <div style="position:relative;" class="position-relative">
 
-            <input type="text" placeholder="Search in blog posts" name="searchString" />
+            <input id="blogPostsSearchBar" type="text" placeholder="Search in blog posts" name="searchString" />
 
             <button class="text-center position-absolute btn btn-sm btn-success" type="submit">Search</button>
 
@@ -57,7 +57,7 @@
                         </section>
                     </article>
                 </div>
-                <div class="text-muted fst-italic mb-2"><i class="fa-thin fa-comment-dots"></i>@post.CommentsCount</div>
+                <div><i class="fa-thin fa-comment-dots"></i>@post.CommentsCount</div>
 
                 <!-- Comments section-->
                 @*<section class="mb-5">
