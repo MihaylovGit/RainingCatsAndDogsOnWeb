@@ -6,6 +6,7 @@
     using Microsoft.AspNetCore.Mvc;
     using RainingCatsAndDogsOnWeb.Data.Models;
     using RainingCatsAndDogsOnWeb.Services.Data.Contracts;
+    using RainingCatsAndDogsOnWeb.Web.ViewModels.Categories;
     using RainingCatsAndDogsOnWeb.Web.ViewModels.Posts;
 
     public class PostsController : Controller
@@ -20,18 +21,25 @@
             this.categoriesService = categoriesService;
             this.userManager = userManager;
         }
-
-        public IActionResult ById(int id)
+        [Authorize]
+        public async Task<IActionResult> ById(int id)
         {
-            // TODO
-            return this.View();
+            var postViewModel = await this.postsService.GetById<PostViewModel>(id);
+
+            return this.View(postViewModel);
         }
 
         [Authorize]
         [HttpGet]
         public IActionResult Create()
         {
-            return this.View(new CreatePostViewModel());
+            var categories = this.categoriesService.GetAllCategories<CategoryDropDownViewModel>();
+            var viewModel = new CreatePostViewModel
+            {
+               Categories = categories,
+            };
+
+            return this.View(viewModel);
         }
 
         [Authorize]

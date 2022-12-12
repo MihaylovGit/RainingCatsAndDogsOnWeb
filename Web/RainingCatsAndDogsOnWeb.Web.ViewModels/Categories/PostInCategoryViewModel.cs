@@ -11,6 +11,8 @@
 
     public class PostInCategoryViewModel : IMapFrom<Post>
     {
+        public int Id { get; set; }
+
         [Required]
         [Display(Name = "Header Image")]
         public IFormFile PostHeaderImage { get; set; }
@@ -23,7 +25,7 @@
         [StringLength(PostContentMaxLength, MinimumLength = PostContentMinLength)]
         public string Content { get; set; }
 
-        public string ShortContent => this.Content?.Length > 50 ? this.Content.Substring(0, 50) + "..." : this.Content;
+        public string ShortContent => this.Content?.Length > 100 ? this.Content.Substring(0, 100) + "..." : this.Content;
 
         public DateTime CreatedOn { get; set; }
 

@@ -1,10 +1,12 @@
 ﻿namespace RainingCatsAndDogsOnWeb.Web.ViewModels.Posts
 {
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
     using Microsoft.AspNetCore.Http;
     using RainingCatsAndDogsOnWeb.Data.Models;
     using RainingCatsAndDogsOnWeb.Services.Mapping;
+    using RainingCatsAndDogsOnWeb.Web.ViewModels.Categories;
 
     using static RainingCatsAndDogsOnWeb.Common.DataConstants.Post;
 
@@ -23,5 +25,7 @@
         public string Content { get; set; }
 
         public int CategoryId { get; set; }
+
+        public IEnumerable<CategoryDropDownViewModel> Categories { get; set; }
     }
 }
