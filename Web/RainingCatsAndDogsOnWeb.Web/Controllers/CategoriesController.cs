@@ -5,6 +5,7 @@
     using Microsoft.AspNetCore.Mvc;
     using RainingCatsAndDogsOnWeb.Data.Models;
     using RainingCatsAndDogsOnWeb.Services.Data.Contracts;
+    using RainingCatsAndDogsOnWeb.Web.ViewModels.Ad;
     using RainingCatsAndDogsOnWeb.Web.ViewModels.Categories;
 
     public class CategoriesController : Controller
@@ -21,7 +22,7 @@
             var viewModel = this.categoriesServise.GetByName<CategoryViewModel>(name);
             if (!viewModel.Posts.Any())
             {
-                return this.View(nameof(this.CategoryPostsEmpty));
+                return this.RedirectToAction(nameof(this.CategoryPostsEmpty));
             }
 
             return this.View(viewModel);

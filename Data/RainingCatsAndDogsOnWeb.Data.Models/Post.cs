@@ -1,13 +1,10 @@
 ﻿namespace RainingCatsAndDogsOnWeb.Data.Models
 {
-    using System.Collections;
+    using RainingCatsAndDogsOnWeb.Data.Common.Models;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
-
-    using RainingCatsAndDogsOnWeb.Data.Common.Models;
-
-    using static RainingCatsAndDogsOnWeb.Common.DataConstants.Post;
+    using static RainingCatsAndDogsOnWeb.Infrastructure.DataConstants.Post;
 
     public class Post : BaseDeletableModel<int>
     {

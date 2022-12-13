@@ -5,7 +5,7 @@
 
     using RainingCatsAndDogsOnWeb.Data.Common.Models;
 
-    using static RainingCatsAndDogsOnWeb.Common.DataConstants.Blog;
+    using static RainingCatsAndDogsOnWeb.Infrastructure.DataConstants.Blog;
 
     public class Blog : BaseDeletableModel<int>
     {

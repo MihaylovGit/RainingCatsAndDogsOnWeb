@@ -25,6 +25,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\RainingCatsAndDogsOnWeb.Common\RainingCatsAndDogsOnWeb.Common.csproj" />
+    <ProjectReference Include="..\..\Web\RainingCatsAndDogsOnWeb.Web.Infrastructure\RainingCatsAndDogsOnWeb.Web.Infrastructure.csproj" />
     <ProjectReference Include="..\RainingCatsAndDogsOnWeb.Data.Common\RainingCatsAndDogsOnWeb.Data.Common.csproj" />
   </ItemGroup>
   

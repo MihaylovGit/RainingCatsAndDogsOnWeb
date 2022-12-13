@@ -8,14 +8,10 @@
     using RainingCatsAndDogsOnWeb.Services.Mapping;
     using RainingCatsAndDogsOnWeb.Web.ViewModels.Categories;
 
-    using static RainingCatsAndDogsOnWeb.Common.DataConstants.Post;
+    using static RainingCatsAndDogsOnWeb.Infrastructure.DataConstants.Post;
 
     public class CreatePostViewModel : IMapFrom<Post>
     {
-        [Required]
-        [Display(Name = "Header Image")]
-        public IFormFile PostHeaderImage { get; set; }
-
         [Required]
         [StringLength(PostTitleMaxLength, MinimumLength = PostTitleMinLength)]
         public string Title { get; set; }
@@ -27,5 +23,7 @@
         public int CategoryId { get; set; }
 
         public IEnumerable<CategoryDropDownViewModel> Categories { get; set; }
+
+        public IEnumerable<IFormFile> Images { get; set; }
     }
 }

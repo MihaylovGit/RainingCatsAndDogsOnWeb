@@ -5,7 +5,7 @@
 
     using RainingCatsAndDogsOnWeb.Data.Common.Models;
 
-    using static RainingCatsAndDogsOnWeb.Common.DataConstants.Category;
+    using static RainingCatsAndDogsOnWeb.Infrastructure.DataConstants.Category;
 
     public class Category : BaseDeletableModel<int>
     {

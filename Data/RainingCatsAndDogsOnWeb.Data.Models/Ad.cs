@@ -6,7 +6,7 @@
 
     using RainingCatsAndDogsOnWeb.Data.Common.Models;
 
-    using static RainingCatsAndDogsOnWeb.Common.DataConstants.Ad;
+    using static RainingCatsAndDogsOnWeb.Infrastructure.DataConstants.Ad;
 
     public class Ad : BaseDeletableModel<int>
     {

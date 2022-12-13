@@ -2,6 +2,7 @@
 {
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using RainingCatsAndDogsOnWeb.Data.Models;
@@ -58,7 +59,7 @@
 
             var user = await this.userManager.GetUserAsync(this.User);
 
-            int postId = await this.postsService.CreatePost(model.Title, model.Content, model.CategoryId, user.Id);
+            int postId = await this.postsService.CreatePostAsync(model.Title, model.Content, model.CategoryId, user.Id);
 
             return this.RedirectToAction(nameof(this.ById), new { id = postId });
         }

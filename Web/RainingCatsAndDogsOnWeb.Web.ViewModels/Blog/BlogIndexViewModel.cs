@@ -1,10 +1,8 @@
 ﻿namespace RainingCatsAndDogsOnWeb.Web.ViewModels.Blog
 {
-    using System.Collections.Generic;
-
     using RainingCatsAndDogsOnWeb.Data.Models;
     using RainingCatsAndDogsOnWeb.Services.Mapping;
-    using RainingCatsAndDogsOnWeb.Web.ViewModels.Ads;
+    using System.Collections.Generic;
 
     public class BlogIndexViewModel : IMapFrom<Category>
     {

@@ -2,9 +2,10 @@
 {
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
+
     using RainingCatsAndDogsOnWeb.Data.Common.Models;
 
-    using static RainingCatsAndDogsOnWeb.Common.DataConstants.Reply;
+    using static RainingCatsAndDogsOnWeb.Infrastructure.DataConstants.Reply;
 
     public class Reply : BaseDeletableModel<int>
     {

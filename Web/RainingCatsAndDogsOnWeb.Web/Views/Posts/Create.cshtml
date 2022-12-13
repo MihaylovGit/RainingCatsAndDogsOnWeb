@@ -16,13 +16,13 @@
                         Write a Post
                     </div>
                     <div class="card-body">
-                        <div class="form-group">
+                        @*<div class="form-group">
                             <label asp-for="PostHeaderImage"></label>
                             <div class="custom-file">
                                 <input asp-for="PostHeaderImage" class="custom-file-input" accept="image/*" />
                             </div>
                             <span asp-validation-for="PostHeaderImage" class="text-danger"></span>
-                        </div>
+                        </div>*@
                         <div class="form-group">
                             <label>Category</label>
                             <select asp-for="CategoryId" asp-items="categories"></select>
@@ -38,6 +38,7 @@
                             <textarea asp-for="Content" class="form-control"></textarea>
                             <span asp-validation-for="Content" class="text-danger"></span>
                         </div>
+                        <hr />
                         <button asp-action="Create" class="btn btn-primary" type="submit">Submit</button>
                     </div>
                 </form>

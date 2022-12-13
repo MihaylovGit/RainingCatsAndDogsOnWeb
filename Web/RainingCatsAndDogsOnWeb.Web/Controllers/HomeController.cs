@@ -10,7 +10,7 @@
     using RainingCatsAndDogsOnWeb.Web.ViewModels.Home;
 
     [Authorize]
-    public class HomeController : BaseController
+    public class HomeController : Controller
     {
         private readonly IGetCountsService countsService;
         private readonly IAdsService adsService;

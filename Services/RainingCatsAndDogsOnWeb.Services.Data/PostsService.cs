@@ -1,12 +1,18 @@
 ﻿namespace RainingCatsAndDogsOnWeb.Services.Data
 {
+    using System;
     using System.Linq;
+    using System.IO;
+
     using System.Threading.Tasks;
+
+
     using Microsoft.EntityFrameworkCore;
     using RainingCatsAndDogsOnWeb.Data.Common.Repositories;
     using RainingCatsAndDogsOnWeb.Data.Models;
     using RainingCatsAndDogsOnWeb.Services.Data.Contracts;
     using RainingCatsAndDogsOnWeb.Services.Mapping;
+    using RainingCatsAndDogsOnWeb.Web.ViewModels.Posts;
 
     public class PostsService : IPostsService
     {
@@ -17,7 +23,7 @@
             this.postsRepository = postsRepository;
         }
 
-        public async Task<int> CreatePost(string title, string content, int categoryId, string userId)
+        public async Task<int> CreatePostAsync(string title, string content, int categoryId, string userId)
         {
             var post = new Post
             {
@@ -36,10 +42,10 @@
 
         public async Task<T> GetById<T>(int id)
         {
-           var post = await this.postsRepository.All()
-                                .Where(x => x.Id == id)
-                                .To<T>()
-                                .FirstOrDefaultAsync();
+            var post = await this.postsRepository.All()
+                                 .Where(x => x.Id == id)
+                                 .To<T>()
+                                 .FirstOrDefaultAsync();
 
             return post;
         }

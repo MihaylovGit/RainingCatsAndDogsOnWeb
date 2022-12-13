@@ -14,7 +14,7 @@
 
     [ApiController]
     [Route("api/[controller]")]
-    public class LikesController : BaseController
+    public class LikesController : Controller
     {
         private readonly ILikesService likesService;
         private readonly UserManager<ApplicationUser> userManager;

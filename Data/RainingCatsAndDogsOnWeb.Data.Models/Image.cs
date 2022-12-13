@@ -2,6 +2,7 @@
 {
     using System;
     using System.ComponentModel.DataAnnotations.Schema;
+
     using RainingCatsAndDogsOnWeb.Data.Common.Models;
 
     public class Image : BaseDeletableModel<string>

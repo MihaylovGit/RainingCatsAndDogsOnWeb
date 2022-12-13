@@ -7,7 +7,7 @@
     using RainingCatsAndDogsOnWeb.Services.Data.Contracts;
     using RainingCatsAndDogsOnWeb.Web.ViewModels.Ads;
 
-    public class SearchAdsController : BaseController
+    public class SearchAdsController : Controller
     {
         private readonly ISearchAdsService searchAdsService;
 

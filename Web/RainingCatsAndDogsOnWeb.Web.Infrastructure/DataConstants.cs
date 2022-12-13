@@ -1,4 +1,4 @@
-﻿namespace RainingCatsAndDogsOnWeb.Common
+﻿namespace RainingCatsAndDogsOnWeb.Infrastructure
 {
     public static class DataConstants
     {
@@ -62,7 +62,7 @@
 
             public const int PostContentMinLength = 30;
 
-            public const int PostContentMaxLength = 1000;
+            public const int PostContentMaxLength = 2500;
         }
     }
 }

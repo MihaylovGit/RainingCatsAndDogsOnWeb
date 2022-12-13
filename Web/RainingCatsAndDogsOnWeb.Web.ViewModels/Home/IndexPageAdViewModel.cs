@@ -1,9 +1,11 @@
 ﻿namespace RainingCatsAndDogsOnWeb.Web.ViewModels.Home
 {
-    using AutoMapper;
     using System.Linq;
 
+    using AutoMapper;
+
     using RainingCatsAndDogsOnWeb.Data.Models;
+
     using RainingCatsAndDogsOnWeb.Services.Mapping;
 
 
@@ -29,7 +31,6 @@
                   .ForMember(x => x.ImageUrl, opt =>
                   opt.MapFrom(x => x.Images.FirstOrDefault().RemoteImageUrl != null ?
                   x.Images.FirstOrDefault().RemoteImageUrl : x.OriginalUrl));
-                  //"/images/ads/" + x.Images.FirstOrDefault().Id + "." + x.Images.FirstOrDefault().Extension));
         }
     }
 }

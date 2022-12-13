@@ -4,7 +4,7 @@
     using RainingCatsAndDogsOnWeb.Services.Mapping;
     using System.ComponentModel.DataAnnotations;
 
-    using static RainingCatsAndDogsOnWeb.Common.DataConstants.ApplicationUser;
+    using static RainingCatsAndDogsOnWeb.Infrastructure.DataConstants.ApplicationUser;
 
     public class RegisterViewModel : IMapFrom<ApplicationUser>
     {

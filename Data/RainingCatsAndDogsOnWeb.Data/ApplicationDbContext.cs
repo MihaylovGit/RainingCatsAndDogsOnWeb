@@ -10,7 +10,7 @@
 
     using RainingCatsAndDogsOnWeb.Data.Common.Models;
 
-    using static RainingCatsAndDogsOnWeb.Common.DataConstants.ApplicationUser;
+    using static RainingCatsAndDogsOnWeb.Infrastructure.DataConstants.ApplicationUser;
 
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
@@ -60,7 +60,6 @@
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            // Needed for Identity models configuration
             builder.Entity<Ad>()
                   .HasMany(x => x.Likes);
 

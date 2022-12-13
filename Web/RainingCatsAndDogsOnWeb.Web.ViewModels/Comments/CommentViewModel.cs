@@ -1,8 +1,10 @@
-﻿using RainingCatsAndDogsOnWeb.Data.Models;
-namespace RainingCatsAndDogsOnWeb.Web.ViewModels.Comments
+﻿namespace RainingCatsAndDogsOnWeb.Web.ViewModels.Comments
 {
-    using RainingCatsAndDogsOnWeb.Services.Mapping;
     using System.Collections.Generic;
+
+    using RainingCatsAndDogsOnWeb.Data.Models;
+
+    using RainingCatsAndDogsOnWeb.Services.Mapping;
 
     public class CommentViewModel : IMapFrom<Comment>
     {

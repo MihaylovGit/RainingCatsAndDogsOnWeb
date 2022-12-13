@@ -7,7 +7,7 @@
     using RainingCatsAndDogsOnWeb.Data.Models;
     using RainingCatsAndDogsOnWeb.Services.Mapping;
 
-    using static RainingCatsAndDogsOnWeb.Common.DataConstants.Post;
+    using static RainingCatsAndDogsOnWeb.Infrastructure.DataConstants.Post;
 
     public class PostInCategoryViewModel : IMapFrom<Post>
     {

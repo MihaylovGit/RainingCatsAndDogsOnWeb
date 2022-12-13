@@ -6,7 +6,7 @@
     using RainingCatsAndDogsOnWeb.Data.Models;
     using RainingCatsAndDogsOnWeb.Services.Mapping;
 
-    using static RainingCatsAndDogsOnWeb.Common.DataConstants.Category;
+    using static RainingCatsAndDogsOnWeb.Infrastructure.DataConstants.Category;
 
     public class CategoryViewModel : IMapFrom<Category>
     {

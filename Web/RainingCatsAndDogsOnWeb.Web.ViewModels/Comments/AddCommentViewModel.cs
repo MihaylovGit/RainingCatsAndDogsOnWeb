@@ -5,7 +5,7 @@
     using RainingCatsAndDogsOnWeb.Data.Models;
     using RainingCatsAndDogsOnWeb.Services.Mapping;
 
-    using static RainingCatsAndDogsOnWeb.Common.DataConstants.Comment;
+    using static RainingCatsAndDogsOnWeb.Infrastructure.DataConstants.Comment;
 
     public class AddCommentViewModel : IMapFrom<Comment>
     {

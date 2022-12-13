@@ -1,11 +1,13 @@
 ﻿
 namespace RainingCatsAndDogsOnWeb.Web.ViewModels.Ads
 {
-    using RainingCatsAndDogsOnWeb.Data.Models;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using static RainingCatsAndDogsOnWeb.Common.DataConstants.Ad;
+
+    using Microsoft.AspNetCore.Http;
+    using RainingCatsAndDogsOnWeb.Data.Models;
+ 
+    using static RainingCatsAndDogsOnWeb.Infrastructure.DataConstants.Ad;
 
     public abstract class BaseAdViewModel
     {

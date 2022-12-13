@@ -1,8 +1,9 @@
 ﻿namespace RainingCatsAndDogsOnWeb.Web.ViewModels.Ad
 {
+    using System.Collections.Generic;
+
     using Microsoft.AspNetCore.Http;
     using RainingCatsAndDogsOnWeb.Web.ViewModels.Ads;
-    using System.Collections.Generic;
 
     public class CreateAdViewModel : BaseAdViewModel
     {

@@ -5,14 +5,22 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome to our @this.ViewData["Title"] section</h1>
+    <h1 class="display-3">Welcome to our @this.ViewData["Title"] section</h1>
+    <form asp-controller="Posts" asp-action="Create" method="get">
+        <button class="btn btn-primary">Create a post</button>
+    </form>
 </div>
+
+
 
 @foreach (var category in Model.Categories)
 {
     <ul class="list-unstyled">
         <li class="media">
-            <img class="img-fluid img-thumbnail" src="@category.ImageUrl" alt="@category.Name" width="200" height="200">
+            <div>
+                <img class="img-fluid img-thumbnail" src="@category.ImageUrl" alt="@category.Name" width="200" height="200" href="/Categories/PostsByCategoryName">
+            <a asp-route-name="@category.Name" asp-controller="Categories" asp-action="PostsByCategoryName"></a>
+            </div>
             <div class="media-body">
                 <h5 class="mt-0 mb-1">
                     <a asp-route-name="@category.Name" asp-controller="Categories" asp-action="PostsByCategoryName">@category.Name (@category.PostsCount)</a>
@@ -25,9 +33,7 @@
 <html lang="en">
 
 <body>
-    <form asp-controller="Posts" asp-action="Create" method="get">
-        <button class="btn btn-primary">Create a post</button>
-    </form>
+   
 
     @*<partial name="_BlogPagingPartial" model="@Model" />*@
 

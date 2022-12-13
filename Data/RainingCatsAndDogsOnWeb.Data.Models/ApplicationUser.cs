@@ -8,8 +8,7 @@ namespace RainingCatsAndDogsOnWeb.Data.Models
 
     using Microsoft.AspNetCore.Identity;
     using System.ComponentModel.DataAnnotations;
-    using static RainingCatsAndDogsOnWeb.Common.DataConstants.ApplicationUser;
-
+    using static RainingCatsAndDogsOnWeb.Infrastructure.DataConstants.ApplicationUser;
 
     public class ApplicationUser : IdentityUser, IAuditInfo, IDeletableEntity
     {

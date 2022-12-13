@@ -6,7 +6,7 @@
 
     using RainingCatsAndDogsOnWeb.Data.Common.Models;
 
-    using static RainingCatsAndDogsOnWeb.Common.DataConstants.Comment;
+    using static RainingCatsAndDogsOnWeb.Infrastructure.DataConstants.Comment;
 
     public class Comment : BaseDeletableModel<int>
     {
