@@ -25,7 +25,7 @@
             {
                 @Model.AddedByAdmin
             }
-            on @Model.CreatedOn.ToString("D")
+            on <time datetime="@Model.CreatedOn.ToString("O")"></time>
         </p>
         <p class="homes-address mb-3">
             <a href="https://www.google.com/maps/place/Bulgaria">

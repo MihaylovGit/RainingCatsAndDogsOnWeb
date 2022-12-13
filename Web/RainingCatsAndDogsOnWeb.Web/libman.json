@@ -40,6 +40,13 @@
       "provider": "cdnjs",
       "library": "font-awesome@6.2.0",
       "destination": "wwwroot/lib/font-awesome/"
+    },
+    {
+      "library": "moment@2.29.4",
+      "destination": "wwwroot/lib/moment/",
+      "files": [
+         "min/moment-with-locales.min.js"
+      ]
     }
   ]
 }

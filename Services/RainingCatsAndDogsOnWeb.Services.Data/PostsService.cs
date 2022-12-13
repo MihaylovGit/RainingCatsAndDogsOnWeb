@@ -13,6 +13,7 @@
     using RainingCatsAndDogsOnWeb.Services.Data.Contracts;
     using RainingCatsAndDogsOnWeb.Services.Mapping;
     using RainingCatsAndDogsOnWeb.Web.ViewModels.Posts;
+    using System.Collections.Generic;
 
     public class PostsService : IPostsService
     {
@@ -50,13 +51,13 @@
             return post;
         }
 
-        public async Task<T> GetAllPosts<T>()
+        public async Task<IEnumerable<int>> GetAllPostsIds()
         {
-            var posts = await this.postsRepository.All()
-                                 .To<T>()
-                                 .FirstOrDefaultAsync();
+            var allpostIds = await this.postsRepository.All()
+                                  .Select(x => x.Id)
+                                  .ToListAsync();
 
-            return posts;
+            return allpostIds;
         }
     }
 }

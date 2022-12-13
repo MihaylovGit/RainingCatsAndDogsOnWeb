@@ -1,12 +1,11 @@
 ﻿namespace RainingCatsAndDogsOnWeb.Services.Data.Contracts
 {
+    using System.Collections.Generic;
     using System.Threading.Tasks;
-
-    using RainingCatsAndDogsOnWeb.Web.ViewModels.Posts;
 
     public interface IPostsService
     {
-        Task<T> GetAllPosts<T>();
+        Task<IEnumerable<int>> GetAllPostsIds();
 
         Task<T> GetById<T>(int id);
 

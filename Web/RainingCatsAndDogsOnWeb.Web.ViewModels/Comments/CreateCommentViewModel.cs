@@ -11,6 +11,8 @@
     {
         public int PostId { get; set; }
 
+        public int ParentId { get; set; }
+
         [Required]
         [MaxLength(CommentContentMaxLength)]
         public string Content { get; set; }

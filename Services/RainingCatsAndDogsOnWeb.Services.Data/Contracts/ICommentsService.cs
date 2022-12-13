@@ -5,5 +5,7 @@
     public interface ICommentsService
     {
         Task Create(int postId, string userId, string content, int? parentId = null);
+
+        Task<bool> IsInPostId(int commentId, int postId);
     }
 }

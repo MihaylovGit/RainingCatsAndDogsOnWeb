@@ -7,6 +7,7 @@ namespace RainingCatsAndDogsOnWeb.Data.Models
     using RainingCatsAndDogsOnWeb.Data.Common.Models;
 
     using Microsoft.AspNetCore.Identity;
+
     using System.ComponentModel.DataAnnotations;
     using static RainingCatsAndDogsOnWeb.Infrastructure.DataConstants.ApplicationUser;
 
