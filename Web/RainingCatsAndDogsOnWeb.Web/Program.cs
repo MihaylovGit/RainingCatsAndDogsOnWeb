@@ -90,6 +90,7 @@
             services.AddSingleton<IFileProvider>(new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot")));
             services.AddScoped<IBlogService, BlogService>();
             services.AddTransient<ISearchBlogPostsService, SearchBlogPostsService>();
+            services.AddTransient<ICommentsService, CommentsService>();
             services.AddTransient<IEmailSender, NullMessageSender>();
 
             services.ConfigureApplicationCookie(options =>

@@ -7,9 +7,9 @@
 
     using static RainingCatsAndDogsOnWeb.Infrastructure.DataConstants.Comment;
 
-    public class AddCommentViewModel : IMapFrom<Comment>
+    public class CreateCommentViewModel : IMapFrom<Comment>
     {
-        public int Id { get; set; }
+        public int PostId { get; set; }
 
         [Required]
         [MaxLength(CommentContentMaxLength)]

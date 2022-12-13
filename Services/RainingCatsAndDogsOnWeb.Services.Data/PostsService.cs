@@ -49,5 +49,14 @@
 
             return post;
         }
+
+        public async Task<T> GetAllPosts<T>()
+        {
+            var posts = await this.postsRepository.All()
+                                 .To<T>()
+                                 .FirstOrDefaultAsync();
+
+            return posts;
+        }
     }
 }

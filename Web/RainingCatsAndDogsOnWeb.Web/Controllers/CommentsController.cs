@@ -1,55 +1,36 @@
 ﻿namespace RainingCatsAndDogsOnWeb.Web.Controllers
 {
-    using System.Linq;
     using System.Threading.Tasks;
+
+    using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
-    using Microsoft.EntityFrameworkCore;
-    using RainingCatsAndDogsOnWeb.Data;
     using RainingCatsAndDogsOnWeb.Data.Models;
+    using RainingCatsAndDogsOnWeb.Services.Data.Contracts;
     using RainingCatsAndDogsOnWeb.Web.ViewModels.Comments;
 
     public class CommentsController : Controller
     {
-        private readonly ApplicationDbContext dbContext;
+        private readonly ICommentsService commentsService;
+        private readonly UserManager<ApplicationUser> userManager;
 
-        public CommentsController(ApplicationDbContext dbContext)
+        public CommentsController(ICommentsService commentsService, UserManager<ApplicationUser> userManager)
         {
-            this.dbContext = dbContext;
-        }
-
-        [HttpGet]
-        public IActionResult Add()
-        {
-            return this.View();
+            this.commentsService = commentsService;
+            this.userManager = userManager;
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(AddCommentViewModel model)
+        public async Task<IActionResult> Create(CreateCommentViewModel model)
         {
-            var comment = new Comment()
+            if (!this.ModelState.IsValid)
             {
-                Id = model.Id,
-                Content = model.Content,
-            };
+                return this.View("ById", model);
+            }
 
-            await this.dbContext.Comments.AddAsync(comment);
+            var userId = this.userManager.GetUserId(this.User);
+            await this.commentsService.Create(model.PostId, userId, model.Content);
 
-            await this.dbContext.SaveChangesAsync();
-
-            return this.RedirectToAction("AllAdsComments", "Comments");
+            return this.RedirectToAction("ById", "Posts", new { id = model.PostId });
         }
-
-        //public async Task<IActionResult> All()
-        //{
-        //    var comments = await this.dbContext.Comments
-        //                                  .Select(c => new CommentViewModel
-        //                                  {
-        //                                      Id = c.Id,
-        //                                      Content = c.Content,
-        //                                      Replies = c.Replies,
-        //                                  }).ToListAsync();
-
-        //    return this.View(comments);
-        //}
     }
 }

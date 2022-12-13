@@ -31,6 +31,6 @@
 
         public virtual Category Category { get; set; }
 
-        public ICollection<Comment> Comments { get; set; }
+        public virtual ICollection<Comment> Comments { get; set; }
     }
 }

@@ -36,18 +36,27 @@
                         <a class="badge bg-secondary text-decoration-none link-light" asp-controller="Posts" asp-action="ById" asp-route-id="@Model.Id">@Model.Title</a>
                     </header>
                     <!-- Preview image figure-->
-                    <figure class="mb-4"><img class="img-fluid rounded" src="@Model.PostHeaderImage" alt="@Model.Title" /></figure>
                     <!-- Post content-->
                     <section class="mb-5">
                         <p class="fs-5 mb-4">@Model.Content</p>
                     </section>
                 </article>
                 <!-- Comments section-->
+                <button type="button" class="btn btn-primary" onclick="showAddCommentForm()">Leave a comment</button>
                 <section class="mb-5">
                     <div class="card bg-light">
                         <div class="card-body">
                             <!-- Comment form-->
-                            <form class="mb-4"><textarea class="form-control" rows="3" placeholder="Join the discussion and leave a comment!"></textarea></form>
+                            <div id="AddCommentForm" style="display: none">
+                                <form class="mb-4" asp-controller="Comments" asp-action="Create" method="post">
+                                    <input type="hidden" name="PostId" value="@this.Model.Id" />
+                                    <textarea name="Content" id="Content" class="form-control" rows="3" placeholder="Join the discussion and leave a comment!"></textarea>
+                                    <div>
+                                        <input class="btn btn-primary" type="submit" value="Add comment" />
+                                    </div>
+                                </form>
+                            </div>
+                          
                             <!-- Comment with nested comments-->
                             <div class="d-flex mb-4">
                                 <!-- Parent comment-->
@@ -88,3 +97,11 @@
         </div>
     </div>
 </body>
+
+@section Scripts {
+    <script>
+        function showAddCommentForm() {
+            $("#AddCommentForm").toggle();
+        }
+    </script>
+}
