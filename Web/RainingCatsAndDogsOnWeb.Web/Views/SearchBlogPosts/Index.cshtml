@@ -10,14 +10,12 @@
     @foreach (var post in this.Model)
     {
         <div class="card col-4" style="width: 20rem;">
-            <img class="card-img-top" style="width: 18rem;"
-             src="@post.PostHeaderImage">
             <div class="card-body">
                 <h5 class="card-title mt-1">
                     <a class="badge bg-secondary text-decoration-none link-light" asp-controller="Posts" asp-action="ById" asp-route-id="@post.Id">@post.Title</a>
                     @post.Title
                 </h5>
-                <p class="mb-0">@post.ShortContent</p>
+                <p class="mb-0">@post.ShortContent <a asp-action="ById" asp-controller="Posts" asp-route-id="@post.Id">[Read More]</a></p>
             </div>
         </div>
     }

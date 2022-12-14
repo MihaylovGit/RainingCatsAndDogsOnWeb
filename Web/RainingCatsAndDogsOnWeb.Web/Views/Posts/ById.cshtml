@@ -47,7 +47,7 @@
                     <div class="text-muted fst-italic mb-2"><i class="fas fa-calendar-alt"></i> Added on <time datetime="@Model.CreatedOn.ToString("O")"></time></div>
                     <div class="text-muted fst-italic mb-2"><i class="fas fa-user-edit"></i> Added by: @Model.UserUserName</div>
                     <!-- Post categories-->
-                    <a class="badge bg-secondary text-decoration-none link-light" asp-controller="Posts" asp-action="ById" asp-route-id="@Model.Id">@Model.Title</a>
+                    <a style="font-size:20px" class="badge bg-secondary text-decoration-none link-light" asp-controller="Posts" asp-action="ById" asp-route-id="@Model.Id">@Model.Title</a>
                 </header>
                 <section class="mb-5">
                     <p class="fs-5 mb-4">@Model.Content</p>
