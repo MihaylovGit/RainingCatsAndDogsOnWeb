@@ -66,9 +66,10 @@
             {
                 <div>
                     <i class="fa fa-thumbs-up" aria-hidden="true"></i>
-                    <span id="likesCount">@Model.LikesCount Likes</span>
+                    <span id="likesCount">@Model.LikesCount</span>
+                    <span>Likes</span>
                 </div>
-                <button class="btn btn-block btn-primary" id="btnLike" type="submit"><i class="fa fa-thumbs-up">Like</i> </button>
+                <button class="btn btn-block btn-primary" id="btnLike" onclick="likeFunction(@Model.Id)"><i class="fa fa-thumbs-up">Like</i></button>
             }
 
         </div>
@@ -81,37 +82,31 @@
 </div>
 <form method="post" id="antiForgeryForm">
 </form>
+
 @section Scripts {
     <script>
-        $('#btnLike').click(function () {
-
+        function likeFunction(adid) {
+            document.getElementById("btnLike").disabled = true;
             let likesAsText = $('#likesCount').text().split(' ');
+            let antiForgeryToken = $('#antiForgeryForm input[name=__RequestVerificationToken]').val();
             let likes = likesAsText[0];
            
-            $('#btnLike').prop('disabled', true);
+            var json = { adid: adid, likesCount: likes }
 
-            let adid = @Model.Id;
-            let antiForgeryToken = $('#antiForgeryForm input[name=__RequestVerificationToken]').val();
-            console.log(antiForgeryToken);
-            let likesCount = likes;
-            let data = { adid: adid, likesCount: likes }
-           
-            $('#likesCount').html(`${likes} Likes`);
-            
             $.ajax({
+                url: "/api/likes",
                 type: "POST",
-                url: "/api/Likes",
-                data: JSON.stringify(data),
+                data: JSON.stringify(json),
                 headers: {
                     'X-CSRF-TOKEN': antiForgeryToken
                 },
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
                 success: function (data) {
-                    $('#likesCount').html(data.likes)
-                },
-                contentType: "application/json"
+                    $("#likesCount").html(data.likesCount);
+                }
             });
-        });
-                        
+        }
     </script>
 }
 

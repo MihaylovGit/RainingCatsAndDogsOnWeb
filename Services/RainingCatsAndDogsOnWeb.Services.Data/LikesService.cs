@@ -18,6 +18,15 @@
             this.likesRepository = likesRepository;
         }
 
+        public int GetAdLikesCount(int id)
+        {
+            int currentAdLikesCount = this.likesRepository.All()
+                                                   .Where(x => x.AdId == id)
+                                                   .Count();
+
+            return currentAdLikesCount;
+        }
+
         public async Task SetLikeAsync(int adid, string userId, int likesCount)
         {
             var like = await this.likesRepository.All()

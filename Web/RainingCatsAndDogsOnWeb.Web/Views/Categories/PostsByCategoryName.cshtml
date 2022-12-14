@@ -25,17 +25,21 @@
         <div class="row">
             <div class="col-lg-8">
                 <article>
+                    <a style="font-size:20px" class="badge bg-secondary text-decoration-none link-light" asp-controller="Posts" asp-action="ById" asp-route-id="@post.Id">@post.Title</a>
                     <header class="mb-4">
                         <div class="text-muted fst-italic mb-2"><i class="fas fa-calendar-alt"></i> Added on <time datetime="@post.CreatedOn.ToString("O")"></time> </div>
                         <div class="text-muted fst-italic mb-2"><i class="fas fa-user-edit"></i> Added by: @post.UserUserName</div>
-                        <a class="badge bg-secondary text-decoration-none link-light" asp-controller="Posts" asp-action="ById" asp-route-id="@post.Id">@post.Title</a>
                     </header>
                     <section class="mb-5">
                         <p class="fs-5 mb-4">@post.ShortContent</p>
                     </section>
                 </article>
             </div>
-            <div><i class="fa-regular fa-comment-dots"></i>@post.CommentsCount</div>
+            <div>
+                <a asp-action="ById" asp-controller="Posts" asp-route-id="@post.Id">
+                    <i class="fa-regular fa-comment-dots"></i>@post.CommentsCount
+                </a>
+             </div>
         </div>
     </div>
 }

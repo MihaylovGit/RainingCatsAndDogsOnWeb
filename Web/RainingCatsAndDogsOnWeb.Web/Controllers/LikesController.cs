@@ -1,7 +1,5 @@
 ﻿namespace RainingCatsAndDogsOnWeb.Web.Controllers
 {
-    using System.Linq;
-    using System.Security.Claims;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Authorization;
@@ -9,7 +7,6 @@
     using Microsoft.AspNetCore.Mvc;
     using RainingCatsAndDogsOnWeb.Data.Models;
     using RainingCatsAndDogsOnWeb.Services.Data.Contracts;
-    using RainingCatsAndDogsOnWeb.Web.ViewModels.Ads;
     using RainingCatsAndDogsOnWeb.Web.ViewModels.Likes;
 
     [ApiController]
@@ -29,12 +26,13 @@
         [Authorize]
         public async Task<ActionResult<LikeResponseViewModel>> Like(LikeViewModel model)
         {
-            var user = await this.userManager.GetUserAsync(this.HttpContext.User);
-            string userId = user.Id;
+            var userId = this.userManager.GetUserId(this.User);
 
             await this.likesService.SetLikeAsync(model.AdId, userId, model.LikesCount);
 
-            return new LikeResponseViewModel { LikesCount = model.LikesCount };
+            var currentAdLikesCount = this.likesService.GetAdLikesCount(model.AdId);
+
+            return new LikeResponseViewModel { LikesCount = currentAdLikesCount };
         }
     }
 }
