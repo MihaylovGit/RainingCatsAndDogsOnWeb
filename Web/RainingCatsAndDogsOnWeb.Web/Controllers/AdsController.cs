@@ -55,7 +55,7 @@
             var userId = this.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
             if (userId == null)
             {
-                return this.NotFound();
+                return this.View("PageNotFound");
             }
 
             const int AdsPerPage = 6;
