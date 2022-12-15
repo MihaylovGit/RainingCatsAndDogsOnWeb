@@ -29,10 +29,7 @@
             return this.View(viewModel);
         }
 
-        public IActionResult UnderConstruction()
-        {
-            return this.View();
-        }
+       
 
     }
 }
