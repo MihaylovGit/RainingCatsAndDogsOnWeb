@@ -2,6 +2,7 @@
 {
     using System.Linq;
     using System.Threading.Tasks;
+
     using Microsoft.AspNetCore.Mvc;
     using RainingCatsAndDogsOnWeb.Services.Data.Contracts;
     using RainingCatsAndDogsOnWeb.Web.ViewModels.Categories;
@@ -17,11 +18,13 @@
 
         public async Task<IActionResult> Index(string searchString)
         {
-            var posts = await this.searchBlogPostsService.GetAllPosts<PostInCategoryViewModel>();
-            posts = posts.Where(x => x.Title.ToLower().Contains(searchString.ToLower()) ||
-             x.Content.ToLower().Contains(searchString.ToLower()));
+            if (string.IsNullOrEmpty(searchString) || string.IsNullOrWhiteSpace(searchString))
+            {
+                return this.View(nameof(this.NoResultsFound));
+            }
 
-            if (string.IsNullOrEmpty(searchString) || string.IsNullOrWhiteSpace(searchString) || posts.Count() == 0)
+            var posts = await this.searchBlogPostsService.GetAllMatchedPosts<PostInCategoryViewModel>(searchString);
+            if (!posts.Any())
             {
                 return this.View(nameof(this.NoResultsFound));
             }

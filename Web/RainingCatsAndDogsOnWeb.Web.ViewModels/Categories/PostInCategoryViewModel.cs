@@ -14,10 +14,6 @@
         public int Id { get; set; }
 
         [Required]
-        [Display(Name = "Header Image")]
-        public IFormFile PostHeaderImage { get; set; }
-
-        [Required]
         [StringLength(PostTitleMaxLength, MinimumLength = PostTitleMinLength)]
         public string Title { get; set; }
 

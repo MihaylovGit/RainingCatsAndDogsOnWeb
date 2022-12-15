@@ -9,6 +9,7 @@
     using RainingCatsAndDogsOnWeb.Data.Models;
     using RainingCatsAndDogsOnWeb.Services.Data.Contracts;
     using RainingCatsAndDogsOnWeb.Services.Mapping;
+    using RainingCatsAndDogsOnWeb.Web.ViewModels.Ads;
 
     public class SearchAdsService : ISearchAdsService
     {
@@ -19,14 +20,18 @@
             this.adsRepository = adsRepository;
         }
 
-        public async Task<IEnumerable<T>> GetAllAds<T>()
+        public async Task<IEnumerable<AdsInListViewModel>> GetAllMatchedAds<T>(string searchString)
         {
             var allAds = await this.adsRepository.AllAsNoTracking()
-                                       .OrderByDescending(x => x.Id)
-                                       .To<T>()
-                                       .ToListAsync();
+                                                .OrderByDescending(x => x.Id)
+                                               .To<AdsInListViewModel>()
+                                               .ToListAsync();
 
-            return allAds;
+            var matchedAds = allAds.Where(x => x.Title.ToLower().Contains(searchString.ToLower()) ||
+            x.Location.ToLower().Contains(searchString.ToLower()) || x.Description.ToLower().Contains(searchString.ToLower()))
+                                .ToList();
+
+            return matchedAds;
         }
     }
 }

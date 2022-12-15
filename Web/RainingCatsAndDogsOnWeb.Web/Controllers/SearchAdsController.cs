@@ -18,11 +18,14 @@
 
         public async Task<IActionResult> Index(string searchString)
         {
-            var ads = await this.searchAdsService.GetAllAds<AdsInListViewModel>();
-            ads = ads.Where(x => x.Title.ToLower().Contains(searchString.ToLower()) ||
-               x.Location.ToLower().Contains(searchString.ToLower()) || x.Description.ToLower().Contains(searchString.ToLower()));
+            if (string.IsNullOrEmpty(searchString) || string.IsNullOrWhiteSpace(searchString))
+            {
+                return this.View(nameof(this.NoResultsFound));
+            }
 
-            if (string.IsNullOrEmpty(searchString) || string.IsNullOrWhiteSpace(searchString) || ads.Count() == 0)
+            var ads = await this.searchAdsService.GetAllMatchedAds<AdsInListViewModel>(searchString);
+
+            if (!ads.Any())
             {
                 return this.View(nameof(this.NoResultsFound));
             }

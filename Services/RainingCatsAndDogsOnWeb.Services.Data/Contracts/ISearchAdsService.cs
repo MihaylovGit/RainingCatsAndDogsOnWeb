@@ -3,8 +3,10 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
+    using RainingCatsAndDogsOnWeb.Web.ViewModels.Ads;
+
     public interface ISearchAdsService
     {
-        public Task<IEnumerable<T>> GetAllAds<T>();
+        public Task<IEnumerable<AdsInListViewModel>> GetAllMatchedAds<T>(string searchString);
     }
 }

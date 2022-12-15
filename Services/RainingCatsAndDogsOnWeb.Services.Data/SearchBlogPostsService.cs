@@ -9,6 +9,7 @@
     using RainingCatsAndDogsOnWeb.Data.Models;
     using RainingCatsAndDogsOnWeb.Services.Data.Contracts;
     using RainingCatsAndDogsOnWeb.Services.Mapping;
+    using RainingCatsAndDogsOnWeb.Web.ViewModels.Categories;
 
     public class SearchBlogPostsService : ISearchBlogPostsService
     {
@@ -19,14 +20,18 @@
             this.postsRepository = postsRepository;
         }
 
-        public async Task<IEnumerable<T>> GetAllPosts<T>()
+        public async Task<IEnumerable<PostInCategoryViewModel>> GetAllMatchedPosts<T>(string searchString)
         {
             var allPosts = await this.postsRepository.AllAsNoTracking()
-                                       .OrderByDescending(x => x.Id)
-                                       .To<T>()
-                                       .ToListAsync();
+                                                     .OrderByDescending(x => x.Id)
+                                                     .To<PostInCategoryViewModel>()
+                                                     .ToListAsync();
 
-            return allPosts;
+            var matchedPosts = allPosts.Where(x => x.Title.ToLower()
+                                       .Contains(searchString.ToLower()) || x.Content.ToLower().Contains(searchString.ToLower()))
+                                       .ToList();
+
+            return matchedPosts;
         }
     }
 }
