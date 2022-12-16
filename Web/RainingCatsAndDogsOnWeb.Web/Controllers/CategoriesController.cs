@@ -8,7 +8,6 @@
     using RainingCatsAndDogsOnWeb.Data.Models;
     using RainingCatsAndDogsOnWeb.Services.Data.Contracts;
     using RainingCatsAndDogsOnWeb.Web.ViewModels.Categories;
-    
 
     public class CategoriesController : Controller
     {

@@ -23,7 +23,7 @@
             var response = await client.GetAsync("/");
             response.EnsureSuccessStatusCode();
             var responseContent = await response.Content.ReadAsStringAsync();
-            Assert.Contains("<title>", responseContent);
+            Assert.Contains("<h1>", responseContent);
         }
 
         [Fact]

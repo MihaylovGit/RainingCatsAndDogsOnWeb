@@ -1,8 +1,6 @@
 ﻿namespace RainingCatsAndDogsOnWeb.Web
 {
-    using System.IO;
     using System.Reflection;
-
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Identity;
@@ -10,7 +8,6 @@
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
-    using Microsoft.Extensions.FileProviders;
     using Microsoft.Extensions.Hosting;
     using RainingCatsAndDogsOnWeb.Data;
     using RainingCatsAndDogsOnWeb.Data.Common;
@@ -88,7 +85,6 @@
             services.AddTransient<ILikesService, LikesService>();
             services.AddTransient<ISearchAdsService, SearchAdsService>();
             services.AddTransient<IPostsService, PostsService>();
-            services.AddSingleton<IFileProvider>(new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot")));
             services.AddScoped<IBlogService, BlogService>();
             services.AddTransient<ISearchBlogPostsService, SearchBlogPostsService>();
             services.AddTransient<ICommentsService, CommentsService>();
