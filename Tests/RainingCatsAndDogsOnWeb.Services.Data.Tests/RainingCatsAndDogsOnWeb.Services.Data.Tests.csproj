@@ -33,6 +33,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Data\RainingCatsAndDogsOnWeb.Data\RainingCatsAndDogsOnWeb.Data.csproj" />
     <ProjectReference Include="..\..\Services\RainingCatsAndDogsOnWeb.Services.Data\RainingCatsAndDogsOnWeb.Services.Data.csproj" />
+    <ProjectReference Include="..\..\Web\RainingCatsAndDogsOnWeb.Web\RainingCatsAndDogsOnWeb.Web.csproj" />
   </ItemGroup>
 
 </Project>

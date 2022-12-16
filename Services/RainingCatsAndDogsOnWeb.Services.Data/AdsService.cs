@@ -41,7 +41,6 @@
                 AddedByUserId = userId,
             };
 
-            // /wwwroot/images/ads/gjgjk-gfkf34556-=g4565.jpeg
             Directory.CreateDirectory($"{imagePath}/");
 
             foreach (var image in input.Images)

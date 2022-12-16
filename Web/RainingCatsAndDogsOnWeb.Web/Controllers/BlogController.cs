@@ -28,8 +28,5 @@
 
             return this.View(viewModel);
         }
-
-       
-
     }
 }

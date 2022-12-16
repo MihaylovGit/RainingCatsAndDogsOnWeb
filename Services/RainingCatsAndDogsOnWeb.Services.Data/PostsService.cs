@@ -1,19 +1,14 @@
 ﻿namespace RainingCatsAndDogsOnWeb.Services.Data
 {
-    using System;
+    using System.Collections.Generic;
     using System.Linq;
-    using System.IO;
-
     using System.Threading.Tasks;
-
 
     using Microsoft.EntityFrameworkCore;
     using RainingCatsAndDogsOnWeb.Data.Common.Repositories;
     using RainingCatsAndDogsOnWeb.Data.Models;
     using RainingCatsAndDogsOnWeb.Services.Data.Contracts;
     using RainingCatsAndDogsOnWeb.Services.Mapping;
-    using RainingCatsAndDogsOnWeb.Web.ViewModels.Posts;
-    using System.Collections.Generic;
 
     public class PostsService : IPostsService
     {
@@ -54,8 +49,8 @@
         public async Task<IEnumerable<int>> GetAllPostsIds()
         {
             var allpostIds = await this.postsRepository.All()
-                                  .Select(x => x.Id)
-                                  .ToListAsync();
+                                                       .Select(x => x.Id)
+                                                       .ToListAsync();
 
             return allpostIds;
         }

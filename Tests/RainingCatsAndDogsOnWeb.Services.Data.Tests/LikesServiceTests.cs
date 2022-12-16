@@ -1,17 +1,18 @@
 ﻿namespace RainingCatsAndDogsOnWeb.Services.Data.Tests
 {
-    using Moq;
-    using RainingCatsAndDogsOnWeb.Data.Common.Repositories;
-    using RainingCatsAndDogsOnWeb.Data.Models;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+
+    using Moq;
+    using RainingCatsAndDogsOnWeb.Data.Common.Repositories;
+    using RainingCatsAndDogsOnWeb.Data.Models;
     using Xunit;
 
     public class LikesServiceTests
     {
         [Fact]
-        public async Task WhenUserLikesTwoTimesOnlyOneLikeShouldBeCounted()
+        public async Task WhenUserLikesTwoTimesOneLikeOnlyOneLikeShouldBeCounted()
         {
             var list = new List<Like>();
             var mockRepo = new Mock<IRepository<Like>>();
@@ -21,10 +22,10 @@
 
             var service = new LikesService(mockRepo.Object);
 
-            await service.SetLikeAsync(1, "1", 1);
-            await service.SetLikeAsync(1, "1", 1);
+            await Task.FromResult(service.SetLikeAsync(1, "1", 1));
+            await Task.FromResult(service.SetLikeAsync(1, "1", 1));
 
-            Assert.Equal(1, list.Count());
+            Assert.Equal(1, list.Count);
         }
 
         [Fact]
@@ -38,8 +39,8 @@
 
             var service = new LikesService(mockRepo.Object);
 
-            await service.SetLikeAsync(1, "Ivan", 1);
-            await service.SetLikeAsync(1, "Krisi", 1);
+            await Task.FromResult(service.SetLikeAsync(1, "Ivan", 1));
+            await Task.FromResult(service.SetLikeAsync(1, "Krisi", 1));
 
             Assert.Equal(2, list.Count);
         }
