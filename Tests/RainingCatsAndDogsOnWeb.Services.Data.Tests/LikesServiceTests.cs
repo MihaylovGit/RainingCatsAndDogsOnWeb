@@ -64,6 +64,7 @@
             }
 
             var likesCount = likesService.GetAdLikesCount(1);
+
             // Assert
             Assert.Equal(2, likesCount);
         }

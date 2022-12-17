@@ -1,20 +1,17 @@
 ﻿namespace RainingCatsAndDogsOnWeb.Services.Data
 {
+    using Microsoft.EntityFrameworkCore;
+    using RainingCatsAndDogsOnWeb.Data.Common.Repositories;
+    using RainingCatsAndDogsOnWeb.Data.Models;
+    using RainingCatsAndDogsOnWeb.Services.Data.Contracts;
+    using RainingCatsAndDogsOnWeb.Services.Mapping;
+    using RainingCatsAndDogsOnWeb.Web.ViewModels.Ad;
+    using RainingCatsAndDogsOnWeb.Web.ViewModels.Ads;
     using System;
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
     using System.Threading.Tasks;
-
-    using Microsoft.EntityFrameworkCore;
-    using Microsoft.EntityFrameworkCore.Metadata.Internal;
-    using RainingCatsAndDogsOnWeb.Data.Common.Repositories;
-    using RainingCatsAndDogsOnWeb.Data.Models;
-    using RainingCatsAndDogsOnWeb.Services.Data.Contracts;
-    using RainingCatsAndDogsOnWeb.Services.Data.Models;
-    using RainingCatsAndDogsOnWeb.Services.Mapping;
-    using RainingCatsAndDogsOnWeb.Web.ViewModels.Ad;
-    using RainingCatsAndDogsOnWeb.Web.ViewModels.Ads;
 
     public class AdsService : IAdsService, IMapFrom<Ad>
     {
