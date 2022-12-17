@@ -7,7 +7,6 @@
     using RainingCatsAndDogsOnWeb.Data;
     using RainingCatsAndDogsOnWeb.Data.Models;
     using RainingCatsAndDogsOnWeb.Data.Repositories;
-  
     using Xunit;
 
     public class LikesServiceTests

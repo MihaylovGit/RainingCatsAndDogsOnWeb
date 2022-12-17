@@ -3,10 +3,12 @@
     using System.Linq;
     using System.Threading.Tasks;
 
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using RainingCatsAndDogsOnWeb.Services.Data.Contracts;
     using RainingCatsAndDogsOnWeb.Web.ViewModels.Ads;
 
+    [Authorize]
     public class SearchAdsController : Controller
     {
         private readonly ISearchAdsService searchAdsService;

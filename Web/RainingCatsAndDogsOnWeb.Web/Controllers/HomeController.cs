@@ -42,6 +42,7 @@
                 new ErrorViewModel { RequestId = Activity.Current?.Id ?? this.HttpContext.TraceIdentifier });
         }
 
+        [AllowAnonymous]
         public IActionResult PageNotFound()
         {
             return this.View();

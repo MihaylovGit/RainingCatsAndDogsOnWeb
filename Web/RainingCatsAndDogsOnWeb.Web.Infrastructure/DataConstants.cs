@@ -42,11 +42,6 @@
             public const int CommentContentMaxLength = 500;
         }
 
-        public class Reply
-        {
-            public const int ReplyContentMaxLength = 500;
-        }
-
         public class Blog
         {
             public const int BlogTitleMaxLength = 100;

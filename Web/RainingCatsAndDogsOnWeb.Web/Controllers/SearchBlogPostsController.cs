@@ -2,11 +2,12 @@
 {
     using System.Linq;
     using System.Threading.Tasks;
-
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using RainingCatsAndDogsOnWeb.Services.Data.Contracts;
     using RainingCatsAndDogsOnWeb.Web.ViewModels.Categories;
 
+    [Authorize]
     public class SearchBlogPostsController : Controller
     {
         private readonly ISearchBlogPostsService searchBlogPostsService;
