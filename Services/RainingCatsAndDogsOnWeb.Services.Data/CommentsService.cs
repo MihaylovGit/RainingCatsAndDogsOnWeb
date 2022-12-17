@@ -1,13 +1,12 @@
 ﻿namespace RainingCatsAndDogsOnWeb.Services.Data
 {
-    using System.Linq;
-    using System.Threading.Tasks;
     using Microsoft.AspNetCore.Authorization;
-    using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
     using RainingCatsAndDogsOnWeb.Data.Common.Repositories;
     using RainingCatsAndDogsOnWeb.Data.Models;
     using RainingCatsAndDogsOnWeb.Services.Data.Contracts;
+    using System.Linq;
+    using System.Threading.Tasks;
 
     [Authorize]
     public class CommentsService : ICommentsService

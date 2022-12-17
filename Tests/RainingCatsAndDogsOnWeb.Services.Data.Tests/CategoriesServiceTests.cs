@@ -1,17 +1,15 @@
 ﻿namespace RainingCatsAndDogsOnWeb.Services.Data.Tests
 {
-    using System;
-    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
-
     using Microsoft.EntityFrameworkCore;
     using RainingCatsAndDogsOnWeb.Data;
     using RainingCatsAndDogsOnWeb.Data.Models;
     using RainingCatsAndDogsOnWeb.Data.Repositories;
     using RainingCatsAndDogsOnWeb.Services.Mapping;
+    using System;
+
     using Xunit;
-    using static RainingCatsAndDogsOnWeb.Services.Data.Tests.AdsServiceTests;
 
     public class CategoriesServiceTests
     {
