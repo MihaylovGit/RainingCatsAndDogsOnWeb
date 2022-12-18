@@ -110,7 +110,6 @@
             Assert.Null(postById);
         }
 
-
         [Fact]
         public async Task GetAllPostsIdsShouldReturnIfPostsExist()
         {

@@ -467,6 +467,7 @@
             await adsRepositoty.AddAsync(thirdAd);
 
             await adsRepositoty.SaveChangesAsync();
+            var adsAmount = adsRepositoty.All().Count();
             AutoMapperConfig.RegisterMappings(typeof(MyTestAd).Assembly);
 
             // Act

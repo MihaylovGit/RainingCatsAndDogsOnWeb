@@ -23,9 +23,9 @@
         public async Task<IEnumerable<AdsInListViewModel>> GetAllMatchedAds<T>(string searchString)
         {
             var allAds = await this.adsRepository.AllAsNoTracking()
-                                                .OrderByDescending(x => x.Id)
-                                               .To<AdsInListViewModel>()
-                                               .ToListAsync();
+                                                 .OrderByDescending(x => x.Id)
+                                                 .To<AdsInListViewModel>()
+                                                 .ToListAsync();
 
             var matchedAds = allAds.Where(x => x.Title.ToLower().Contains(searchString.ToLower()) ||
             x.Location.ToLower().Contains(searchString.ToLower()) || x.Description.ToLower().Contains(searchString.ToLower()))
