@@ -13,72 +13,119 @@
         {
             return;
         }
-        @foreach (var comment in comments.OrderByDescending(x => x.CreatedOn))
+    @foreach (var comment in comments.OrderByDescending(x => x.CreatedOn))
         {
-            <section>
-                <div class="card bg-light">
-                    <div class="card-body">
-                        <div class="d-flex mb-4">
-                            <div class="flex-shrink-0"><img class="rounded-circle" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3-xDfIixSXhMc1rJJruvFQEVDO6tqagBqD_mrDcZzQw&s" alt="..." /></div>
-                            <div class="ms-3">
-                                <div class="fw-bold">@comment.UserFirstName @comment.UserLastName</div>
-                                <div class="fw-light" style="font-size: 16px"><time datetime="@comment.CreatedOn.ToString("O")"></time></div>
-                                @comment.Content
-                                @{
+    <section>
+                                <div class="card bg-light">
+                                    <div class="card-body">
+                                        <div class="d-flex mb-4">
+                                            <div id="section" class="flex-shrink-0"><img class="rounded-circle" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3-xDfIixSXhMc1rJJruvFQEVDO6tqagBqD_mrDcZzQw&s" alt="..." /></div>
+                                            <div class="ms-3">
+                                                <div class="fw-bold">@comment.UserFirstName @comment.UserLastName</div>
+                                                <div class="fw-light" style="font-size: 16px"><time datetime="@comment.CreatedOn.ToString("O")"></time></div>
+                                                @comment.Content
+                                                @{
                                     DisplayComments(comment.Id);
-                                }
-                                <button type="button" class="btn btn-secondary" onclick="showAddCommentForm(@comment.Id)"><i class="fa fa-plus"></i>Answer</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
+                                                }
+                                                <button type="button" class="btn btn-secondary" onclick="showAddCommentForm(@comment.Id)"><i class="fa fa-plus"></i>Answer</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+    </section>
         }
     }
 }
 
 <h1 class="text-center">@Model.Title</h1>
 
-<div class="container mt-5">
+<div class="container-fluid mt-100">
     <div class="row">
-        <div class="col-lg-8">
-            <article>
-                <header class="mb-4">
-                    <div class="text-muted fst-italic mb-2"><i class="fas fa-calendar-alt"></i> Added on <time datetime="@Model.CreatedOn.ToString("O")"></time></div>
-                    <div class="text-muted fst-italic mb-2"><i class="fas fa-user-edit"></i> Added by: @Model.UserUserName</div>
-                    <!-- Post categories-->
-                    <a style="font-size:20px" class="badge bg-secondary text-decoration-none link-light" asp-controller="Posts" asp-action="ById" asp-route-id="@Model.Id">@Model.Title</a>
-                </header>
-                <section class="mb-5">
-                    <p class="fs-5 mb-4">@Model.Content</p>
-                    <button type="button" class="btn btn-primary" onclick="showAddCommentForm(0)"><i class="fa fa-plus"></i>Leave a comment</button>
-                </section>
-            </article>
-
-            @{
-                DisplayComments(null);
-            }
-
-            <div>
-                <form class="mb-4" asp-controller="Comments" asp-action="Create" method="post" id="AddCommentForm" style="display: none">
-                    <input type="hidden" name="PostId" value="@this.Model.Id" />
-                    <input type="hidden" name="ParentId" value="0" />
-                    <textarea name="Content" id="Content" class="form-control" rows="3" placeholder="Join the discussion and leave a comment!"></textarea>
-                    <div>
-                        <input class="btn btn-primary" type="submit" value="Add comment" />
+        <div class="col-md-12">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <div class="media flex-wrap w-100 align-items-center">
+                        <img src="https://i.imgur.com/iNmBizf.jpg" class="d-block ui-w-40 rounded-circle" alt="">
+                        <div class="media-body ml-3">
+                            @Model.UserUserName
+                            <div class="text-muted small">@Model.CreatedOn</div>
+                            <form id="votesForm" method="post"></form>
+                        </div>
                     </div>
-                </form>
+                </div>
+                <div class="text-muted small ml-3">
+                    <a style="font-size:20px" class="badge bg-secondary text-decoration-none link-light">@Model.Title</a>
+                    <div>
+                        <a href="#" onclick="sendVote(@Model.Id, true)">
+                            <i class="fa fa-thumbs-up"></i>
+                        </a>
+                    </div>
+                    <div id="votesCount">@Model.VotesCount</div>
+                    <div>
+                        <a href="#" onclick="sendVote(@Model.Id, false)">
+                            <i class="fa fa-thumbs-down"></i>
+                        </a>
+                    </div>
+                    <div>
+                        <p class="fs-5 mb-4">@Model.Content <a asp-action="ById" asp-controller="Posts" asp-route-id="Model.Id"></a></p>
+                    </div>
+                </div>
+                <div class="card-footer d-flex flex-wrap justify-content-between align-items-center px-0 pt-0 pb-3">
+                    <button type="button" class="btn btn-primary" onclick="showAddCommentForm(0)"><i class="fa fa-plus"></i>Leave a comment</button>
+                    <div class="px-4 pt-3"> <a href="javascript: commentsSlideShow()" class="text-muted d-inline-flex align-items-center align-middle"> <i class="fa-regular fa-comment-dots"></i>@Model.Comments.Count()</a></div>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
+@{
+    DisplayComments(null);
+}
+
+<div>
+    <form class="mb-4" asp-controller="Comments" asp-action="Create" method="post" id="AddCommentForm" style="display: none">
+        <input type="hidden" name="PostId" value="@this.Model.Id" />
+        <input type="hidden" name="ParentId" value="0" />
+        <textarea name="Content" id="Content" class="form-control" rows="3" placeholder="Join the discussion and leave a comment!"></textarea>
+        <div>
+            <input class="btn btn-primary" type="submit" value="Add comment" />
+        </div>
+    </form>
+</div>
+
 @section Scripts {
+    <script>
+        function sendVote(postId, isVoteUp) {
+            var token = $("#votesForm input[name=_RequestVerificationToken]").val();
+            var json = { postId: postId, isVoteUp: isVoteUp };
+
+            $.ajax({
+                url: "/api/votes",
+                type: "POST",
+                headers: { "X-CSRF-TOKEN" : token },
+                data: JSON.stringify(json),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (data) {
+                    $("#votesCount").html(data.votesCount);
+                    console.log("success");
+                }
+            })
+        }
+    </script>
+
     <script>
         function showAddCommentForm(parentId) {
             $("#AddCommentForm input[name='ParentId']").val(parentId)
             $("#AddCommentForm").toggle();
             $([document.documentElement, document.body]).animate({ scrollTop: $("#AddCommentForm").offset().top }, 1000);
+        }
+    </script>
+
+    <script>
+        function commentsSlideShow() {
+            $("#section").toggle();
         }
     </script>
     }

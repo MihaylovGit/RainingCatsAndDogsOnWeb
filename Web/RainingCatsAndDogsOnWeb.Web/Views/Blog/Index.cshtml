@@ -11,14 +11,12 @@
     </form>
 </div>
 
-
-
 @foreach (var category in Model.Categories)
 {
     <ul class="list-unstyled">
         <li class="media">
             <div>
-                <img class="img-fluid img-thumbnail" src="@category.ImageUrl" alt="@category.Name" width="200" height="200" href="/Categories/PostsByCategoryName">
+                <img class="img-fluid img-thumbnail" src="@category.ImageUrl" alt="@category.Name" style="width:100px; height: 70px" href="/Categories/PostsByCategoryName">
             <a asp-route-name="@category.Name" asp-controller="Categories" asp-action="PostsByCategoryName"></a>
             </div>
             <div class="media-body">

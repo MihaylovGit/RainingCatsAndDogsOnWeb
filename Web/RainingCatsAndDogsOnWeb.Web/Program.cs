@@ -1,6 +1,7 @@
 ﻿namespace RainingCatsAndDogsOnWeb.Web
 {
     using System.Reflection;
+
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Identity;
@@ -83,6 +84,7 @@
             services.AddTransient<IGetCountsService, GetCountsService>();
             services.AddTransient<ICategoriesService, CategoriesService>();
             services.AddTransient<ILikesService, LikesService>();
+            services.AddTransient<IVotesService, VotesService>();
             services.AddTransient<ISearchAdsService, SearchAdsService>();
             services.AddTransient<IPostsService, PostsService>();
             services.AddScoped<IBlogService, BlogService>();
