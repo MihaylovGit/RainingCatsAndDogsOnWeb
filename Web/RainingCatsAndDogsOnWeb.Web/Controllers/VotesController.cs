@@ -24,7 +24,6 @@
 
         [Authorize]
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<ActionResult<VoteResponseModel>> Post(VoteViewModel model)
         {
             var userId = this.userManager.GetUserId(this.User);

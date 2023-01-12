@@ -39,6 +39,10 @@
     border-bottom: 1px solid rgba(26,54,126,0.125)
 }
 
+.vote {
+left: 10px;
+}
+
 .btn-primary {
     color: #fff;
     background-color: #3f6ad8;

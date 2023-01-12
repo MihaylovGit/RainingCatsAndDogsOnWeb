@@ -13,26 +13,26 @@
         {
             return;
         }
-    @foreach (var comment in comments.OrderByDescending(x => x.CreatedOn))
+        @foreach (var comment in comments.OrderByDescending(x => x.CreatedOn))
         {
-    <section>
-                                <div class="card bg-light">
-                                    <div class="card-body">
-                                        <div class="d-flex mb-4">
-                                            <div id="section" class="flex-shrink-0"><img class="rounded-circle" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3-xDfIixSXhMc1rJJruvFQEVDO6tqagBqD_mrDcZzQw&s" alt="..." /></div>
-                                            <div class="ms-3">
-                                                <div class="fw-bold">@comment.UserFirstName @comment.UserLastName</div>
-                                                <div class="fw-light" style="font-size: 16px"><time datetime="@comment.CreatedOn.ToString("O")"></time></div>
-                                                @comment.Content
-                                                @{
+            <section>
+                <div class="card bg-light">
+                    <div class="card-body">
+                        <div class="d-flex mb-4">
+                            <div id="section" class="flex-shrink-0"><img class="rounded-circle" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3-xDfIixSXhMc1rJJruvFQEVDO6tqagBqD_mrDcZzQw&s" alt="..." /></div>
+                            <div class="ms-3">
+                                <div class="fw-bold">@comment.UserFirstName @comment.UserLastName</div>
+                                <div class="fw-light" style="font-size: 16px"><time datetime="@comment.CreatedOn.ToString("O")"></time></div>
+                                @comment.Content
+                                @{
                                     DisplayComments(comment.Id);
-                                                }
-                                                <button type="button" class="btn btn-secondary" onclick="showAddCommentForm(@comment.Id)"><i class="fa fa-plus"></i>Answer</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-    </section>
+                                }
+                                <button type="button" class="btn btn-secondary" onclick="showAddCommentForm(@comment.Id)"><i class="fa fa-plus"></i>Answer</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
         }
     }
 }
@@ -49,20 +49,21 @@
                         <div class="media-body ml-3">
                             @Model.UserUserName
                             <div class="text-muted small">@Model.CreatedOn</div>
-                            <form id="votesForm" method="post"></form>
                         </div>
                     </div>
                 </div>
                 <div class="text-muted small ml-3">
+                    <form id="votesForm" method="post"></form>
                     <a style="font-size:20px" class="badge bg-secondary text-decoration-none link-light">@Model.Title</a>
+                    <hr />
                     <div>
-                        <a href="#" onclick="sendVote(@Model.Id, true)">
+                        <a class="vote position-relative" href="#" onclick="sendVote(@Model.Id, true)">
                             <i class="fa fa-thumbs-up"></i>
                         </a>
                     </div>
-                    <div id="votesCount">@Model.VotesCount</div>
+                    <div class="vote position-relative" id="votesCount">@Model.VotesCount</div>
                     <div>
-                        <a href="#" onclick="sendVote(@Model.Id, false)">
+                        <a class="vote position-relative" href="#" onclick="sendVote(@Model.Id, false)">
                             <i class="fa fa-thumbs-down"></i>
                         </a>
                     </div>
@@ -96,20 +97,20 @@
 
 @section Scripts {
     <script>
-        function sendVote(postId, isVoteUp) {
-            var token = $("#votesForm input[name=_RequestVerificationToken]").val();
-            var json = { postId: postId, isVoteUp: isVoteUp };
-
+        function sendVote(postId, IsUpVote) {
+           let token = $("#votesForm input[name=__RequestVerificationToken]").val();
+            let json = { postId: postId, IsUpVote: IsUpVote }
+            console.log(json.postId);
+            console.log(json.IsUpVote);
             $.ajax({
                 url: "/api/votes",
                 type: "POST",
-                headers: { "X-CSRF-TOKEN" : token },
                 data: JSON.stringify(json),
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
+                headers: { 'X-CSRF-TOKEN': token },
                 success: function (data) {
-                    $("#votesCount").html(data.votesCount);
-                    console.log("success");
+                    $("#votesCount").text(data.votesCount);
                 }
             })
         }

@@ -34,7 +34,7 @@
             {
                 vote = new Vote
                 {
-                    Type = isUpVote ? VoteType.UpVote: VoteType.DownVote,
+                    Type = isUpVote ? VoteType.UpVote : VoteType.DownVote,
                     PostId = postId,
                     UserId = userId,
                 };

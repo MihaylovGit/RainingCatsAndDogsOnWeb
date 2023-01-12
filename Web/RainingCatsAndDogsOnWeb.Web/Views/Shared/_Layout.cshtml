@@ -76,7 +76,7 @@
                                     </button>
                                 </li>
                                 <li>
-                                    <a asp-area="" asp-controller="Quiz" asp-action="UnderConstruction">
+                                    <a id="quizSection" asp-area="" asp-controller="Quiz" asp-action="UnderConstruction">
                                        QUIZ
                                     </a><button class="mobileOnly down-mcaret">
                                         <i class="fa fa-chevron-down"></i>
@@ -132,6 +132,8 @@
             e.preventDefault();
             document.getElementById('myForm1').submit();
         });
+
+        $("#quizSection").hide();
     </script>
 
     <script>

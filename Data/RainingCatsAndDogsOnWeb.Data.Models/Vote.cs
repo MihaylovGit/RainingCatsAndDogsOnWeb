@@ -1,6 +1,7 @@
 ﻿namespace RainingCatsAndDogsOnWeb.Data.Models
 {
     using System.ComponentModel.DataAnnotations;
+
     using RainingCatsAndDogsOnWeb.Data.Common.Models;
 
     public class Vote : BaseModel<int>
