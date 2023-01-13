@@ -30,7 +30,7 @@
             this.environment = environment;
         }
 
-        public IActionResult AllAds(int id = 1)
+        public IActionResult All(int id = 1)
         {
             const int AdsPerPage = 12;
 
@@ -50,7 +50,7 @@
             return this.View(viewModel);
         }
 
-        public IActionResult MyAds(int id = 1)
+        public IActionResult Mine(int id = 1)
         {
             var userId = this.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
             if (userId == null)
@@ -158,7 +158,7 @@
         public async Task<IActionResult> Delete(int id)
         {
             await this.adsService.DeleteAsync(id);
-            return this.RedirectToAction(nameof(this.MyAds));
+            return this.RedirectToAction(nameof(this.Mine));
         }
 
         public IActionResult EmptyCollection()

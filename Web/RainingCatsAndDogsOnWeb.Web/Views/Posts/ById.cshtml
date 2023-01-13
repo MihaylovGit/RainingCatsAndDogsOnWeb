@@ -7,7 +7,6 @@
 
     void DisplayComments(int? parentId)
     {
-
         var comments = this.Model.Comments.Where(c => c.ParentId == parentId);
         if (!comments.Any())
         {
@@ -100,8 +99,7 @@
         function sendVote(postId, IsUpVote) {
            let token = $("#votesForm input[name=__RequestVerificationToken]").val();
             let json = { postId: postId, IsUpVote: IsUpVote }
-            console.log(json.postId);
-            console.log(json.IsUpVote);
+            
             $.ajax({
                 url: "/api/votes",
                 type: "POST",

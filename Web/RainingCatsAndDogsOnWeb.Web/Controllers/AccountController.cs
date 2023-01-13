@@ -28,7 +28,7 @@
         {
             if (this.User.Identity?.IsAuthenticated ?? false)
             {
-                return this.RedirectToAction("AllAds", "Ads");
+                return this.RedirectToAction("All", "Ads");
             }
 
             var model = new RegisterViewModel();
@@ -75,7 +75,7 @@
         {
             if (this.User.Identity?.IsAuthenticated ?? false)
             {
-                return this.RedirectToAction("AllAds", "Ads");
+                return this.RedirectToAction("All", "Ads");
             }
 
             LoginViewModel model = new LoginViewModel
@@ -104,7 +104,7 @@
 
                 if (result.Succeeded)
                 {
-                    return this.RedirectToAction("AllAds", "Ads");
+                    return this.RedirectToAction("All", "Ads");
                 }
             }
 
@@ -141,7 +141,7 @@
         [AllowAnonymous]
         public async Task<IActionResult> ExternalLoginCallback(string returnUrl = null, string remoteError = null)
         {
-            returnUrl = returnUrl ?? this.Url.Content("~/Ads/AllAds");
+            returnUrl = returnUrl ?? this.Url.Content("~/Ads/All");
 
             LoginViewModel loginViewModel = new LoginViewModel
             {

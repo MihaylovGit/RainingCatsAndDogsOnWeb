@@ -30,7 +30,7 @@
         {
             await this.adsScraperService.PopulateDbWithAds(Count);
 
-            return this.RedirectToAction("AllAds", "Ads");
+            return this.RedirectToAction("All", "Ads");
         }
     }
 }
